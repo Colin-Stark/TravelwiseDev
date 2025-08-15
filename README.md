@@ -1,3 +1,39 @@
+## Installation & Running Locally
+
+1. **Clone the repository:**
+
+```bash
+git clone https://github.com/Colin-Stark/TravelwiseDev.git
+```
+
+2. **Navigate to the project directory:**
+
+For example, if you cloned to `c://sam/download/travelwiseDev/travelwise`, run:
+
+```bash
+cd c://sam/download/travelwiseDev/travelwise
+```
+
+> Replace the path above with your own project location.
+
+3. **Install dependencies:**
+
+```bash
+npm install
+```
+
+4. **Start the development server:**
+
+```bash
+npm run dev
+```
+
+5. **Open your browser and visit:**
+
+```
+http://localhost:3000
+```
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
 
 ## Getting Started
