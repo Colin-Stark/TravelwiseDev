@@ -3,6 +3,7 @@
 
 :root {
   --background: #ffffff;
+  /* page and navbar text color: dark on white */
   --foreground: #171717;
 }
 
@@ -28,4 +29,92 @@ body {
 
 a {
   text-decoration: none;
+}
+
+/* Navbar styles moved from MainNavbar.js */
+.main-navbar {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #eee;
+  background: var(--background);
+  color: var(--foreground);
+  gap: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.brand-link {
+  color: inherit;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  margin-left: 1rem;
+}
+
+.nav-link {
+  color: #222;
+  text-decoration: none;
+}
+
+.nav-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search-wrapper {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  pointer-events: none;
+}
+
+.search-input {
+  padding: 8px 8px 8px 32px;
+  border-radius: 8px;
+  border: none;
+  background: #f3f5f7;
+  outline: none;
+}
+
+.icon {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #888;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+.login-button {
+  background: #0d6efd;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .nav-links {
+    display: none;
+  }
 }

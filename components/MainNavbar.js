@@ -1,43 +1,47 @@
-import { Container, Nav, Navbar, Form, Button } from 'react-bootstrap';
 import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
-// Dummy authentication state (replace with real auth logic)
+
+// Replace this with real auth logic or pass as prop
 const isLoggedIn = false;
 
-export default function MainNavbar() {
-    if (!isLoggedIn) {
+export default function MainNavbar({ loggedIn } = {}) {
+    const auth = typeof loggedIn === 'boolean' ? loggedIn : isLoggedIn;
+
+    if (!auth) {
         return (
-            <Navbar className="fixed-top navbar-dark bg-dark">
-                <Container>
-                    <Navbar.Brand>TravelWise</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="me-auto">
-                            <Link href="/" passHref>
-                                <Nav.Link>Home</Nav.Link>
-                            </Link>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
+            <header className="main-navbar">
+                <Link href="/" className="brand-link">
+                    <span className="brand">TravelWise</span>
+                </Link>
+                <div className="nav-right">
+                    <Link href="/login" className="login-button">Log in</Link>
+                </div>
+            </header>
         );
     }
+
     return (
-        <nav style={{ display: 'flex', alignItems: 'center', padding: '1rem', borderBottom: '1px solid #eee', background: '#fff' }}>
-            <span style={{ fontWeight: 'bold', marginRight: '2rem', fontSize: '1.2rem' }}>TravelWise</span>
-            <a href="#" style={{ marginRight: '1.5rem', color: '#222', textDecoration: 'none' }}>My Trips</a>
-            <a href="#" style={{ marginRight: '1.5rem', color: '#222', textDecoration: 'none' }}>Explore</a>
-            <a href="#" style={{ marginRight: '1.5rem', color: '#222', textDecoration: 'none' }}>Guides</a>
-            <a href="#" style={{ marginRight: '1.5rem', color: '#222', textDecoration: 'none' }}>Support</a>
-            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <div style={{ position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: '8px', top: '8px', color: '#888' }}>🔍</span>
-                    <input type="text" placeholder="Search" style={{ padding: '8px 8px 8px 32px', borderRadius: '8px', border: 'none', background: '#f3f5f7', outline: 'none' }} />
+        <header className="main-navbar">
+            <Link href="/" className="brand-link">
+                <span className="brand">TravelWise</span>
+            </Link>
+
+            <nav className="nav-links">
+                <Link href="#" className="nav-link">My Trips</Link>
+                <Link href="#" className="nav-link">Explore</Link>
+                <Link href="#" className="nav-link">Guides</Link>
+                <Link href="#" className="nav-link">Support</Link>
+            </nav>
+
+            <div className="nav-right">
+                <div className="search-wrapper">
+                    <span className="search-icon">🔍</span>
+                    <input className="search-input" type="text" placeholder="Search" />
                 </div>
-                <span style={{ fontSize: '1.2rem', color: '#888' }}>🔔</span>
-                <Image src="/avatar.jpg" alt="avatar" width={32} height={32} style={{ borderRadius: '50%' }} />
+                <button className="icon" aria-label="notifications">🔔</button>
+                <Image src="/avatar.jpg" alt="avatar" width={32} height={32} className="avatar" />
             </div>
-        </nav>
+        </header>
     );
 }
