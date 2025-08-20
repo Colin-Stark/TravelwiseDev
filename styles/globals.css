@@ -1,31 +1,82 @@
 @import "tailwindcss";
 @import "bootstrap/dist/css/bootstrap.min.css";
 
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
-}
+} */
 
-@theme inline {
+/* @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
+} */
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+} */
+
+/* light theme variables */
+:root {
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --border-color: #DBDFE4;
+  --input-background: #f0f0f0;
+  --input-border: #cccccc;
+  --input-text-color: #333333;
+  --input-text-placeholder: #898F9B;
+}
+
+/* dark theme variables */
+.dark-theme {
+  --background-color: #333333;
+  --text-color: #ffffff;
+  --border-color: #E1E4E7;
+  --input-background: #3a3f4a;
+  --input-border: #555555;
+  --input-text-color: #f8f8f2;
+  --input-text-placeholder: #A0AEBD;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--background-color);
+  color: var(--text-color);
   font-family: Arial, Helvetica, sans-serif;
 }
 
 a {
   text-decoration: none;
+}
+a.text-link {
+  color: #A3B1C0;
+}
+a.text-link:hover {
+  color: #8f9ca9;
+}
+
+.nav-border {
+  border-bottom: 2px solid var(--border-color);
+}
+
+.dropdown-divider {
+  border-top-color: var(--border-color);
+}
+
+.dark-theme input, .dark-theme input:focus {
+  background-color: var(--input-background);
+  border: 1px solid var(--input-border);
+  color: var(--input-text-color);
+  padding: 8px;
+  border-radius: 4px;
+}
+.dark-theme input::placeholder {
+  color: var(--input-text-placeholder);
+}
+
+.main-container {
+  min-height: 85vh;
 }

@@ -3,9 +3,31 @@ import Layout from "@/components/Layout";
 import { SWRConfig } from "swr";
 import RouteGuard from "@/components/RouteGuard";
 import "@/styles/globals.css";
-import { useLocation } from "react-router-dom";
+import { createContext, useEffect, useState } from "react";
+
+//contexts
+export const ThemeContext = createContext();
 
 export default function App({ Component, pageProps }) {  
+  const [theme, setTheme] = useState('dark'); // Default theme
+  
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
+
+  // Persist theme in localStorage
+  // useEffect(() => {
+  //   const savedTheme = localStorage.getItem('theme');
+  //   if (savedTheme) {
+  //       setTheme(savedTheme);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    document.body.className = theme === 'dark' ? 'dark-theme' : '';
+  }, [theme]);
+
   return (
     <>
       <SWRConfig value={{ 
@@ -29,9 +51,11 @@ export default function App({ Component, pageProps }) {
         }}
       > 
         <RouteGuard>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <ThemeContext.Provider value={{theme, toggleTheme}}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeContext.Provider>
         </RouteGuard>
       </SWRConfig>
     </>

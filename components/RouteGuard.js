@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { isAuthenticated } from "@/lib/authenticate";
-// import { useAtom } from "jotai";
+import { useAtom } from "jotai";
 // import { favouritesAtom, searchHistoryAtom } from "@/store";
 // import { getFavourites, getHistory } from "@/lib/userData";
 
-const PUBLIC_PATHS = ['/login', '/register', '/', '/_error'];
+const PUBLIC_PATHS = ['/login', '/register', '/_error'];
 
 export default function RouteGuard(props) {
     const router = useRouter();
@@ -15,7 +15,7 @@ export default function RouteGuard(props) {
 
     useEffect(() => {
         //load atoms
-        //updateAtoms();
+        updateAtoms();
 
         // on initial load - run auth check
         authCheck(router.pathname);
