@@ -9,7 +9,7 @@ export default function Layout(props) {
     return (
         <>
             <MainNavbar/>
-            <div style={{ height: '60px' }}></div>
+            <div className='m-0' style={{ height: '60px' }}></div>
             <Row className={"main-container m-0 p-0 "+theme} data-bs-theme={theme}>
                 {props.children}
             </Row>
