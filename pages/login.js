@@ -130,7 +130,7 @@ export default function Login(props){
                         <Row className="mt-2">
                             <Col className="d-flex justify-content-center align-items-center">
                                 <small className="me-2 text-gray-400">Don&apos;t have an account?</small>
-                                <Link className="text-link" href="/"><small>Signup</small></Link>
+                                <Link className="text-link" href="/register"><small>Signup</small></Link>
                             </Col>
                         </Row>
                         <br />

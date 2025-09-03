@@ -14,8 +14,6 @@ export default function Register(props) {
     
     const { Formik } = formik;
     const schema = yup.object().shape({
-        fullname: yup.string()
-            .required('Full name is required'),
         email: yup.string()
             .required('Email is required')
             .email('Email must be valid'),
@@ -43,7 +41,7 @@ export default function Register(props) {
 
     async function handleSubmit(values) {
         try {
-            await registerUser(values.fullname, values.email, values.password, values.confirmPassword);
+            await registerUser(values.email, values.password, values.confirmPassword);
             await updateAtoms(); 
             router.push('/login');
         } catch (err) {
@@ -95,7 +93,6 @@ export default function Register(props) {
                     validationSchema={schema}
                     onSubmit={(values)=>{handleSubmit(values)}}
                     initialValues={{
-                        fullname: '',
                         email: '',
                         password: '',
                         confirmPassword: '',
@@ -103,22 +100,6 @@ export default function Register(props) {
                 >
                 {({ handleSubmit, handleChange, values, touched, errors }) => (
                     <Form className="mt-4" onSubmit={handleSubmit}>
-                        <Form.Group>
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control 
-                                type="text" 
-                                placeholder="Enter your Full name" 
-                                id="fullname" 
-                                name="fullname" 
-                                value={values.fullname}
-                                onChange={handleChange}
-                                isInvalid={!!errors.fullname}
-                            />
-                            <Form.Control.Feedback type="invalid">
-                            {errors.fullname}
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                        <br />
                         <Form.Group>
                             <Form.Label>Email</Form.Label>
                             <Form.Control 
