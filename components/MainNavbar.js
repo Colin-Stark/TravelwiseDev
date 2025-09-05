@@ -6,13 +6,14 @@ import { ThemeContext } from '@/pages/_app';
 import { languageAtom } from '@/store';
 import { useAtom } from 'jotai';
 import { getLanguage } from '@/lib/userData';
+import { setThemeCookie, getThemeCookie, getLanguageCookie, setLanguageCookie } from "@/lib/cookies";
 
 // Dummy authentication state (replace with real auth logic)
 const isLoggedIn = false;
 
 export default function MainNavbar() {
     const pathname = usePathname();
-    const { theme } = useContext(ThemeContext);
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const [language, setLanguage] = useAtom(languageAtom);
     //dummy user profile
     const userProfile = "user_default.png";
@@ -31,13 +32,15 @@ export default function MainNavbar() {
     async function handleChangeLanguage(abbr) {
         //change set language
         setLanguage(abbr);
+        //set language cookie
+        setLanguageCookie(abbr);
 
         //change language
     }
 
     useEffect(() => {
         //load language
-        updateAtoms();
+        //updateAtoms();
     }, []);
 
     return (
@@ -68,9 +71,9 @@ export default function MainNavbar() {
                                 </NavDropdown>
                             </>)
                             :
-                                pathname === "/register" ? 
-                                (<Nav.Link href='/login'>Login</Nav.Link>) :
-                                (<Nav.Link href='/register'>Signup</Nav.Link>)    
+                                pathname === "/login" ? 
+                                (<Nav.Link href='/register'>Signup</Nav.Link>) :
+                                (<Nav.Link href='/login'>Login</Nav.Link>)
                         }
                             <Dropdown>
                                 <Dropdown.Toggle variant={theme}>

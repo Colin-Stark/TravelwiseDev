@@ -4,28 +4,42 @@ import { SWRConfig } from "swr";
 import RouteGuard from "@/components/RouteGuard";
 import "@/styles/globals.css";
 import { createContext, useEffect, useState } from "react";
+import { useAtom } from "jotai";
+import { languageAtom } from "@/store";
+import { setThemeCookie, getThemeCookie, getLanguageCookie, setLanguageCookie } from "@/lib/cookies";
 
 //contexts
 export const ThemeContext = createContext();
 
 export default function App({ Component, pageProps }) {  
   const [theme, setTheme] = useState('dark'); // Default theme
+  const [language, setLanguage] = useAtom(languageAtom);
   
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    setThemeCookie(newTheme);
   };
 
   // Persist theme in localStorage
-  // useEffect(() => {
-  //   const savedTheme = localStorage.getItem('theme');
-  //   if (savedTheme) {
-  //       setTheme(savedTheme);
-  //   }
-  // }, []);
+  useEffect(() => {
+    //add cookies if they don't exist
+    const savedTheme = getThemeCookie() ? getThemeCookie() : 'dark';
+    setThemeCookie(savedTheme);
+    const savedLanguage = getLanguageCookie() ? getLanguageCookie() : 'EN';
+    setLanguageCookie(savedLanguage);
+
+    //set theme
+    setTheme(savedTheme);
+
+    //set language
+    setLanguage(language ? language : savedLanguage);
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem('theme', theme);
+    setThemeCookie(theme);
     document.body.className = theme === 'dark' ? 'dark-theme' : '';
+
   }, [theme]);
 
   return (

@@ -8,16 +8,18 @@ import { ThemeContext } from "./_app";
 import Link from "next/link";
 import * as formik from 'formik';
 import * as yup from 'yup';
+import Cookies from "js-cookie";
 
 export default function Login(props){
-    const { theme } = useContext(ThemeContext);
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const router = useRouter();
     const [warning, setWarning] = useState("");
         
     const { Formik } = formik;
     const schema = yup.object().shape({
         email: yup.string()
-            .required('Email is required'),
+            .required('Email is required')
+            .email('Email must be valid'),
         password: yup.string()
             .required('Password is required'),
     });
@@ -39,6 +41,9 @@ export default function Login(props){
 
     useEffect(() => {
         updateAtoms();
+
+        //reset local storage
+        localStorage.removeItem("reset_otp");
     }, []);
 
     return (
@@ -123,7 +128,7 @@ export default function Login(props){
                             </Form.Control.Feedback>
                         </Form.Group>
                         <br />
-                        <Link className="text-link" href="/">Forgot password?</Link>
+                        <Link className="text-link" href="/reset">Forgot password?</Link>
                         <br /><br />
                         <Button variant="primary" className="w-100 rounded-pill" type="submit">Login</Button>
                         <br />
