@@ -29,21 +29,22 @@ export default function Register(props) {
             .oneOf([yup.ref('password')], 'Passwords must match'),
     });
 
-
-    async function updateAtoms() {
-        // setFavouritesList(await getFavourites()); 
-        // setSearchHistory(await getHistory());
-    }
-
-    useEffect(() => {
-        updateAtoms();
-    }, []);
-
     async function handleSubmit(values) {
         try {
-            await registerUser(values.email, values.password, values.confirmPassword);
-            await updateAtoms(); 
-            router.push('/login');
+            //await registerUser(values.email, values.password, values.confirmPassword);
+            console.log(values.email, values.password, values.confirmPassword)
+            const res = await fetch("https://travelwise-server.onrender.com/signup", {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email:values.email, 
+                    password:values.password, 
+                    confirmPassword:values.confirmPassword
+                }),
+            });
+            //router.push('/login');
         } catch (err) {
             setWarning(err.message);
         }
