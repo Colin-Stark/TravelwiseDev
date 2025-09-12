@@ -32,8 +32,7 @@ export default function Register(props) {
     async function handleSubmit(values) {
         setWarning(""); // Clear previous warnings
         try {
-            console.log(values.email, values.password, values.confirmPassword)
-            const res = await fetch("/api/signup", {
+            const res = await fetch("/api/signup", {  // Changed to same-origin API route
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
