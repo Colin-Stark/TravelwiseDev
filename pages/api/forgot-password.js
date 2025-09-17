@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 
     try {
         // Forward the request to the external server
-        const externalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/signup`, {
+        const externalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login/forgot-password`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

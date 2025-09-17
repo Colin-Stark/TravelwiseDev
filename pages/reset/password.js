@@ -6,8 +6,12 @@ import Link from "next/link";
 import { ThemeContext } from ".././_app";
 import * as formik from 'formik';
 import * as yup from 'yup';
+import { useAtom } from "jotai";
+import { isBlockedAtom } from "@/store";
 
 export default function UpdatePassword(props) {
+    const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
+
     const { theme } = useContext(ThemeContext);
     const router = useRouter();
     const [warning, setWarning] = useState("");
@@ -34,6 +38,9 @@ export default function UpdatePassword(props) {
     }
 
     useEffect(() => {
+        //remove page blocker
+        setIsBlocked(false);
+        
         //check if has value in local storage and is not expired
         if(!localStorage.getItem("reset_otp")) {
             router.push('/login');

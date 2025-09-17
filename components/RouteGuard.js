@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { isAuthenticated } from "@/lib/authenticate";
 import { useAtom } from "jotai";
+import { userAtom } from "@/store";
+import { checkValidLogin } from "@/lib/cookies";
 // import { favouritesAtom, searchHistoryAtom } from "@/store";
 // import { getFavourites, getHistory } from "@/lib/userData";
 
@@ -10,7 +12,7 @@ const PUBLIC_PATHS = ['/login', '/register', '/reset', '/reset/password', '/_err
 export default function RouteGuard(props) {
     const router = useRouter();
     const [authorized, setAuthorized] = useState(false);
-    // const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
+    const [user, setUser] = useAtom(userAtom);
     // const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom);
 
     useEffect(() => {
@@ -31,8 +33,9 @@ export default function RouteGuard(props) {
 
     function authCheck(url) {
         const path = url.split('?')[0];
-        if (!isAuthenticated() && !PUBLIC_PATHS.includes(path)) {
+        if (!isAuthenticated() && checkValidLogin() !== user && !PUBLIC_PATHS.includes(path)) {
             setAuthorized(false);
+            setUser(null);
             router.push("/login");
         }
         else {

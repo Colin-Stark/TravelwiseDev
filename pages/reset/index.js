@@ -7,12 +7,18 @@ import { ThemeContext } from "../_app";
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import OtpInput from 'react-otp-input';
+import { useAtom } from "jotai";
+import { isBlockedAtom, resetEmailAtom, resetOTPPassAtom } from "@/store";
 
 export default function ForgotPassword(props) {
+    const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
+    
     const { theme } = useContext(ThemeContext);
     const router = useRouter();
     const [warning, setWarning] = useState("");
     const [email, setEmail] = useState(null);
+    const [resetEmail, setResetEmail] = useAtom(resetEmailAtom);
+    const [resetOTPPass, setResetOTPPass] = useAtom(resetOTPPassAtom);
 
     //otp constants
     const [otp, setOtp] = useState('');    
@@ -48,16 +54,30 @@ export default function ForgotPassword(props) {
     });
 
     useEffect(() => {
+        //remove page blocker
+        setIsBlocked(false);
+        //remove page blocker
+        setResetEmail(null);
+        setResetOTPPass(false);
+
         //reset otp expiry
         localStorage.removeItem("reset_otp")
 
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        const emailParam = urlParams.get('email'); // Get the value of the 'category' parameter
+        const emailParam = urlParams.get('email');
         if(emailParam) {
             setEmail(emailParam);
         }
     }, []);
+
+    useEffect(() => {
+        if(warning !== "") {
+            //remove page blocker
+            setIsBlocked(false);
+        }
+
+    }, [warning]);
 
     //for countdown
     useEffect(() => {
@@ -77,15 +97,26 @@ export default function ForgotPassword(props) {
 
     async function handleEmailSubmit(values) {
         try {
-            setEmail(values.email);
-            await sendOTP(values.email);
-            router.push('/reset?email='+values.email);
+            const valid = await sendOTP(values.email)
+
+            if(valid) {
+                setEmail(values.email);
+                router.push('/reset?email='+values.email);
+            }
+
         } catch (err) {
             setWarning(err.message);
         }
     }
 
     async function handleSubmit(values) {
+        // //dummy data
+        // if(true) {
+        //     setResetEmail(email);
+        //     setResetOTPPass(true);
+        // }
+        // return;
+
         try {
             //set reset otp expiry
             localStorage.setItem("reset_otp", email);
@@ -101,6 +132,46 @@ export default function ForgotPassword(props) {
         setSeconds(initialSeconds);
 
         //create/update OTP then send to email
+        setWarning(""); // Clear previous warnings
+        setIsBlocked(true); //block actions
+
+        //dummy data
+        setResetEmail(null);
+        setResetOTPPass(false);
+        setIsBlocked(false);
+        return true;
+
+        try {
+            const res = await fetch("/api/forgot-password", {  // Changed to same-origin API route
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: userEmail,
+                }),
+            });
+
+            const data = await res.json();
+            if (!res.ok) {
+                // Try to parse error message from server
+                let errorMsg = "Invalid email";
+                try {
+                    errorMsg = data.message || errorMsg;
+                } catch (e) { }
+                setWarning(errorMsg);
+                return false;
+            }
+
+            setIsBlocked(false);
+            return true;
+
+        } catch (err) {
+            setIsBlocked(false);
+            setWarning("Network error: " + err.message);
+        }
+
+        return false;
     }
 
     return (
@@ -172,7 +243,7 @@ export default function ForgotPassword(props) {
             :
             (
                 <Col md={4} xs={12} className="mb-6 px-3 px-lg-5">
-                    <h2 className="text-center">Enter OTP Code</h2>
+                    <h2 className="text-center">Enter OTP Code {resetEmail}</h2>
                     <br/>
                     <p className="text-center">Please enter the OTP verification code that has been sent to your email:<br/><b>{email}</b></p>
                     {warning && (<><br /><Alert variant="danger">{warning}</Alert></>)}

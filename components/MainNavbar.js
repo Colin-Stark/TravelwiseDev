@@ -1,20 +1,21 @@
 import { Container, Nav, Navbar, Form, Button, NavDropdown, Row, Dropdown, Col } from 'react-bootstrap';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ThemeContext } from '@/pages/_app';
-import { languageAtom } from '@/store';
+import { languageAtom, isBlockedAtom, userAtom } from '@/store';
 import { useAtom } from 'jotai';
 import { getLanguage } from '@/lib/userData';
-import { setThemeCookie, getThemeCookie, getLanguageCookie, setLanguageCookie } from "@/lib/cookies";
-
-// Dummy authentication state (replace with real auth logic)
-const isLoggedIn = false;
+import { setThemeCookie, getThemeCookie, getLanguageCookie, setLanguageCookie, checkValidLogin } from "@/lib/cookies";
 
 export default function MainNavbar() {
+    const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
+
     const pathname = usePathname();
     const { theme, toggleTheme } = useContext(ThemeContext);
     const [language, setLanguage] = useAtom(languageAtom);
+    const [user, setUser] = useAtom(userAtom);
+
     //dummy user profile
     const userProfile = "user_default.png";
 
@@ -45,6 +46,7 @@ export default function MainNavbar() {
 
     return (
         <>
+            <div className={isBlocked ? "blocker" : ""}></div>
             <Navbar expand="md" className={theme === "dark" ? "fixed-top nav-border navbar-dark bg-dark" : "fixed-top nav-border bg-light"}>
                 <Container>
                     <Navbar.Brand>TravelWise</Navbar.Brand>
@@ -52,7 +54,7 @@ export default function MainNavbar() {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">
                         {
-                            isLoggedIn ? 
+                            user ? 
                             (<>
                                 <Nav.Link href='/'>Home</Nav.Link>
                                 <Nav.Link href='/'>My Trips</Nav.Link>

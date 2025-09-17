@@ -3,14 +3,18 @@ import { useRouter } from "next/router";
 import { authenticateUser } from "@/lib/authenticate";
 import { useContext, useEffect, useState } from "react";
 import { useAtom } from "jotai";
-import { languageAtom } from "@/store";
+import { languageAtom, isBlockedAtom, userAtom, resetEmailAtom } from "@/store";
 import { ThemeContext } from "./_app";
 import Link from "next/link";
 import * as formik from 'formik';
 import * as yup from 'yup';
-import Cookies from "js-cookie";
+import { setLogDateCookie, setUserCookie } from "@/lib/cookies";
 
-export default function Login(props){
+export default function Login(props) {
+    const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
+    const [user, setUser] = useAtom(userAtom);
+    const [resetEmail, setResetEmail] = useAtom(resetEmailAtom);
+    
     const { theme, toggleTheme } = useContext(ThemeContext);
     const router = useRouter();
     const [warning, setWarning] = useState("");
@@ -24,27 +28,77 @@ export default function Login(props){
             .required('Password is required'),
     });
 
+    // async function handleSubmit(values) {
+    //     try {
+    //         await authenticateUser(values.email, values.password);
+    //         await updateAtoms(); 
+    //         router.push('/home');
+    //     } catch (err) {
+    //         setWarning(err.message);
+    //     }
+    // }
+
     async function handleSubmit(values) {
+        setWarning(""); // Clear previous warnings
+        setIsBlocked(true); //block actions
+
         try {
-            await authenticateUser(values.email, values.password);
-            await updateAtoms(); 
-            router.push('/home');
+            const res = await fetch("/api/login", {  // Changed to same-origin API route
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: values.email,
+                    password: values.password,
+                }),
+            });
+
+            const data = await res.json();
+            if (!res.ok) {
+                // Try to parse error message from server
+                let errorMsg = "Invalid username or password";
+                try {
+                    errorMsg = data.message || errorMsg;
+                } catch (e) { }
+                setWarning(errorMsg);
+                return;
+            }
+
+            //update user
+            setUserCookie(JSON.stringify(data.user));
+            setLogDateCookie((new Date()).getTime());
+            setUser(data.user);
+
+            // login successful, redirect to home
+            router.push('/');
         } catch (err) {
-            setWarning(err.message);
+            setWarning("Network error: " + err.message);
         }
     }
 
     async function updateAtoms() {
-        // setFavouritesList(await getFavourites()); 
-        // setSearchHistory(await getHistory());
+        //setUser(await getUser());
     }
 
     useEffect(() => {
+        //remove page blocker
+        setIsBlocked(false);
+        setResetEmail("randemail");
+
         updateAtoms();
 
         //reset local storage
         localStorage.removeItem("reset_otp");
     }, []);
+
+    useEffect(() => {
+        if(warning !== "") {
+            //remove page blocker
+            setIsBlocked(false);
+        }
+
+    }, [warning]);
 
     return (
     <>
@@ -130,7 +184,7 @@ export default function Login(props){
                         <br />
                         <Link className="text-link" href="/reset">Forgot password?</Link>
                         <br /><br />
-                        <Button variant="primary" className="w-100 rounded-pill" type="submit">Login</Button>
+                        <Button variant="primary" className="w-100 rounded-pill" type="submit" disabled={isBlocked}>Login</Button>
                         <br />
                         <Row className="mt-2">
                             <Col className="d-flex justify-content-center align-items-center">

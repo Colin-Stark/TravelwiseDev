@@ -6,8 +6,12 @@ import Link from "next/link";
 import { ThemeContext } from "./_app";
 import * as formik from 'formik';
 import * as yup from 'yup';
+import { useAtom } from "jotai";
+import { isBlockedAtom } from "@/store";
 
 export default function Register(props) {
+    const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
+    
     const { theme } = useContext(ThemeContext);
     const router = useRouter();
     const [warning, setWarning] = useState("");
@@ -31,6 +35,8 @@ export default function Register(props) {
 
     async function handleSubmit(values) {
         setWarning(""); // Clear previous warnings
+        setIsBlocked(true); //block actions
+
         try {
             const res = await fetch("/api/signup", {  // Changed to same-origin API route
                 method: 'POST',
@@ -61,6 +67,19 @@ export default function Register(props) {
             setWarning("Network error: " + err.message);
         }
     }
+
+    useEffect(() => {
+        //remove page blocker
+        setIsBlocked(false);
+    }, []);
+
+    useEffect(() => {
+        if(warning !== "") {
+            //remove page blocker
+            setIsBlocked(false);
+        }
+
+    }, [warning]);
 
     return (
         <>
@@ -161,7 +180,7 @@ export default function Register(props) {
                                     </Form.Control.Feedback>
                                 </Form.Group>
                                 <br /><br />
-                                <Button variant="primary" className="w-100 rounded-pill" type="submit">Signup</Button>
+                                <Button variant="primary" className="w-100 rounded-pill" type="submit" disabled={isBlocked}>Signup</Button>
                                 <br />
                                 <Row className="mt-2">
                                     <div className="text-center">

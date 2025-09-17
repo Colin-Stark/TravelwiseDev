@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }) {
     setThemeCookie(newTheme);
   };
 
-  // Persist theme in localStorage
+  // Set cookies
   useEffect(() => {
     //add cookies if they don't exist
     const savedTheme = getThemeCookie() ? getThemeCookie() : 'dark';

@@ -81,6 +81,20 @@ a.text-link:hover {
   min-height: 85vh;
 }
 
+.blocker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.05);
+  display: 'flex';
+  justify-content: 'center';
+  align-items: 'center';
+  z-index: 10000;
+  cursor: progress;
+}
+
 .otp-container {
   display: flex;
   justify-content: center;
