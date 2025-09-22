@@ -7,7 +7,7 @@ import { checkValidLogin } from "@/lib/cookies";
 // import { favouritesAtom, searchHistoryAtom } from "@/store";
 // import { getFavourites, getHistory } from "@/lib/userData";
 
-const PUBLIC_PATHS = ['/login', '/register', '/reset', '/reset/password', '/_error', '/search', '/search/flight'];
+const PUBLIC_PATHS = ['/login', '/register', '/reset', '/reset/password', '/_error', '/search', '/search/flight', '/profile'];
 
 export default function RouteGuard(props) {
     const router = useRouter();

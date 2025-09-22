@@ -18,6 +18,15 @@ export default function Login(props) {
     const { theme, toggleTheme } = useContext(ThemeContext);
     const router = useRouter();
     const [warning, setWarning] = useState("");
+
+    //carousel images
+    const images = [
+        {img: "preview_1.jpg", caption: ""},
+        {img: "preview_2.jpg", caption: ""},
+        {img: "preview_3.jpg", caption: ""},
+        {img: "preview_4.jpg", caption: ""},
+        {img: "preview_5.jpg", caption: ""},
+    ];
         
     const { Formik } = formik;
     const schema = yup.object().shape({
@@ -99,15 +108,6 @@ export default function Login(props) {
         }
 
     }, [warning]);
-
-    //carousel images
-    const images = [
-        {img: "preview_1.jpg", caption: ""},
-        {img: "preview_2.jpg", caption: ""},
-        {img: "preview_3.jpg", caption: ""},
-        {img: "preview_4.jpg", caption: ""},
-        {img: "preview_5.jpg", caption: ""},
-    ];
 
     return (
     <>
