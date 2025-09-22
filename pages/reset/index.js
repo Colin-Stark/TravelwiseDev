@@ -24,6 +24,15 @@ export default function ForgotPassword(props) {
     const [otp, setOtp] = useState('');    
     const initialSeconds = 30;
     const [seconds, setSeconds] = useState(initialSeconds);
+
+    //carousel images
+    const images = [
+        {img: "preview_1.jpg", caption: ""},
+        {img: "preview_2.jpg", caption: ""},
+        {img: "preview_3.jpg", caption: ""},
+        {img: "preview_4.jpg", caption: ""},
+        {img: "preview_5.jpg", caption: ""},
+    ];
     
     const formik = useFormik({
         initialValues: {
@@ -96,6 +105,9 @@ export default function ForgotPassword(props) {
     }, [seconds]); // Re-run effect when 'seconds' changes
 
     async function handleEmailSubmit(values) {
+        setWarning(""); // Clear previous warnings
+        setIsBlocked(true); //block actions
+
         try {
             const valid = await sendOTP(values.email)
 
@@ -110,20 +122,40 @@ export default function ForgotPassword(props) {
     }
 
     async function handleSubmit(values) {
-        // //dummy data
-        // if(true) {
-        //     setResetEmail(email);
-        //     setResetOTPPass(true);
-        // }
-        // return;
+        setWarning(""); // Clear previous warnings
+        setIsBlocked(true); //block actions
 
         try {
-            //set reset otp expiry
-            localStorage.setItem("reset_otp", email);
+            const res = await fetch("/api/verify-otp", {  // Changed to same-origin API route
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    otp: values.otp,
+                }),
+            });
+
+            const data = await res.json();
+            if (!res.ok) {
+                // Try to parse error message from server
+                let errorMsg = "Invalid OTP. Please check your email for the code. If you did not receive the OTP code, click Resend OTP below.";
+                try {
+                    errorMsg = data.message || errorMsg;
+                } catch (e) { }
+                setWarning(errorMsg);
+                return false;
+            }
+
+            setResetEmail(email);
+            setResetOTPPass(true);
 
             router.push('/reset/password');
+
         } catch (err) {
-            setWarning(err.message);
+            setIsBlocked(false);
+            setWarning("Network error: " + err.message);
         }
     }
 
@@ -134,12 +166,8 @@ export default function ForgotPassword(props) {
         //create/update OTP then send to email
         setWarning(""); // Clear previous warnings
         setIsBlocked(true); //block actions
-
-        //dummy data
-        setResetEmail(null);
-        setResetOTPPass(false);
-        setIsBlocked(false);
-        return true;
+        setResetEmail(null); //reset atom
+        setResetOTPPass(false); //reset atom
 
         try {
             const res = await fetch("/api/forgot-password", {  // Changed to same-origin API route
@@ -178,37 +206,29 @@ export default function ForgotPassword(props) {
     <>
         <Row className="d-flex justify-content-center align-items-center m-0 p-0">
             <Col md={8} xs={0}>
-            <Carousel className="d-none d-md-block" data-bs-theme={theme === "dark" ? "light" : "dark"}>
-                <Carousel.Item>
-                    <Row className="justify-content-center align-items-center">
-                        <Image className="w-50" fluid src="/favicon.ico" alt="carousel-img" />
-                    </Row>
-                    <Carousel.Caption>
-                        <h3>
-                            Caption 1
-                        </h3>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <Row className="justify-content-center align-items-center">
-                        <Image className="w-50" fluid src="/favicon.ico" alt="carousel-img" />
-                    </Row>
-                    <Carousel.Caption>
-                        <h3>
-                            Caption 2
-                        </h3>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <Row className="justify-content-center align-items-center">
-                        <Image className="w-50" fluid src="/favicon.ico" alt="carousel-img" />
-                    </Row>
-                    <Carousel.Caption>
-                        <h3>
-                            Caption 3
-                        </h3>
-                    </Carousel.Caption>
-                </Carousel.Item>
+                <Carousel className="d-none d-md-block" data-bs-theme={theme === "dark" ? "light" : "dark"}>
+                {
+                    images.map((image, index) => (
+                        <Carousel.Item key={index}>
+                            <Row className="justify-content-center align-items-center">
+                                <Image className="carousel fluid" src={`/images/${image.img}`} alt="carousel-img" />
+                            </Row>
+                        { image.caption ? 
+                            (
+                                <Carousel.Caption>
+                                    <h3>
+                                        {image.caption}
+                                    </h3>
+                                </Carousel.Caption>
+                            )
+                            :
+                            (
+                                <></>
+                            )
+                        }
+                        </Carousel.Item>
+                    ))
+                }
                 </Carousel>
             </Col>
         {
@@ -281,7 +301,7 @@ export default function ForgotPassword(props) {
                     }
                         </Row>
                         <br /><br />
-                        <Button variant="primary" className="w-100 rounded-pill" type="submit">Verify</Button>
+                        <Button variant="primary" className="w-100 rounded-pill" type="submit" disabled={isBlocked}>Verify</Button>
                         <br />
                     </Form>
                 </Col>

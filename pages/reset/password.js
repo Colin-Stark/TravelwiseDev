@@ -7,15 +7,26 @@ import { ThemeContext } from ".././_app";
 import * as formik from 'formik';
 import * as yup from 'yup';
 import { useAtom } from "jotai";
-import { isBlockedAtom } from "@/store";
+import { isBlockedAtom, resetEmailAtom, resetOTPPassAtom } from "@/store";
 
 export default function UpdatePassword(props) {
     const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
+    const [resetEmail, setResetEmail] = useAtom(resetEmailAtom);
+    const [resetOTPPass, setResetOTPPass] = useAtom(resetOTPPassAtom);
 
     const { theme } = useContext(ThemeContext);
     const router = useRouter();
     const [warning, setWarning] = useState("");
     const [complete, setComplete] = useState(false);
+
+    //carousel images
+    const images = [
+        {img: "preview_1.jpg", caption: ""},
+        {img: "preview_2.jpg", caption: ""},
+        {img: "preview_3.jpg", caption: ""},
+        {img: "preview_4.jpg", caption: ""},
+        {img: "preview_5.jpg", caption: ""},
+    ];
     
     const { Formik } = formik;
     const schema = yup.object().shape({
@@ -33,69 +44,93 @@ export default function UpdatePassword(props) {
 
 
     async function updateAtoms() {
-        // setFavouritesList(await getFavourites()); 
-        // setSearchHistory(await getHistory());
+        setResetEmail(null);
+        setResetOTPPass(false);
     }
 
     useEffect(() => {
         //remove page blocker
         setIsBlocked(false);
         
-        //check if has value in local storage and is not expired
-        if(!localStorage.getItem("reset_otp")) {
-            router.push('/login');
+        //redirect to forgot password if not verified
+        if(!resetEmail || !resetOTPPass) {
+            router.push('/reset');
         }
     }, []);
 
+    useEffect(() => {
+        if(warning !== "") {
+            //remove page blocker
+            setIsBlocked(false);
+        }
+
+    }, [warning]);
+
     async function handleSubmit(values) {
+        setWarning(""); // Clear previous warnings
+        setIsBlocked(true); //block actions
+
         try {
-            //const result = await updateUserPassword(values.password, values.confirmPassword);
-            const result = true;
+            const res = await fetch("/api/reset-password", {  // Changed to same-origin API route
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: resetEmail,
+                    newPassword: values.password,
+                    confirmPassword: values.confirmPassword,
+                }),
+            });
+
+            const data = await res.json();
+            if (!res.ok) {
+                // Try to parse error message from server
+                let errorMsg = null;
+                try {
+                    errorMsg = data.message || errorMsg;
+                } catch (e) { }
+                setWarning(errorMsg);
+                return false;
+            }
+
             await updateAtoms(); 
-            setComplete(result);
+            setComplete(true);
+            setIsBlocked(false);
+
         } catch (err) {
-            setWarning(err.message);
+            setIsBlocked(false);
+            setWarning("Network error: " + err.message);
         }
     }
 
     return (
     <>
-{
-    localStorage.getItem("reset_otp") ?
-    (
         <Row className="d-flex justify-content-center align-items-center m-0 p-0">
             <Col md={8} xs={0}>
-            <Carousel className="d-none d-md-block" data-bs-theme={theme === "dark" ? "light" : "dark"}>
-                <Carousel.Item>
-                    <Row className="justify-content-center align-items-center">
-                        <Image className="w-50" fluid src="/favicon.ico" alt="carousel-img" />
-                    </Row>
-                    <Carousel.Caption>
-                        <h3>
-                            Caption 1
-                        </h3>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <Row className="justify-content-center align-items-center">
-                        <Image className="w-50" fluid src="/favicon.ico" alt="carousel-img" />
-                    </Row>
-                    <Carousel.Caption>
-                        <h3>
-                            Caption 2
-                        </h3>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <Row className="justify-content-center align-items-center">
-                        <Image className="w-50" fluid src="/favicon.ico" alt="carousel-img" />
-                    </Row>
-                    <Carousel.Caption>
-                        <h3>
-                            Caption 3
-                        </h3>
-                    </Carousel.Caption>
-                </Carousel.Item>
+                <Carousel className="d-none d-md-block" data-bs-theme={theme === "dark" ? "light" : "dark"}>
+                {
+                    images.map((image, index) => (
+                        <Carousel.Item key={index}>
+                            <Row className="justify-content-center align-items-center">
+                                <Image className="carousel fluid" src={`/images/${image.img}`} alt="carousel-img" />
+                            </Row>
+                        { image.caption ? 
+                            (
+                                <Carousel.Caption>
+                                    <h3>
+                                        {image.caption}
+                                    </h3>
+                                </Carousel.Caption>
+                            )
+                            :
+                            (
+                                <></>
+                            )
+                        }
+                        </Carousel.Item>
+                    ))
+                }
                 </Carousel>
             </Col>
         {
@@ -161,7 +196,7 @@ export default function UpdatePassword(props) {
                                 </Form.Control.Feedback>
                             </Form.Group>
                             <br /><br />
-                            <Button variant="primary" className="w-100 rounded-pill" type="submit">Update Password</Button>
+                            <Button variant="primary" className="w-100 rounded-pill" type="submit" disabled={isBlocked}>Update Password</Button>
                             <br />
                         </Form>
                     )}
@@ -170,12 +205,6 @@ export default function UpdatePassword(props) {
             )
         }
         </Row>
-    )
-    :
-    (
-        <></>
-    )
-}
     </>
     );
 }

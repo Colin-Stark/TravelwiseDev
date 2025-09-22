@@ -7,6 +7,7 @@ import { languageAtom, isBlockedAtom, userAtom } from '@/store';
 import { useAtom } from 'jotai';
 import { getLanguage } from '@/lib/userData';
 import { setThemeCookie, getThemeCookie, getLanguageCookie, setLanguageCookie, checkValidLogin } from "@/lib/cookies";
+import { BlinkBlur } from 'react-loading-indicators';
 
 export default function MainNavbar() {
     const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
@@ -46,7 +47,19 @@ export default function MainNavbar() {
 
     return (
         <>
-            <div className={isBlocked ? "blocker" : ""}></div>
+            <div className={isBlocked ? "blocker" : ""}>
+            {
+                isBlocked ?
+                (
+                    <div className='loading'>
+                        <BlinkBlur size='large' color={["#32cd32", "#327fcd", "#cd32cd", "#cd8032"]} />
+                    </div>
+                )
+                : (
+                    <></>
+                )
+            }
+            </div>
             <Navbar expand="md" className={theme === "dark" ? "fixed-top nav-border navbar-dark bg-dark" : "fixed-top nav-border bg-light"}>
                 <Container>
                     <Navbar.Brand>TravelWise</Navbar.Brand>
@@ -70,6 +83,10 @@ export default function MainNavbar() {
                                     <NavDropdown.Divider menu_variant="dark" />
                                     <NavDropdown.Item href="/">Profile</NavDropdown.Item>
                                     <NavDropdown.Item href="/">Settings</NavDropdown.Item>
+                                    <NavDropdown.Item href="/">Settings</NavDropdown.Item>
+                                    <NavDropdown.Item href="/">
+                                        <div onClick={(e)=>{alert("123")}}>Logout</div>
+                                    </NavDropdown.Item>
                                 </NavDropdown>
                             </>)
                             :

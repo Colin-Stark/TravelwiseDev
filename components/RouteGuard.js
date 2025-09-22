@@ -7,7 +7,7 @@ import { checkValidLogin } from "@/lib/cookies";
 // import { favouritesAtom, searchHistoryAtom } from "@/store";
 // import { getFavourites, getHistory } from "@/lib/userData";
 
-const PUBLIC_PATHS = ['/login', '/register', '/reset', '/reset/password', '/_error'];
+const PUBLIC_PATHS = ['/login', '/register', '/reset', '/reset/password', '/_error', '/search', '/search/flight'];
 
 export default function RouteGuard(props) {
     const router = useRouter();
@@ -33,7 +33,7 @@ export default function RouteGuard(props) {
 
     function authCheck(url) {
         const path = url.split('?')[0];
-        if (!isAuthenticated() && checkValidLogin() !== user && !PUBLIC_PATHS.includes(path)) {
+        if (!isAuthenticated() && !PUBLIC_PATHS.includes(path)) {
             setAuthorized(false);
             setUser(null);
             router.push("/login");

@@ -87,12 +87,18 @@ a.text-link:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.7);
   display: 'flex';
   justify-content: 'center';
   align-items: 'center';
   z-index: 10000;
   cursor: progress;
+}
+.blocker .loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .otp-container {
@@ -122,4 +128,20 @@ a.text-link:hover {
 .otp-input:focus {
   border-color: #007bff;
   outline: none;
+}
+
+.carousel {
+  height: 90vh;
+}
+
+.card-selectable {
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.card-selectable:hover, .card-selectable.active {
+  transform: scale(1.02); 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+  border-color: #007bff; 
+  color: #007bff;
 }

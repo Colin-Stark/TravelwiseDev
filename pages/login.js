@@ -100,41 +100,42 @@ export default function Login(props) {
 
     }, [warning]);
 
+    //carousel images
+    const images = [
+        {img: "preview_1.jpg", caption: ""},
+        {img: "preview_2.jpg", caption: ""},
+        {img: "preview_3.jpg", caption: ""},
+        {img: "preview_4.jpg", caption: ""},
+        {img: "preview_5.jpg", caption: ""},
+    ];
+
     return (
     <>
         <Row className="d-flex justify-content-center align-items-center m-0 p-0">
             <Col md={8} xs={0}>
-            <Carousel className="d-none d-md-block" data-bs-theme={theme === "dark" ? "light" : "dark"}>
-                <Carousel.Item>
-                    <Row className="justify-content-center align-items-center">
-                        <Image className="w-50" fluid src="/favicon.ico" alt="carousel-img" />
-                    </Row>
-                    <Carousel.Caption>
-                        <h3>
-                            Caption 1
-                        </h3>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <Row className="justify-content-center align-items-center">
-                        <Image className="w-50" fluid src="/favicon.ico" alt="carousel-img" />
-                    </Row>
-                    <Carousel.Caption>
-                        <h3>
-                            Caption 2
-                        </h3>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <Row className="justify-content-center align-items-center">
-                        <Image className="w-50" fluid src="/favicon.ico" alt="carousel-img" />
-                    </Row>
-                    <Carousel.Caption>
-                        <h3>
-                            Caption 3
-                        </h3>
-                    </Carousel.Caption>
-                </Carousel.Item>
+                <Carousel className="d-none d-md-block" data-bs-theme={theme === "dark" ? "light" : "dark"}>
+            {
+                images.map((image, index) => (
+                    <Carousel.Item key={index}>
+                        <Row className="justify-content-center align-items-center">
+                            <Image className="carousel fluid" src={`/images/${image.img}`} alt="carousel-img" />
+                        </Row>
+                    { image.caption ? 
+                        (
+                            <Carousel.Caption>
+                                <h3>
+                                    {image.caption}
+                                </h3>
+                            </Carousel.Caption>
+                        )
+                        :
+                        (
+                            <></>
+                        )
+                    }
+                    </Carousel.Item>
+                ))
+            }
                 </Carousel>
             </Col>
             <Col md={4} xs={12} className="mt-4 px-5 px-md-3 px-lg-5">
