@@ -1,7 +1,7 @@
 import { Form, Button, Row, Col, Alert } from "react-bootstrap";
 import { useState, useContext } from "react";
 import { ThemeContext } from "./_app";
-import UserSidebar from "/components/UserSidebar";
+// import UserSidebar from "/components/UserSidebar";
 import * as formik from "formik";
 import * as yup from "yup";
 
@@ -38,13 +38,13 @@ export default function Profile() {
   return (
     <Row className="m-0 p-4">
       {/* Sidebar */}
-      <Col md={3}>
+      {/* <Col md={3}>
         <UserSidebar />
-      </Col>
+      </Col> */}
 
       {/* Profile Form */}
       <Col
-        md={9}
+        md={12}
         className={`${theme === "dark" ? "bg-black text-white" : "bg-light text-dark"} p-5`}
       >
         <h2 className="mb-4">Profile</h2>

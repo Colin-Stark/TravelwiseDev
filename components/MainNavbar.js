@@ -1,43 +1,120 @@
-import { Container, Nav, Navbar, Form, Button } from 'react-bootstrap';
-import Link from 'next/link';
-import React from 'react';
+import { Container, Nav, Navbar, Form, Button, NavDropdown, Row, Dropdown, Col } from 'react-bootstrap';
+import React, { useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
-// Dummy authentication state (replace with real auth logic)
-const isLoggedIn = false;
+import { usePathname } from 'next/navigation';
+import { ThemeContext } from '@/pages/_app';
+import { languageAtom, isBlockedAtom, userAtom } from '@/store';
+import { useAtom } from 'jotai';
+import { getLanguage } from '@/lib/userData';
+import { setThemeCookie, getThemeCookie, getLanguageCookie, setLanguageCookie, checkValidLogin } from "@/lib/cookies";
+import { BlinkBlur } from 'react-loading-indicators';
 
 export default function MainNavbar() {
-    if (!isLoggedIn) {
-        return (
-            <Navbar className="fixed-top navbar-dark bg-dark">
+    const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
+
+    const pathname = usePathname();
+    const { theme, toggleTheme } = useContext(ThemeContext);
+    const [language, setLanguage] = useAtom(languageAtom);
+    const [user, setUser] = useAtom(userAtom);
+
+    //dummy user profile
+    const userProfile = "user_default.png";
+
+    const imgPath = "/images/";
+    const languages = {
+        "EN": {"img": "flag_us.png", "name": "English"},
+        "FR": {"img": "flag_fr.png", "name": "Français"},
+    };
+
+    async function updateAtoms() {
+        setLanguage(await getLanguage()); 
+    }
+
+    //handle language change
+    async function handleChangeLanguage(abbr) {
+        //change set language
+        setLanguage(abbr);
+        //set language cookie
+        setLanguageCookie(abbr);
+
+        //change language
+    }
+
+    useEffect(() => {
+        //load language
+        //updateAtoms();
+    }, []);
+
+    return (
+        <>
+            <div className={isBlocked ? "blocker" : ""}>
+            {
+                isBlocked ?
+                (
+                    <div className='loading'>
+                        <BlinkBlur size='large' color={["#32cd32", "#327fcd", "#cd32cd", "#cd8032"]} />
+                    </div>
+                )
+                : (
+                    <></>
+                )
+            }
+            </div>
+            <Navbar expand="md" className={theme === "dark" ? "fixed-top nav-border navbar-dark bg-dark" : "fixed-top nav-border bg-light"}>
                 <Container>
                     <Navbar.Brand>TravelWise</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="me-auto">
-                            <Link href="/" passHref>
-                                <Nav.Link>Home</Nav.Link>
-                            </Link>
+                        <Nav className="ms-auto">
+                        {
+                            user ? 
+                            (<>
+                                <Nav.Link href='/'>Home</Nav.Link>
+                                <Nav.Link href='/'>My Trips</Nav.Link>
+                                <NavDropdown menuVariant={theme} title="Explore">
+                                    <NavDropdown.Item href="/">Search Flights</NavDropdown.Item>
+                                    <NavDropdown.Item href="/">Search Hotels</NavDropdown.Item>
+                                    <NavDropdown.Item href="/">Search Transportation</NavDropdown.Item>
+                                </NavDropdown>
+                                <Nav.Link href='/'>Guides</Nav.Link>
+                                <Nav.Link href='/'>Support</Nav.Link>
+                                <NavDropdown title={<span><Image className='d-inline' src={imgPath + userProfile} alt="avatar" width={24} height={24} /></span>} menuVariant={theme}>
+                                    <div className='text-center'>username</div>
+                                    <NavDropdown.Divider menu_variant="dark" />
+                                    <NavDropdown.Item href="/">Profile</NavDropdown.Item>
+                                    <NavDropdown.Item href="/">Settings</NavDropdown.Item>
+                                    <NavDropdown.Item href="/">Settings</NavDropdown.Item>
+                                    <NavDropdown.Item href="/">
+                                        <div onClick={(e)=>{alert("123")}}>Logout</div>
+                                    </NavDropdown.Item>
+                                </NavDropdown>
+                            </>)
+                            :
+                                pathname === "/login" ? 
+                                (<Nav.Link href='/register'>Signup</Nav.Link>) :
+                                (<Nav.Link href='/login'>Login</Nav.Link>)
+                        }
+                            <Dropdown>
+                                <Dropdown.Toggle variant={theme}>
+                                    <Image className='d-inline me-2' src={imgPath + languages[language]?.img} alt="avatar" width={24} height={24} style={{ borderRadius: '50%' }} />
+                                    <label>{language}</label>
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu variant={theme}>
+                                {
+                                    Object.keys(languages).map((abbr, index) => (
+                                        <Dropdown.Item className={language === abbr ? 'active' : ''} onClick={() => handleChangeLanguage(abbr)} key={index}>
+                                            <Image className='d-inline me-2' src={imgPath + languages[abbr]?.img} alt="avatar" width={24} height={24} style={{ borderRadius: '50%' }} />
+                                            <label>{languages[abbr]?.name}</label>
+                                        </Dropdown.Item>
+                                    ))
+                                }
+                                </Dropdown.Menu>
+                            </Dropdown>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-        );
-    }
-    return (
-        <nav style={{ display: 'flex', alignItems: 'center', padding: '1rem', borderBottom: '1px solid #eee', background: '#fff' }}>
-            <span style={{ fontWeight: 'bold', marginRight: '2rem', fontSize: '1.2rem' }}>TravelWise</span>
-            <a href="#" style={{ marginRight: '1.5rem', color: '#222', textDecoration: 'none' }}>My Trips</a>
-            <a href="#" style={{ marginRight: '1.5rem', color: '#222', textDecoration: 'none' }}>Explore</a>
-            <a href="#" style={{ marginRight: '1.5rem', color: '#222', textDecoration: 'none' }}>Guides</a>
-            <a href="#" style={{ marginRight: '1.5rem', color: '#222', textDecoration: 'none' }}>Support</a>
-            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <div style={{ position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: '8px', top: '8px', color: '#888' }}>🔍</span>
-                    <input type="text" placeholder="Search" style={{ padding: '8px 8px 8px 32px', borderRadius: '8px', border: 'none', background: '#f3f5f7', outline: 'none' }} />
-                </div>
-                <span style={{ fontSize: '1.2rem', color: '#888' }}>🔔</span>
-                <Image src="/avatar.jpg" alt="avatar" width={32} height={32} style={{ borderRadius: '50%' }} />
-            </div>
-        </nav>
+        </>
     );
 }
