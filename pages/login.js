@@ -1,6 +1,5 @@
 import { Card, Form, Alert, Button, Container, Row, Col, Carousel, Image } from "react-bootstrap";
 import { useRouter } from "next/router";
-import { authenticateUser } from "@/lib/authenticate";
 import { useContext, useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { languageAtom, isBlockedAtom, userAtom, resetEmailAtom } from "@/store";
@@ -8,7 +7,7 @@ import { ThemeContext } from "./_app";
 import Link from "next/link";
 import * as formik from 'formik';
 import * as yup from 'yup';
-import { setLogDateCookie, setUserCookie } from "@/lib/cookies";
+import { checkValidLogin, setLogDateCookie, setUserCookie, getUserCookie } from "@/lib/cookies";
 
 export default function Login(props) {
     const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
@@ -105,6 +104,11 @@ export default function Login(props) {
         if(warning !== "") {
             //remove page blocker
             setIsBlocked(false);
+        }
+
+        //check if logged in
+        if(checkValidLogin()) {
+            router.push("/");
         }
 
     }, [warning]);

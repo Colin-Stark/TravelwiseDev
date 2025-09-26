@@ -67,9 +67,9 @@ export default function SearchFlight(props) {
 
    return (
     <div>
-        <Container className="mt-3">
+        <Row className="m-3">
             <h2>Search Flights</h2>
-        </Container>
+        </Row>
         <hr/>
         <br/>
         {renderStep()}

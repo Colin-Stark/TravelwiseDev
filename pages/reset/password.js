@@ -1,6 +1,5 @@
 import { Card, Form, Alert, Button, Row, Carousel, Col, Image } from "react-bootstrap";
 import { useRouter } from "next/router";
-import { registerUser } from "@/lib/authenticate";
 import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { ThemeContext } from ".././_app";
@@ -8,6 +7,7 @@ import * as formik from 'formik';
 import * as yup from 'yup';
 import { useAtom } from "jotai";
 import { isBlockedAtom, resetEmailAtom, resetOTPPassAtom } from "@/store";
+import { checkValidLogin } from "@/lib/cookies";
 
 export default function UpdatePassword(props) {
     const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
@@ -56,6 +56,12 @@ export default function UpdatePassword(props) {
         if(!resetEmail || !resetOTPPass) {
             router.push('/reset');
         }
+
+        //check if logged in
+        if(checkValidLogin()) {
+            router.push("/");
+        }
+
     }, []);
 
     useEffect(() => {
