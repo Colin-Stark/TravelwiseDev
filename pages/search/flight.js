@@ -34,7 +34,7 @@ export default function SearchFlight(props) {
         // if(countryParam) {
         //     setFormData((prevDa));
         // }
-    }, []);
+    }, [setIsBlocked]);
 
     useEffect(() => {
         if(warning !== "") {
@@ -42,7 +42,7 @@ export default function SearchFlight(props) {
             setIsBlocked(false);
         }
 
-    }, [warning]);
+    }, [warning, setIsBlocked]);
 
     function handleNext(data) {
         setFormData((prevData) => ({ ...prevData, ...data }));

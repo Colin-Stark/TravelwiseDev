@@ -1,7 +1,7 @@
 import { ThemeContext } from "@/pages/_app";
 import { isBlockedAtom } from "@/store";
 import { useAtom } from "jotai";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { Alert, Button, Card, Col, Form, Row } from "react-bootstrap";
 import { filterObjByCity, filterObjByCountry, getCityList, getCountryList } from "@/lib/airportData";
 import { Typeahead } from "react-bootstrap-typeahead";
@@ -35,6 +35,38 @@ export default function SearchFlightStep3(props) {
         arrival_id: yup.string(),
     });
 
+    const loadCountryData = useCallback(async () => {
+        const countries = await getCountryList();
+        setCountryOptions(countries);
+    }, []);
+
+    const loadCityData = useCallback(async (countryVal) => {
+        if(!countryVal) {
+            setCityOptions([]);
+            return false;
+        }
+
+        const cities = await getCityList(countryVal);
+        setCityOptions(cities);
+
+        return true;
+
+    }, []);
+
+    const loadAirportData = useCallback(async (cityVal) => {
+        if(!cityVal) {
+            setAirports([]);
+            return false;
+        }
+        setIsLoading(true);
+
+        var currentObj = await filterObjByCountry(country);
+        currentObj = await filterObjByCity(cityVal, currentObj);
+        setAirports(currentObj);
+
+        setIsLoading(false);
+    }, [country]);
+
     useEffect(() => {
         //remove page blocker
         setIsBlocked(false);
@@ -50,39 +82,7 @@ export default function SearchFlightStep3(props) {
             }
         }
 
-    }, []);
-
-    async function loadCountryData() {
-        const countries = await getCountryList();
-        setCountryOptions(countries);
-    }
-
-    async function loadCityData(countryVal) {
-        if(!countryVal) {
-            setCityOptions([]);
-            return false;
-        }
-
-        const cities = await getCityList(countryVal);
-        setCityOptions(cities);
-
-        return true;
-
-    }
-
-    async function loadAirportData(cityVal) {
-        if(!cityVal) {
-            setAirports([]);
-            return false;
-        }
-        setIsLoading(true);
-
-        var currentObj = await filterObjByCountry(country);
-        currentObj = await filterObjByCity(cityVal, currentObj);
-        setAirports(currentObj);
-
-        setIsLoading(false);
-    }
+    }, [setIsBlocked, loadCountryData, loadCityData, loadAirportData, initialValues.arrival_country, initialValues.arrival_city]);
 
     async function handleSubmit(values) {
         setWarning(""); // Clear previous warnings

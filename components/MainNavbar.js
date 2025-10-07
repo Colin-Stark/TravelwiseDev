@@ -1,5 +1,5 @@
 import { Container, Nav, Navbar, Form, Button, NavDropdown, Row, Dropdown, Col } from 'react-bootstrap';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ThemeContext } from '@/pages/_app';
@@ -26,12 +26,12 @@ export default function MainNavbar() {
         "FR": {"img": "flag_fr.png", "name": "Français"},
     };
 
-    async function updateAtoms() {
+    const updateAtoms = useCallback(async () => {
         setLanguage(await getLanguage()); 
 
         //set user
         setUser(await checkValidLogin());
-    }
+    }, [setLanguage, setUser]);
 
     //handle language change
     async function handleChangeLanguage(abbr) {
@@ -46,7 +46,7 @@ export default function MainNavbar() {
     useEffect(() => {
         //update atoms
         updateAtoms();
-    }, []);
+    }, [updateAtoms]);
 
     return (
         <>

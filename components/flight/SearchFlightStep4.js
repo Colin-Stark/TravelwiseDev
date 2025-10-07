@@ -1,7 +1,7 @@
 import { ThemeContext } from "@/pages/_app";
 import { isBlockedAtom } from "@/store";
 import { useAtom } from "jotai";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { Alert, Button, Card, Col, Form, Row, Table } from "react-bootstrap";
 import {DatePickerField} from "@/components/DatePickerField";
 import { fetchCountryCsv, getCountryList, getFlightList } from "@/lib/airportData";
@@ -40,16 +40,7 @@ export default function SearchFlightStep4(props) {
         flight: yup.string(),
     });
 
-    useEffect(() => {
-        //remove page blocker
-        setIsBlocked(false);
-
-        //load data
-        loadData();
-
-    }, []);
-
-    async function loadData() {
+    const loadData = useCallback(async () => {
         //fix some value types in json properties
         const properties = {
             ...props.initialData,
@@ -59,7 +50,16 @@ export default function SearchFlightStep4(props) {
 
         console.log(properties);
         setFlights(await getFlightList(properties));
-    }
+    }, [props.initialData]);
+
+    useEffect(() => {
+        //remove page blocker
+        setIsBlocked(false);
+
+        //load data
+        loadData();
+
+    }, [setIsBlocked, loadData]);
 
     async function handleSubmit(values) {
         setWarning(""); // Clear previous warnings

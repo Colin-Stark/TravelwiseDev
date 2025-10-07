@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import { isAuthenticated } from "@/lib/authenticate";
 import { useAtom } from "jotai";
@@ -15,23 +15,7 @@ export default function RouteGuard(props) {
     const [user, setUser] = useAtom(userAtom);
     // const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom);
 
-    useEffect(() => {
-        //load atoms
-        updateAtoms();
-
-        // on initial load - run auth check
-        authCheck(router.pathname);
-
-        // on route change complete - run auth check
-        router.events.on('routeChangeComplete', authCheck);
-
-        // unsubscribe from events in useEffect return function
-        return () => {
-            router.events.off('routeChangeComplete', authCheck);
-        };
-    }, []);
-
-    function authCheck(url) {
+    const authCheck = useCallback((url) => {
         const path = url.split('?')[0];
 
         if (checkValidLogin()) {
@@ -53,12 +37,28 @@ export default function RouteGuard(props) {
                 router.push("/login");
             }
         }
-    }
+    }, [router, setUser]);
 
-    async function updateAtoms() {
+    const updateAtoms = useCallback(async () => {
         // setFavouritesList(await getFavourites()); 
         // setSearchHistory(await getHistory());
-    }
+    }, []);
+
+    useEffect(() => {
+        //load atoms
+        updateAtoms();
+
+        // on initial load - run auth check
+        authCheck(router.pathname);
+
+        // on route change complete - run auth check
+        router.events.on('routeChangeComplete', authCheck);
+
+        // unsubscribe from events in useEffect return function
+        return () => {
+            router.events.off('routeChangeComplete', authCheck);
+        };
+    }, [authCheck, router.events, router.pathname, updateAtoms]);
 
     return (
         <>{authorized && props.children}</>

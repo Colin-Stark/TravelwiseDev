@@ -62,7 +62,7 @@ export default function UpdatePassword(props) {
             router.push("/");
         }
 
-    }, []);
+    }, [resetEmail, resetOTPPass, router, setIsBlocked]);
 
     useEffect(() => {
         if(warning !== "") {
@@ -70,7 +70,7 @@ export default function UpdatePassword(props) {
             setIsBlocked(false);
         }
 
-    }, [warning]);
+    }, [warning, setIsBlocked]);
 
     async function handleSubmit(values) {
         setWarning(""); // Clear previous warnings

@@ -1,7 +1,7 @@
 import { ThemeContext } from "@/pages/_app";
 import { isBlockedAtom } from "@/store";
 import { useAtom } from "jotai";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { Alert, Button, Card, Col, Form, Row } from "react-bootstrap";
 import {DatePickerField} from "@/components/DatePickerField";
 import { fetchCountryCsv, getCountryList } from "@/lib/airportData";
@@ -33,6 +33,10 @@ export default function SearchFlightStep1(props) {
         currency: yup.string(),
     });
 
+    const loadData = useCallback(async () => {
+        setCurrencies(await fetchCurrencyData());
+    }, []);
+
     useEffect(() => {
         //remove page blocker
         setIsBlocked(false);
@@ -40,11 +44,7 @@ export default function SearchFlightStep1(props) {
         //load data
         loadData();
 
-    }, []);
-
-    async function loadData() {
-        setCurrencies(await fetchCurrencyData());
-    }
+    }, [setIsBlocked, loadData]);
 
     async function handleSubmit(values) {
         setWarning(""); // Clear previous warnings
