@@ -11,6 +11,7 @@
   "dependencies": {
     "bcrypt": "^6.0.0",
     "bootstrap": "^5.3.7",
+<<<<<<< HEAD
     "dotenv": "^17.2.2",
     "formik": "^2.4.6",
     "jotai": "^2.13.1",
@@ -18,6 +19,9 @@
     "jwt-decode": "^4.0.0",
     "next": "15.4.6",
     "papaparse": "^5.5.3",
+=======
+    "next": "^15.5.2",
+>>>>>>> d6539087e48a0c0fb32f399a63b3630fb3af71ce
     "react": "19.1.0",
     "react-bootstrap": "^2.10.10",
     "react-bootstrap-typeahead": "^6.4.1",
