@@ -1,4 +1,4 @@
-import { Card, Form, Alert, Button, Row, Carousel, Col, Image, Container } from "react-bootstrap";
+import { Card, Form, Alert, Button, Row, Carousel, Col, Image, Container, Figure } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { registerUser } from "@/lib/authenticate";
 import { useContext, useEffect, useState } from "react";
@@ -13,6 +13,7 @@ import { Typeahead } from "react-bootstrap-typeahead";
 import SearchFlightStep1 from "@/components/flight/SearchFlightStep1";
 import SearchFlightStep2 from "@/components/flight/SearchFlightStep2";
 import SearchFlightStep3 from "@/components/flight/SearchFlightStep3";
+import SearchFlightStep4 from "@/components/flight/SearchFlightStep4";
 
 export default function SearchFlight(props) {
     const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
@@ -60,6 +61,8 @@ export default function SearchFlight(props) {
             return <SearchFlightStep2 onNext={handleNext} onPrevious={handlePrevious} initialData={formData} />;
         case 3:
             return <SearchFlightStep3 onNext={handleNext} onPrevious={handlePrevious} initialData={formData} />;
+        case 4:
+            return <SearchFlightStep4 onNext={handleNext} onPrevious={handlePrevious} initialData={formData} />;
         default:
             return null;
         }
@@ -67,9 +70,14 @@ export default function SearchFlight(props) {
 
    return (
     <div>
-        <Container className="mt-3">
-            <h2>Search Flights</h2>
-        </Container>
+        <Row className="mt-2">
+            <Card className="bg-dark text-white m-0 p-0">
+                <Card.Img className="img-title rounded-0" src={`/images/preview_1.jpg`} alt="Card image" />
+                <Card.ImgOverlay className="d-flex align-items-center px-4 px-md-5">
+                    <Card.Title><h1>Search Flights</h1></Card.Title>
+                </Card.ImgOverlay>
+            </Card>
+        </Row>
         <hr/>
         <br/>
         {renderStep()}

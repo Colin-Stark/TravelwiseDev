@@ -1,14 +1,13 @@
 import { Card, Form, Alert, Button, Row, Carousel, Col, Image } from "react-bootstrap";
 import { useRouter } from "next/router";
-import { registerUser } from "@/lib/authenticate";
 import { useContext, useEffect, useState } from "react";
-import Link from "next/link";
 import { ThemeContext } from "../_app";
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import OtpInput from 'react-otp-input';
 import { useAtom } from "jotai";
 import { isBlockedAtom, resetEmailAtom, resetOTPPassAtom } from "@/store";
+import { checkValidLogin } from "@/lib/cookies";
 
 export default function ForgotPassword(props) {
     const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
@@ -71,6 +70,11 @@ export default function ForgotPassword(props) {
 
         //reset otp expiry
         localStorage.removeItem("reset_otp")
+
+        //check if logged in
+        if(checkValidLogin()) {
+            router.push("/");
+        }
 
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);

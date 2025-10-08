@@ -1,3 +1,4 @@
+import 'react-datepicker/dist/react-datepicker.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Layout from "@/components/Layout";
 import { SWRConfig } from "swr";

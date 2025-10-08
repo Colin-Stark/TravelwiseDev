@@ -6,7 +6,7 @@ import { ThemeContext } from '@/pages/_app';
 import { languageAtom, isBlockedAtom, userAtom } from '@/store';
 import { useAtom } from 'jotai';
 import { getLanguage } from '@/lib/userData';
-import { setThemeCookie, getThemeCookie, getLanguageCookie, setLanguageCookie, checkValidLogin } from "@/lib/cookies";
+import { setThemeCookie, getThemeCookie, getLanguageCookie, setLanguageCookie, checkValidLogin, removeUserCookie } from "@/lib/cookies";
 import { BlinkBlur } from 'react-loading-indicators';
 
 export default function MainNavbar() {
@@ -28,6 +28,9 @@ export default function MainNavbar() {
 
     async function updateAtoms() {
         setLanguage(await getLanguage()); 
+
+        //set user
+        setUser(await checkValidLogin());
     }
 
     //handle language change
@@ -41,8 +44,8 @@ export default function MainNavbar() {
     }
 
     useEffect(() => {
-        //load language
-        //updateAtoms();
+        //update atoms
+        updateAtoms();
     }, []);
 
     return (
@@ -72,20 +75,16 @@ export default function MainNavbar() {
                                 <Nav.Link href='/'>Home</Nav.Link>
                                 <Nav.Link href='/'>My Trips</Nav.Link>
                                 <NavDropdown menuVariant={theme} title="Explore">
-                                    <NavDropdown.Item href="/">Search Flights</NavDropdown.Item>
+                                    <NavDropdown.Item href="/search/flight">Search Flights</NavDropdown.Item>
                                     <NavDropdown.Item href="/">Search Hotels</NavDropdown.Item>
                                     <NavDropdown.Item href="/">Search Transportation</NavDropdown.Item>
                                 </NavDropdown>
                                 <Nav.Link href='/'>Guides</Nav.Link>
                                 <Nav.Link href='/'>Support</Nav.Link>
                                 <NavDropdown title={<span><Image className='d-inline' src={imgPath + userProfile} alt="avatar" width={24} height={24} /></span>} menuVariant={theme}>
-                                    <div className='text-center'>username</div>
-                                    <NavDropdown.Divider menu_variant="dark" />
-                                    <NavDropdown.Item href="/">Profile</NavDropdown.Item>
-                                    <NavDropdown.Item href="/">Settings</NavDropdown.Item>
-                                    <NavDropdown.Item href="/">Settings</NavDropdown.Item>
+                                    <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                                     <NavDropdown.Item href="/">
-                                        <div onClick={(e)=>{alert("123")}}>Logout</div>
+                                        <div onClick={(e)=>{removeUserCookie()}}>Logout</div>
                                     </NavDropdown.Item>
                                 </NavDropdown>
                             </>)

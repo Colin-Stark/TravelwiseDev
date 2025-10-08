@@ -134,6 +134,11 @@ a.text-link:hover {
   height: 90vh;
 }
 
+.img-title {
+  height: 30vh;
+  opacity: 90%;
+}
+
 .card-selectable {
   transition: all 0.3s ease-in-out;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
