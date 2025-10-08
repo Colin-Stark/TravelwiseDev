@@ -25,9 +25,31 @@ export default function Profile() {
     }),
     onSubmit: async (values) => {
       try {
-        console.log("Profile updated:", values);
-        setWarning("");
-        setSuccess("Profile updated successfully!");
+        const body = {
+          email: values.email,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          phone: values.phone,
+          preferences: {
+            currency: values.currency,
+            language: values.language,
+          },
+        };
+        const res = await fetch("/userManagement/update-user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        });
+        const data = await res.json();
+        if (data.success) {
+          setWarning("");
+          setSuccess("User updated successfully");
+        } else {
+          setSuccess("");
+          setWarning(data.message || "Failed to update user");
+        }
       } catch (err) {
         setSuccess("");
         setWarning("Failed to update profile");
@@ -198,27 +220,6 @@ export default function Profile() {
                 />
               </Form.Group>
               <br />
-            </Col>
-          </Row>
-
-          {/* Security */}
-          <h5 className="mt-3">Security</h5>
-          <Row className="mb-3">
-            <Col md={6}>
-              <Form.Group>
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Enter your password"
-                  name="password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  isInvalid={!!formik.errors.password}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {formik.errors.password}
-                </Form.Control.Feedback>
-              </Form.Group>
             </Col>
           </Row>
 
