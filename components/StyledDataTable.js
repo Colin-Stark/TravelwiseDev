@@ -1,35 +1,48 @@
     import React from 'react';
+import { BorderBottom } from 'react-bootstrap-icons';
     import DataTable from 'react-data-table-component';
 
     function DataTableComponent(props) {
         const customStyles = {
+            table: {
+                style: {
+                    borderTop: '1px solid #303844',
+                    borderLeft: '1px solid #303844',
+                    borderRight: '1px solid #303844',
+                    borderRadius: '4px',
+                },
+            },
             headCells: {
                 style: {
                     fontSize: '16px',
                     fontWeight: 'bold',
                     color: props.theme === "light" ? '#333' : '#ffffff',
-                    backgroundColor:  props.theme === "light" ? '#fff' : '#222',
-                    borderColor: '#555',
+                    backgroundColor:  props.theme === "light" ? '#fff' : '#20262E',
                 },
             },
             rows: {
                 style: {
                     fontSize: '14px',
                     color: props.theme === "light" ? '#333' : '#ffffff',
-                    backgroundColor:  props.theme === "light" ? '#fff' : '#222529',
-                    borderColor: '#555',
+                    backgroundColor:  props.theme === "light" ? '#fff' : '#121417',
+                    borderTop: '1px solid #AAADB1',
                     cursor: 'pointer',
                 },
                 highlightOnHoverStyle: {
-                    backgroundColor: props.theme === "light" ? '#ECECEC' : '#323539',
-                    color: props.theme === "light" ? '#333' : '#ffffff',
+                    backgroundColor: props.theme === "light" ? '#ECECEC' : '#2B3853',
+                    color: props.theme === "light" ? '#333' : '#f8f8f8',
                     transition: 'background-color 0.2s ease-in-out',
                 },
             },
             pagination: {
                 style: {
-                    backgroundColor: props.theme === "light" ? '#fff' : '#222',
+                    backgroundColor:  props.theme === "light" ? '#fff' : '#20262E',
                     color: props.theme === "light" ? '#333' : '#ffffff',
+                    borderBottom: '1px solid #303844',
+                    borderLeft: '1px solid #303844',
+                    borderRight: '1px solid #303844',
+                    borderTop: '1px solid #AAADB1',
+                    borderRadius: '4px',
                 },
                 pageButtonsStyle: {
                     borderRadius: '50%',

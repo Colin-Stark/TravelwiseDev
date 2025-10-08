@@ -31,6 +31,11 @@ const tableColumns = [
     },
   },
   {
+    name: 'Flight Type',
+    selector: row => row?.type,
+    sortable: true,
+  },
+  {
     name: 'Stops',
     selector: row => row?.layovers?.length,
     sortable: true,
@@ -38,7 +43,9 @@ const tableColumns = [
 
         const renderTooltip = (tProps) => {
             const style = {
-                '--bs-tooltip-max-width': 'auto', // Set your desired max-width
+                '--bs-tooltip-max-width': 'auto',
+                '--bs-tooltip-bg': '#1A2433',
+                '--bs-tooltip-border-color': '#1A2433',
                 ...tProps.style,
             };
 

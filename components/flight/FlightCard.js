@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React from 'react';
-import { Card, Row, Col, Badge, Image } from 'react-bootstrap';
+import { Card, Row, Col, Badge, Image, Accordion, ListGroup } from 'react-bootstrap';
 import { FaPlaneDeparture, FaPlaneArrival, FaClock } from 'react-icons/fa';
 import { formatMinutes } from '@/lib/airportData';
 
@@ -8,10 +8,10 @@ const FlightCard = ({ flight, index, numFlights, layovers }) => {
 
     const departureDate = moment(flight?.departure_airport?.time);
     const formattedSTime = departureDate.format('hh:mm A');
-    const formattedSDate = departureDate.format('MMMM DD, YYYY');
+    const formattedSDate = departureDate.format('ddd, MMMM DD, YYYY');
     const arrivalDate = moment(flight?.arrival_airport?.time);
     const formattedETime = arrivalDate.format('hh:mm A');
-    const formattedEDate = arrivalDate.format('MMMM DD, YYYY');
+    const formattedEDate = arrivalDate.format('ddd, MMMM DD, YYYY');
 
   return (
     <div>
@@ -77,6 +77,51 @@ const FlightCard = ({ flight, index, numFlights, layovers }) => {
                     </Row>
                 </Col>
             </Row>
+
+            <Accordion className='mt-3'>
+                <Accordion.Item eventKey="0">
+                    <Accordion.Header>Additional Details</Accordion.Header>
+                    <Accordion.Body>
+                        <Row>
+                            <Col sm={6} className='d-flex gap-2'>
+                                <label className='fw-bold'>Airplane: </label>
+                                <label>{flight?.airplane}</label>
+                            </Col>
+                            <Col sm={6} className='d-flex gap-2'>
+                                <label className='fw-bold'>Flight number: </label>
+                                <label>{flight?.flight_number}</label>
+                            </Col>
+                            <Col sm={6} className='d-flex gap-2'>
+                                <label className='fw-bold'>Class: </label>
+                                <label>{flight?.travel_class}</label>
+                            </Col>
+                            <Col sm={6} className='d-flex gap-2'>
+                                <label className='fw-bold'>Leg room: </label>
+                                <label>{flight?.legroom}</label>
+                            </Col>
+                            {
+                                flight?.extensions?.length > 0 ?
+                                (
+                                    <Col xs={12}>
+                                        <label className='fw-bold d-block py-2'>Extensions: </label>
+                                        <ListGroup>
+                                    {
+                                        flight?.extensions.map((extension, index) => (
+                                            <ListGroup.Item key={index}>{extension}</ListGroup.Item>
+                                        ))
+                                    }
+                                        </ListGroup>
+                                    </Col>
+                                )
+                                : 
+                                (
+                                    <></>
+                                )
+                            }
+                        </Row>
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
             
         </Card.Body>
         </Card>

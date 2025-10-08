@@ -29,17 +29,26 @@
   --input-border: #cccccc;
   --input-text-color: #333333;
   --input-text-placeholder: #898F9B;
+  --input-background-inverse: #1A2433;
+  --input-text-color-inverse: #f8f8f8;
+  --input-text-placeholder-inverse: #7E91B3;
+  --input-border-inverse: #2B3853;
+
 }
 
 /* dark theme variables */
 .dark-theme {
-  --background-color: #333333;
+  --background-color: #121417;
   --text-color: #ffffff;
   --border-color: #E1E4E7;
-  --input-background: #3a3f4a;
-  --input-border: #555555;
-  --input-text-color: #f8f8f2;
-  --input-text-placeholder: #A0AEBD;
+  --input-background: #1A2433;
+  --input-border: #2B3853;
+  --input-text-color: #f8f8f8;
+  --input-text-placeholder: #7E91B3;
+  --input-background-inverse: #f0f0f0;
+  --input-text-color-inverse: #333333;
+  --input-text-placeholder-inverse: #898F9B;
+  --input-border-inverse: #cccccc;
 }
 
 body {
@@ -61,6 +70,25 @@ a.text-link:hover {
 .nav-border {
   border-bottom: 2px solid var(--border-color);
 }
+.bg-navbar-dark {
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+.navbar-nav .dropdown-menu {
+  background-color: var(--input-background);
+  border: 1px solid var(--input-border);
+  color: var(--input-text-color);
+  padding: 8px;
+  border-radius: 4px;
+}
+.navbar-nav .dropdown-menu .dropdown-item {
+  color: var(--input-text-color);
+}
+.navbar-nav .dropdown-menu .dropdown-item:hover {
+  background-color: var(--input-background);
+  color: var(--input-text-color);
+}
 
 .dropdown-divider {
   border-top-color: var(--border-color);
@@ -75,6 +103,31 @@ a.text-link:hover {
 }
 .dark-theme input::placeholder {
   color: var(--input-text-placeholder);
+}
+
+.dark-theme select, .dark-theme select:focus {
+  background-color: var(--input-background);
+  border: 1px solid var(--input-border);
+  color: var(--input-text-color);
+  border-radius: 4px;
+}
+.dark-theme select::placeholder {
+  color: var(--input-text-placeholder);
+}
+
+[data-bs-theme="dark"] {
+  --bs-body-bg: var(--background-color); /* Darker background for dark theme */
+  --bs-body-color: var(--text-color); /* Lighter text for dark theme */
+  --bs-border-color: var(--border-color); /* Red border in dark theme */
+}
+
+.main-tooltip .tooltip-inner {
+  background-color: #ff0000; /* Red background */
+  color: #ffffff; /* White text */
+}
+
+.main-tooltip.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: #ff0000 !important;
 }
 
 .main-container {
@@ -154,6 +207,14 @@ a.text-link:hover {
 .round-btn {
   width: 30px;
   height: 30px;
+  background-color: var(--input-background);
+  color: var(--input-text-color);
+  border-color: var(--input-border);
+}
+.round-btn:hover {
+  background-color: var(--input-background-inverse);
+  color: var(--input-text-color-inverse);
+  border-color: var(--input-border-inverse);
 }
 
 .cell-logo {
