@@ -150,3 +150,18 @@ a.text-link:hover {
   border-color: #007bff; 
   color: #007bff;
 }
+
+.round-btn {
+  width: 30px;
+  height: 30px;
+}
+
+.cell-logo {
+  padding: 5px;
+  max-height: 50px;
+}
+
+.line-connect {
+  width: 3px;
+  height: 10vh;
+}

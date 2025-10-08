@@ -82,7 +82,7 @@ export default function ForgotPassword(props) {
         if(emailParam) {
             setEmail(emailParam);
         }
-    }, []);
+    });
 
     useEffect(() => {
         if(warning !== "") {
