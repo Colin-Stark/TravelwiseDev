@@ -12,18 +12,6 @@ import moment from 'moment';
 import { fetchCurrencyData } from "@/lib/currencyData";
 import { Commet } from "react-loading-indicators";
 
-const travelTypes = {
-    1 : "Round Trip",
-    2 : "One Way",
-};
-
-const travelClasses = {
-    1 : "Economy",
-    2 : "Premium Economy",
-    3 : "Business",
-    4 : "First",
-};
-
 export default function SearchFlightStep4(props) {
     const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
     const { theme } = useContext(ThemeContext);
@@ -58,7 +46,7 @@ export default function SearchFlightStep4(props) {
         }
 
         console.log(properties);
-        setFlights(await getFlightList(properties));
+        //setFlights(await getFlightList(properties));
     }
 
     async function handleSubmit(values) {
@@ -122,11 +110,11 @@ export default function SearchFlightStep4(props) {
                         </Col>
                         <Col sm={6} md={4}>
                             <Form.Label className="fw-bold d-block">Travel Type</Form.Label>
-                            <Form.Label className="d-block">{travelTypes[props.initialData.type]}</Form.Label>                
+                            <Form.Label className="d-block">{props.initialData.type_name}</Form.Label>                
                         </Col>
                         <Col sm={6} md={4}>
                             <Form.Label className="fw-bold d-block">Travel Class</Form.Label>
-                            <Form.Label className="d-block">{travelClasses[props.initialData.travel_class]}</Form.Label>                
+                            <Form.Label className="d-block">{props.initialData.travel_class_name}</Form.Label>                
                         </Col>
                         <Col sm={6} md={4}>
                             <Form.Label className="fw-bold d-block">Depart</Form.Label>

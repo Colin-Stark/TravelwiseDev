@@ -63,7 +63,7 @@ export default function MainNavbar() {
                 )
             }
             </div>
-            <Navbar expand="md" className={theme === "dark" ? "fixed-top nav-border navbar-dark bg-dark" : "fixed-top nav-border bg-light"}>
+            <Navbar expand="md" className={theme === "dark" ? "fixed-top nav-border navbar-dark bg-navbar-dark" : "fixed-top nav-border bg-light"}>
                 <Container>
                     <Navbar.Brand>TravelWise</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />

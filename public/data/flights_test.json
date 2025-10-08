@@ -1,0 +1,2042 @@
+{
+"search_metadata":
+{
+"id":
+"68e5b43e70e9d013f6190291",
+"status":
+"Success",
+"json_endpoint":
+"https://serpapi.com/searches/3d21a50e659a891a/68e5b43e70e9d013f6190291.json",
+"created_at":
+"2025-10-08 00:45:50 UTC",
+"processed_at":
+"2025-10-08 00:45:50 UTC",
+"google_flights_url":
+"https://www.google.com/travel/flights?hl=en&gl=us&curr=USD&tfs=CBwQAhoeEgoyMDI1LTEwLTA4agcIARIDUEVLcgcIARIDQVVTGh4SCjIwMjUtMTAtMTRqBwgBEgNBVVNyBwgBEgNQRUtCAQFIAXABmAEB&tfu=EgIIAQ",
+"raw_html_file":
+"https://serpapi.com/searches/3d21a50e659a891a/68e5b43e70e9d013f6190291.html",
+"prettify_html_file":
+"https://serpapi.com/searches/3d21a50e659a891a/68e5b43e70e9d013f6190291.prettify",
+"total_time_taken":
+0.86
+},
+"search_parameters":
+{
+"engine":
+"google_flights",
+"hl":
+"en",
+"gl":
+"us",
+"departure_id":
+"PEK",
+"arrival_id":
+"AUS",
+"outbound_date":
+"2025-10-08",
+"return_date":
+"2025-10-14",
+"currency":
+"USD"
+},
+"best_flights":
+[
+{
+"flights":
+[
+{
+"departure_airport":
+{
+"name":
+"Beijing Capital International Airport",
+"id":
+"PEK",
+"time":
+"2025-10-08 17:25"
+},
+"arrival_airport":
+{
+"name":
+"San Francisco International Airport",
+"id":
+"SFO",
+"time":
+"2025-10-08 14:05"
+},
+"duration":
+700,
+"airplane":
+"Boeing 777",
+"airline":
+"United",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/UA.png",
+"travel_class":
+"Economy",
+"flight_number":
+"UA 889",
+"legroom":
+"31 in",
+"extensions":
+[
+"Average legroom (31 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"On-demand video",
+"Carbon emissions estimate: 774 kg"
+],
+"overnight":
+true
+},
+{
+"departure_airport":
+{
+"name":
+"San Francisco International Airport",
+"id":
+"SFO",
+"time":
+"2025-10-08 18:25"
+},
+"arrival_airport":
+{
+"name":
+"Austin-Bergstrom International Airport",
+"id":
+"AUS",
+"time":
+"2025-10-08 23:59"
+},
+"duration":
+214,
+"airplane":
+"Boeing 737MAX 9 Passenger",
+"airline":
+"United",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/UA.png",
+"travel_class":
+"Economy",
+"flight_number":
+"UA 2332",
+"legroom":
+"30 in",
+"extensions":
+[
+"Average legroom (30 in)",
+"Wi-Fi for a fee",
+"In-seat power outlet",
+"Stream media to your device",
+"Carbon emissions estimate: 178 kg"
+]
+}
+],
+"layovers":
+[
+{
+"duration":
+260,
+"name":
+"San Francisco International Airport",
+"id":
+"SFO"
+}
+],
+"total_duration":
+1174,
+"carbon_emissions":
+{
+"this_flight":
+954000,
+"typical_for_this_route":
+890000,
+"difference_percent":
+7
+},
+"price":
+1750,
+"type":
+"Round trip",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/UA.png",
+"departure_token":
+"WyJDalJJY20wMGNXaGZaRzh0UTBsQlFWOXRVbEZDUnkwdExTMHRMUzB0TFhCcWEyc3hORUZCUVVGQlIycHNkRVE0UkZNMmRDMUJFZ3hWUVRnNE9YeFZRVEl6TXpJYUN3aVYxd29RQWhvRFZWTkVPQnh3bGRjSyIsW1siUEVLIiwiMjAyNS0xMC0wOCIsIlNGTyIsbnVsbCwiVUEiLCI4ODkiXSxbIlNGTyIsIjIwMjUtMTAtMDgiLCJBVVMiLG51bGwsIlVBIiwiMjMzMiJdXV0="
+},
+{
+"flights":
+[
+{
+"departure_airport":
+{
+"name":
+"Beijing Capital International Airport",
+"id":
+"PEK",
+"time":
+"2025-10-08 13:50"
+},
+"arrival_airport":
+{
+"name":
+"Vancouver International Airport",
+"id":
+"YVR",
+"time":
+"2025-10-08 10:00"
+},
+"duration":
+670,
+"airplane":
+"Boeing 777",
+"airline":
+"Air China",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/CA.png",
+"travel_class":
+"Economy",
+"flight_number":
+"CA 991",
+"ticket_also_sold_by":
+[
+"Air Canada"
+],
+"legroom":
+"32 in",
+"extensions":
+[
+"Above average legroom (32 in)",
+"In-seat power outlet",
+"On-demand video",
+"Carbon emissions estimate: 585 kg"
+],
+"overnight":
+true
+},
+{
+"departure_airport":
+{
+"name":
+"Vancouver International Airport",
+"id":
+"YVR",
+"time":
+"2025-10-08 13:50"
+},
+"arrival_airport":
+{
+"name":
+"Austin-Bergstrom International Airport",
+"id":
+"AUS",
+"time":
+"2025-10-08 20:11"
+},
+"duration":
+261,
+"airplane":
+"Boeing 737MAX 8 Passenger",
+"airline":
+"Air Canada",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/AC.png",
+"travel_class":
+"Economy",
+"flight_number":
+"AC 1066",
+"legroom":
+"30 in",
+"extensions":
+[
+"Average legroom (30 in)",
+"Free Wi-Fi",
+"In-seat power & USB outlets",
+"On-demand video",
+"Carbon emissions estimate: 247 kg"
+]
+}
+],
+"layovers":
+[
+{
+"duration":
+230,
+"name":
+"Vancouver International Airport",
+"id":
+"YVR"
+}
+],
+"total_duration":
+1161,
+"carbon_emissions":
+{
+"this_flight":
+834000,
+"typical_for_this_route":
+890000,
+"difference_percent":
+-6
+},
+"price":
+2279,
+"type":
+"Round trip",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/multi.png",
+"departure_token":
+"WyJDalJJY20wMGNXaGZaRzh0UTBsQlFWOXRVbEZDUnkwdExTMHRMUzB0TFhCcWEyc3hORUZCUVVGQlIycHNkRVE0UkZNMmRDMUJFZ3hEUVRrNU1YeEJRekV3TmpZYUN3anc4dzBRQWhvRFZWTkVPQnh3OFBNTiIsW1siUEVLIiwiMjAyNS0xMC0wOCIsIllWUiIsbnVsbCwiQ0EiLCI5OTEiXSxbIllWUiIsIjIwMjUtMTAtMDgiLCJBVVMiLG51bGwsIkFDIiwiMTA2NiJdXV0="
+},
+{
+"flights":
+[
+{
+"departure_airport":
+{
+"name":
+"Beijing Capital International Airport",
+"id":
+"PEK",
+"time":
+"2025-10-08 13:50"
+},
+"arrival_airport":
+{
+"name":
+"Vancouver International Airport",
+"id":
+"YVR",
+"time":
+"2025-10-08 10:00"
+},
+"duration":
+670,
+"airplane":
+"Boeing 777",
+"airline":
+"Air China",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/CA.png",
+"travel_class":
+"Economy",
+"flight_number":
+"CA 991",
+"ticket_also_sold_by":
+[
+"Air Canada"
+],
+"legroom":
+"32 in",
+"extensions":
+[
+"Above average legroom (32 in)",
+"In-seat power outlet",
+"On-demand video",
+"Carbon emissions estimate: 585 kg"
+],
+"overnight":
+true
+},
+{
+"departure_airport":
+{
+"name":
+"Vancouver International Airport",
+"id":
+"YVR",
+"time":
+"2025-10-08 15:30"
+},
+"arrival_airport":
+{
+"name":
+"Seattle–Tacoma International Airport",
+"id":
+"SEA",
+"time":
+"2025-10-08 16:41"
+},
+"duration":
+71,
+"airplane":
+"Embraer 175",
+"airline":
+"Alaska",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/AS.png",
+"travel_class":
+"Economy",
+"flight_number":
+"AS 2030",
+"legroom":
+"31 in",
+"extensions":
+[
+"Average legroom (31 in)",
+"Wi-Fi for a fee",
+"Stream media to your device",
+"Carbon emissions estimate: 57 kg"
+],
+"plane_and_crew_by":
+"Horizon Air as Alaska Horizon"
+},
+{
+"departure_airport":
+{
+"name":
+"Seattle–Tacoma International Airport",
+"id":
+"SEA",
+"time":
+"2025-10-08 17:50"
+},
+"arrival_airport":
+{
+"name":
+"Austin-Bergstrom International Airport",
+"id":
+"AUS",
+"time":
+"2025-10-08 23:56"
+},
+"duration":
+246,
+"airplane":
+"Boeing 737",
+"airline":
+"Alaska",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/AS.png",
+"travel_class":
+"Economy",
+"flight_number":
+"AS 372",
+"legroom":
+"31 in",
+"extensions":
+[
+"Average legroom (31 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"Stream media to your device",
+"Carbon emissions estimate: 247 kg"
+]
+}
+],
+"layovers":
+[
+{
+"duration":
+330,
+"name":
+"Vancouver International Airport",
+"id":
+"YVR"
+},
+{
+"duration":
+69,
+"name":
+"Seattle–Tacoma International Airport",
+"id":
+"SEA"
+}
+],
+"total_duration":
+1386,
+"carbon_emissions":
+{
+"this_flight":
+891000,
+"typical_for_this_route":
+890000,
+"difference_percent":
+0
+},
+"price":
+2746,
+"type":
+"Round trip",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/multi.png",
+"departure_token":
+"WyJDalJJY20wMGNXaGZaRzh0UTBsQlFWOXRVbEZDUnkwdExTMHRMUzB0TFhCcWEyc3hORUZCUVVGQlIycHNkRVE0UkZNMmRDMUJFaEpEUVRrNU1YeEJVekl3TXpCOFFWTXpOeklhQ3dpVzRSQVFBaG9EVlZORU9CeHdsdUVRIixbWyJQRUsiLCIyMDI1LTEwLTA4IiwiWVZSIixudWxsLCJDQSIsIjk5MSJdLFsiWVZSIiwiMjAyNS0xMC0wOCIsIlNFQSIsbnVsbCwiQVMiLCIyMDMwIl0sWyJTRUEiLCIyMDI1LTEwLTA4IiwiQVVTIixudWxsLCJBUyIsIjM3MiJdXV0="
+},
+{
+"flights":
+[
+{
+"departure_airport":
+{
+"name":
+"Beijing Capital International Airport",
+"id":
+"PEK",
+"time":
+"2025-10-08 13:30"
+},
+"arrival_airport":
+{
+"name":
+"Incheon International Airport",
+"id":
+"ICN",
+"time":
+"2025-10-08 16:30"
+},
+"duration":
+120,
+"airplane":
+"Boeing 737MAX 8 Passenger",
+"airline":
+"Korean Air",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/KE.png",
+"travel_class":
+"Economy",
+"flight_number":
+"KE 856",
+"legroom":
+"31 in",
+"extensions":
+[
+"Average legroom (31 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"Stream media to your device",
+"Carbon emissions estimate: 93 kg"
+]
+},
+{
+"departure_airport":
+{
+"name":
+"Incheon International Airport",
+"id":
+"ICN",
+"time":
+"2025-10-08 19:40"
+},
+"arrival_airport":
+{
+"name":
+"Salt Lake City International Airport",
+"id":
+"SLC",
+"time":
+"2025-10-08 15:55"
+},
+"duration":
+675,
+"airplane":
+"Airbus A350",
+"airline":
+"Delta",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/DL.png",
+"travel_class":
+"Economy",
+"flight_number":
+"DL 172",
+"ticket_also_sold_by":
+[
+"Korean Air"
+],
+"legroom":
+"31 in",
+"extensions":
+[
+"Average legroom (31 in)",
+"Free Wi-Fi",
+"In-seat power & USB outlets",
+"On-demand video",
+"Carbon emissions estimate: 585 kg"
+],
+"overnight":
+true
+},
+{
+"departure_airport":
+{
+"name":
+"Salt Lake City International Airport",
+"id":
+"SLC",
+"time":
+"2025-10-08 17:15"
+},
+"arrival_airport":
+{
+"name":
+"Austin-Bergstrom International Airport",
+"id":
+"AUS",
+"time":
+"2025-10-08 20:56"
+},
+"duration":
+161,
+"airplane":
+"Airbus A320",
+"airline":
+"Delta",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/DL.png",
+"travel_class":
+"Economy",
+"flight_number":
+"DL 2728",
+"ticket_also_sold_by":
+[
+"Korean Air"
+],
+"legroom":
+"31 in",
+"extensions":
+[
+"Average legroom (31 in)",
+"Free Wi-Fi",
+"In-seat power & USB outlets",
+"Live TV",
+"Carbon emissions estimate: 171 kg"
+]
+}
+],
+"layovers":
+[
+{
+"duration":
+190,
+"name":
+"Incheon International Airport",
+"id":
+"ICN"
+},
+{
+"duration":
+80,
+"name":
+"Salt Lake City International Airport",
+"id":
+"SLC"
+}
+],
+"total_duration":
+1226,
+"carbon_emissions":
+{
+"this_flight":
+850000,
+"typical_for_this_route":
+890000,
+"difference_percent":
+-4
+},
+"price":
+3065,
+"type":
+"Round trip",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/multi.png",
+"departure_token":
+"WyJDalJJY20wMGNXaGZaRzh0UTBsQlFWOXRVbEZDUnkwdExTMHRMUzB0TFhCcWEyc3hORUZCUVVGQlIycHNkRVE0UkZNMmRDMUJFaEpMUlRnMU5ueEVUREUzTW54RVRESTNNamdhQ3dqcTJSSVFBaG9EVlZORU9CeHc2dGtTIixbWyJQRUsiLCIyMDI1LTEwLTA4IiwiSUNOIixudWxsLCJLRSIsIjg1NiJdLFsiSUNOIiwiMjAyNS0xMC0wOCIsIlNMQyIsbnVsbCwiREwiLCIxNzIiXSxbIlNMQyIsIjIwMjUtMTAtMDgiLCJBVVMiLG51bGwsIkRMIiwiMjcyOCJdXV0="
+}
+],
+"other_flights":
+[
+{
+"flights":
+[
+{
+"departure_airport":
+{
+"name":
+"Beijing Capital International Airport",
+"id":
+"PEK",
+"time":
+"2025-10-08 13:50"
+},
+"arrival_airport":
+{
+"name":
+"Vancouver International Airport",
+"id":
+"YVR",
+"time":
+"2025-10-08 10:00"
+},
+"duration":
+670,
+"airplane":
+"Boeing 777",
+"airline":
+"Air China",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/CA.png",
+"travel_class":
+"Economy",
+"flight_number":
+"CA 991",
+"ticket_also_sold_by":
+[
+"Air Canada"
+],
+"legroom":
+"32 in",
+"extensions":
+[
+"Above average legroom (32 in)",
+"In-seat power outlet",
+"On-demand video",
+"Carbon emissions estimate: 585 kg"
+],
+"overnight":
+true
+},
+{
+"departure_airport":
+{
+"name":
+"Vancouver International Airport",
+"id":
+"YVR",
+"time":
+"2025-10-08 13:48"
+},
+"arrival_airport":
+{
+"name":
+"Seattle–Tacoma International Airport",
+"id":
+"SEA",
+"time":
+"2025-10-08 14:55"
+},
+"duration":
+67,
+"airplane":
+"Boeing 737MAX 9 Passenger",
+"airline":
+"Alaska",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/AS.png",
+"travel_class":
+"Economy",
+"flight_number":
+"AS 926",
+"legroom":
+"31 in",
+"extensions":
+[
+"Average legroom (31 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"Stream media to your device",
+"Carbon emissions estimate: 43 kg"
+],
+"often_delayed_by_over_30_min":
+true
+},
+{
+"departure_airport":
+{
+"name":
+"Seattle–Tacoma International Airport",
+"id":
+"SEA",
+"time":
+"2025-10-08 17:50"
+},
+"arrival_airport":
+{
+"name":
+"Austin-Bergstrom International Airport",
+"id":
+"AUS",
+"time":
+"2025-10-08 23:56"
+},
+"duration":
+246,
+"airplane":
+"Boeing 737",
+"airline":
+"Alaska",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/AS.png",
+"travel_class":
+"Economy",
+"flight_number":
+"AS 372",
+"legroom":
+"31 in",
+"extensions":
+[
+"Average legroom (31 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"Stream media to your device",
+"Carbon emissions estimate: 247 kg"
+]
+}
+],
+"layovers":
+[
+{
+"duration":
+228,
+"name":
+"Vancouver International Airport",
+"id":
+"YVR"
+},
+{
+"duration":
+175,
+"name":
+"Seattle–Tacoma International Airport",
+"id":
+"SEA"
+}
+],
+"total_duration":
+1386,
+"carbon_emissions":
+{
+"this_flight":
+876000,
+"typical_for_this_route":
+890000,
+"difference_percent":
+-2
+},
+"price":
+2746,
+"type":
+"Round trip",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/multi.png",
+"departure_token":
+"WyJDalJJY20wMGNXaGZaRzh0UTBsQlFWOXRVbEZDUnkwdExTMHRMUzB0TFhCcWEyc3hORUZCUVVGQlIycHNkRVE0UkZNMmRDMUJFaEZEUVRrNU1YeEJVemt5Tm54QlV6TTNNaG9MQ0piaEVCQUNHZ05WVTBRNEhIQ1c0UkE9IixbWyJQRUsiLCIyMDI1LTEwLTA4IiwiWVZSIixudWxsLCJDQSIsIjk5MSJdLFsiWVZSIiwiMjAyNS0xMC0wOCIsIlNFQSIsbnVsbCwiQVMiLCI5MjYiXSxbIlNFQSIsIjIwMjUtMTAtMDgiLCJBVVMiLG51bGwsIkFTIiwiMzcyIl1dXQ=="
+},
+{
+"flights":
+[
+{
+"departure_airport":
+{
+"name":
+"Beijing Capital International Airport",
+"id":
+"PEK",
+"time":
+"2025-10-08 13:30"
+},
+"arrival_airport":
+{
+"name":
+"Frankfurt Airport",
+"id":
+"FRA",
+"time":
+"2025-10-08 18:00"
+},
+"duration":
+630,
+"airplane":
+"Boeing 777",
+"airline":
+"Air China",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/CA.png",
+"travel_class":
+"Economy",
+"flight_number":
+"CA 931",
+"ticket_also_sold_by":
+[
+"Lufthansa"
+],
+"legroom":
+"32 in",
+"extensions":
+[
+"Above average legroom (32 in)",
+"In-seat power outlet",
+"On-demand video",
+"Carbon emissions estimate: 553 kg"
+]
+},
+{
+"departure_airport":
+{
+"name":
+"Frankfurt Airport",
+"id":
+"FRA",
+"time":
+"2025-10-09 10:05"
+},
+"arrival_airport":
+{
+"name":
+"Austin-Bergstrom International Airport",
+"id":
+"AUS",
+"time":
+"2025-10-09 14:20"
+},
+"duration":
+675,
+"airplane":
+"Airbus A330",
+"airline":
+"Lufthansa",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/LH.png",
+"travel_class":
+"Economy",
+"flight_number":
+"LH 468",
+"legroom":
+"31 in",
+"extensions":
+[
+"Average legroom (31 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"On-demand video",
+"Carbon emissions estimate: 502 kg"
+]
+}
+],
+"layovers":
+[
+{
+"duration":
+965,
+"name":
+"Frankfurt Airport",
+"id":
+"FRA",
+"overnight":
+true
+}
+],
+"total_duration":
+2270,
+"carbon_emissions":
+{
+"this_flight":
+1057000,
+"typical_for_this_route":
+890000,
+"difference_percent":
+19
+},
+"price":
+3919,
+"type":
+"Round trip",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/multi.png",
+"departure_token":
+"WyJDalJJY20wMGNXaGZaRzh0UTBsQlFWOXRVbEZDUnkwdExTMHRMUzB0TFhCcWEyc3hORUZCUVVGQlIycHNkRVE0UkZNMmRDMUJFZ3REUVRrek1YeE1TRFEyT0JvTENMbjFGeEFDR2dOVlUwUTRISEM1OVJjPSIsW1siUEVLIiwiMjAyNS0xMC0wOCIsIkZSQSIsbnVsbCwiQ0EiLCI5MzEiXSxbIkZSQSIsIjIwMjUtMTAtMDkiLCJBVVMiLG51bGwsIkxIIiwiNDY4Il1dXQ=="
+},
+{
+"flights":
+[
+{
+"departure_airport":
+{
+"name":
+"Beijing Capital International Airport",
+"id":
+"PEK",
+"time":
+"2025-10-08 15:30"
+},
+"arrival_airport":
+{
+"name":
+"Incheon International Airport",
+"id":
+"ICN",
+"time":
+"2025-10-08 18:30"
+},
+"duration":
+120,
+"airplane":
+"Boeing 777",
+"airline":
+"Asiana Airlines",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/OZ.png",
+"travel_class":
+"Business Class",
+"flight_number":
+"OZ 334",
+"extensions":
+[
+"Lie flat seat",
+"In-seat power & USB outlets",
+"On-demand video",
+"Carbon emissions estimate: 434 kg"
+]
+},
+{
+"departure_airport":
+{
+"name":
+"Incheon International Airport",
+"id":
+"ICN",
+"time":
+"2025-10-08 20:40"
+},
+"arrival_airport":
+{
+"name":
+"Los Angeles International Airport",
+"id":
+"LAX",
+"time":
+"2025-10-08 16:00"
+},
+"duration":
+680,
+"airplane":
+"Airbus A350",
+"airline":
+"Asiana Airlines",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/OZ.png",
+"travel_class":
+"Economy",
+"flight_number":
+"OZ 204",
+"legroom":
+"32 in",
+"extensions":
+[
+"Above average legroom (32 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"On-demand video",
+"Carbon emissions estimate: 684 kg"
+],
+"overnight":
+true,
+"often_delayed_by_over_30_min":
+true
+},
+{
+"departure_airport":
+{
+"name":
+"Los Angeles International Airport",
+"id":
+"LAX",
+"time":
+"2025-10-08 19:02"
+},
+"arrival_airport":
+{
+"name":
+"Austin-Bergstrom International Airport",
+"id":
+"AUS",
+"time":
+"2025-10-08 23:58"
+},
+"duration":
+176,
+"airplane":
+"Boeing 737",
+"airline":
+"American",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+"travel_class":
+"Economy",
+"flight_number":
+"AA 2118",
+"legroom":
+"30 in",
+"extensions":
+[
+"Average legroom (30 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"Stream media to your device",
+"Carbon emissions estimate: 185 kg"
+]
+}
+],
+"layovers":
+[
+{
+"duration":
+130,
+"name":
+"Incheon International Airport",
+"id":
+"ICN"
+},
+{
+"duration":
+182,
+"name":
+"Los Angeles International Airport",
+"id":
+"LAX"
+}
+],
+"total_duration":
+1288,
+"carbon_emissions":
+{
+"this_flight":
+1304000,
+"typical_for_this_route":
+890000,
+"difference_percent":
+47
+},
+"price":
+4707,
+"type":
+"Round trip",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/multi.png",
+"departure_token":
+"WyJDalJJY20wMGNXaGZaRzh0UTBsQlFWOXRVbEZDUnkwdExTMHRMUzB0TFhCcWEyc3hORUZCUVVGQlIycHNkRVE0UkZNMmRDMUJFaEpQV2pNek5IeFBXakl3Tkh4QlFUSXhNVGdhQ3dpRzNSd1FBaG9EVlZORU9CeHdodDBjIixbWyJQRUsiLCIyMDI1LTEwLTA4IiwiSUNOIixudWxsLCJPWiIsIjMzNCJdLFsiSUNOIiwiMjAyNS0xMC0wOCIsIkxBWCIsbnVsbCwiT1oiLCIyMDQiXSxbIkxBWCIsIjIwMjUtMTAtMDgiLCJBVVMiLG51bGwsIkFBIiwiMjExOCJdXV0="
+},
+{
+"flights":
+[
+{
+"departure_airport":
+{
+"name":
+"Beijing Capital International Airport",
+"id":
+"PEK",
+"time":
+"2025-10-08 19:50"
+},
+"arrival_airport":
+{
+"name":
+"Taiwan Taoyuan International Airport",
+"id":
+"TPE",
+"time":
+"2025-10-08 23:00"
+},
+"duration":
+190,
+"airplane":
+"Airbus A330",
+"airline":
+"EVA Air",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/BR.png",
+"travel_class":
+"Economy",
+"flight_number":
+"BR 715",
+"legroom":
+"31 in",
+"extensions":
+[
+"Average legroom (31 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"On-demand video",
+"Carbon emissions estimate: 147 kg"
+]
+},
+{
+"departure_airport":
+{
+"name":
+"Taiwan Taoyuan International Airport",
+"id":
+"TPE",
+"time":
+"2025-10-09 10:15"
+},
+"arrival_airport":
+{
+"name":
+"San Francisco International Airport",
+"id":
+"SFO",
+"time":
+"2025-10-09 06:50"
+},
+"duration":
+695,
+"airplane":
+"Boeing 777",
+"airline":
+"EVA Air",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/BR.png",
+"travel_class":
+"Economy",
+"flight_number":
+"BR 8",
+"legroom":
+"32 in",
+"extensions":
+[
+"Above average legroom (32 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"On-demand video",
+"Carbon emissions estimate: 594 kg"
+],
+"overnight":
+true
+},
+{
+"departure_airport":
+{
+"name":
+"San Francisco International Airport",
+"id":
+"SFO",
+"time":
+"2025-10-09 19:01"
+},
+"arrival_airport":
+{
+"name":
+"Austin-Bergstrom International Airport",
+"id":
+"AUS",
+"time":
+"2025-10-10 00:45"
+},
+"duration":
+224,
+"airplane":
+"Boeing 737MAX 9 Passenger",
+"airline":
+"Alaska",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/AS.png",
+"travel_class":
+"Economy",
+"flight_number":
+"AS 534",
+"legroom":
+"31 in",
+"extensions":
+[
+"Average legroom (31 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"Stream media to your device",
+"Carbon emissions estimate: 187 kg"
+]
+}
+],
+"layovers":
+[
+{
+"duration":
+675,
+"name":
+"Taiwan Taoyuan International Airport",
+"id":
+"TPE",
+"overnight":
+true
+},
+{
+"duration":
+731,
+"name":
+"San Francisco International Airport",
+"id":
+"SFO"
+}
+],
+"total_duration":
+2515,
+"carbon_emissions":
+{
+"this_flight":
+930000,
+"typical_for_this_route":
+890000,
+"difference_percent":
+4
+},
+"price":
+5050,
+"type":
+"Round trip",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/multi.png",
+"departure_token":
+"WyJDalJJY20wMGNXaGZaRzh0UTBsQlFWOXRVbEZDUnkwdExTMHRMUzB0TFhCcWEyc3hORUZCUVVGQlIycHNkRVE0UkZNMmRDMUJFZzlDVWpjeE5YeENVamg4UVZNMU16UWFDd2lDNlI0UUFob0RWVk5FT0J4d2d1a2UiLFtbIlBFSyIsIjIwMjUtMTAtMDgiLCJUUEUiLG51bGwsIkJSIiwiNzE1Il0sWyJUUEUiLCIyMDI1LTEwLTA5IiwiU0ZPIixudWxsLCJCUiIsIjgiXSxbIlNGTyIsIjIwMjUtMTAtMDkiLCJBVVMiLG51bGwsIkFTIiwiNTM0Il1dXQ=="
+},
+{
+"flights":
+[
+{
+"departure_airport":
+{
+"name":
+"Beijing Capital International Airport",
+"id":
+"PEK",
+"time":
+"2025-10-08 19:50"
+},
+"arrival_airport":
+{
+"name":
+"Taiwan Taoyuan International Airport",
+"id":
+"TPE",
+"time":
+"2025-10-08 23:00"
+},
+"duration":
+190,
+"airplane":
+"Airbus A330",
+"airline":
+"EVA Air",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/BR.png",
+"travel_class":
+"Economy",
+"flight_number":
+"BR 715",
+"legroom":
+"31 in",
+"extensions":
+[
+"Average legroom (31 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"On-demand video",
+"Carbon emissions estimate: 147 kg"
+]
+},
+{
+"departure_airport":
+{
+"name":
+"Taiwan Taoyuan International Airport",
+"id":
+"TPE",
+"time":
+"2025-10-09 19:40"
+},
+"arrival_airport":
+{
+"name":
+"San Francisco International Airport",
+"id":
+"SFO",
+"time":
+"2025-10-09 16:00"
+},
+"duration":
+680,
+"airplane":
+"Boeing 777",
+"airline":
+"EVA Air",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/BR.png",
+"travel_class":
+"Economy",
+"flight_number":
+"BR 18",
+"legroom":
+"32 in",
+"extensions":
+[
+"Above average legroom (32 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"On-demand video",
+"Carbon emissions estimate: 559 kg"
+],
+"overnight":
+true
+},
+{
+"departure_airport":
+{
+"name":
+"San Francisco International Airport",
+"id":
+"SFO",
+"time":
+"2025-10-09 19:01"
+},
+"arrival_airport":
+{
+"name":
+"Austin-Bergstrom International Airport",
+"id":
+"AUS",
+"time":
+"2025-10-10 00:45"
+},
+"duration":
+224,
+"airplane":
+"Boeing 737MAX 9 Passenger",
+"airline":
+"Alaska",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/AS.png",
+"travel_class":
+"Economy",
+"flight_number":
+"AS 534",
+"legroom":
+"31 in",
+"extensions":
+[
+"Average legroom (31 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"Stream media to your device",
+"Carbon emissions estimate: 187 kg"
+]
+}
+],
+"layovers":
+[
+{
+"duration":
+1240,
+"name":
+"Taiwan Taoyuan International Airport",
+"id":
+"TPE",
+"overnight":
+true
+},
+{
+"duration":
+181,
+"name":
+"San Francisco International Airport",
+"id":
+"SFO"
+}
+],
+"total_duration":
+2515,
+"carbon_emissions":
+{
+"this_flight":
+895000,
+"typical_for_this_route":
+890000,
+"difference_percent":
+1
+},
+"price":
+5050,
+"type":
+"Round trip",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/multi.png",
+"departure_token":
+"WyJDalJJY20wMGNXaGZaRzh0UTBsQlFWOXRVbEZDUnkwdExTMHRMUzB0TFhCcWEyc3hORUZCUVVGQlIycHNkRVE0UkZNMmRDMUJFaEJDVWpjeE5YeENVakU0ZkVGVE5UTTBHZ3NJZ3VrZUVBSWFBMVZUUkRnY2NJTHBIZz09IixbWyJQRUsiLCIyMDI1LTEwLTA4IiwiVFBFIixudWxsLCJCUiIsIjcxNSJdLFsiVFBFIiwiMjAyNS0xMC0wOSIsIlNGTyIsbnVsbCwiQlIiLCIxOCJdLFsiU0ZPIiwiMjAyNS0xMC0wOSIsIkFVUyIsbnVsbCwiQVMiLCI1MzQiXV1d"
+},
+{
+"flights":
+[
+{
+"departure_airport":
+{
+"name":
+"Beijing Capital International Airport",
+"id":
+"PEK",
+"time":
+"2025-10-08 21:00"
+},
+"arrival_airport":
+{
+"name":
+"Haikou Meilan International Airport",
+"id":
+"HAK",
+"time":
+"2025-10-09 01:00"
+},
+"duration":
+240,
+"airplane":
+"Boeing 737",
+"airline":
+"Hainan",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/HU.png",
+"travel_class":
+"Economy",
+"flight_number":
+"HU 7282",
+"legroom":
+"31 in",
+"extensions":
+[
+"Average legroom (31 in)",
+"In-seat USB outlet",
+"Carbon emissions estimate: 207 kg"
+]
+},
+{
+"departure_airport":
+{
+"name":
+"Haikou Meilan International Airport",
+"id":
+"HAK",
+"time":
+"2025-10-09 07:15"
+},
+"arrival_airport":
+{
+"name":
+"Chongqing Jiangbei International Airport",
+"id":
+"CKG",
+"time":
+"2025-10-09 09:30"
+},
+"duration":
+135,
+"airplane":
+"Boeing 787",
+"airline":
+"Hainan",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/HU.png",
+"travel_class":
+"Economy",
+"flight_number":
+"HU 445",
+"legroom":
+"32 in",
+"extensions":
+[
+"Above average legroom (32 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"On-demand video",
+"Carbon emissions estimate: 93 kg"
+]
+},
+{
+"departure_airport":
+{
+"name":
+"Chongqing Jiangbei International Airport",
+"id":
+"CKG",
+"time":
+"2025-10-09 12:20"
+},
+"arrival_airport":
+{
+"name":
+"Seattle–Tacoma International Airport",
+"id":
+"SEA",
+"time":
+"2025-10-09 09:00"
+},
+"duration":
+700,
+"airplane":
+"Boeing 787",
+"airline":
+"Hainan",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/HU.png",
+"travel_class":
+"Economy",
+"flight_number":
+"HU 445",
+"legroom":
+"31 in",
+"extensions":
+[
+"Average legroom (31 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"On-demand video",
+"Carbon emissions estimate: 532 kg"
+],
+"overnight":
+true
+},
+{
+"departure_airport":
+{
+"name":
+"Seattle–Tacoma International Airport",
+"id":
+"SEA",
+"time":
+"2025-10-09 12:19"
+},
+"arrival_airport":
+{
+"name":
+"Austin-Bergstrom International Airport",
+"id":
+"AUS",
+"time":
+"2025-10-09 18:39"
+},
+"duration":
+260,
+"airplane":
+"Boeing 737",
+"airline":
+"Alaska",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/AS.png",
+"travel_class":
+"Economy",
+"flight_number":
+"AS 352",
+"legroom":
+"31 in",
+"extensions":
+[
+"Average legroom (31 in)",
+"Wi-Fi for a fee",
+"In-seat power & USB outlets",
+"Stream media to your device",
+"Carbon emissions estimate: 212 kg"
+]
+}
+],
+"layovers":
+[
+{
+"duration":
+375,
+"name":
+"Haikou Meilan International Airport",
+"id":
+"HAK",
+"overnight":
+true
+},
+{
+"duration":
+170,
+"name":
+"Chongqing Jiangbei International Airport",
+"id":
+"CKG"
+},
+{
+"duration":
+199,
+"name":
+"Seattle–Tacoma International Airport",
+"id":
+"SEA"
+}
+],
+"total_duration":
+2079,
+"carbon_emissions":
+{
+"this_flight":
+1045000,
+"typical_for_this_route":
+890000,
+"difference_percent":
+17
+},
+"price":
+6758,
+"type":
+"Round trip",
+"airline_logo":
+"https://www.gstatic.com/flights/airline_logos/70px/multi.png",
+"departure_token":
+"WyJDalJJY20wMGNXaGZaRzh0UTBsQlFWOXRVbEZDUnkwdExTMHRMUzB0TFhCcWEyc3hORUZCUVVGQlIycHNkRVE0UkZNMmRDMUJFaGhJVlRjeU9ESjhTRlUwTkRWOFNGVTBORFY4UVZNek5USWFDd2lobnlrUUFob0RWVk5FT0J4d29aOHAiLFtbIlBFSyIsIjIwMjUtMTAtMDgiLCJIQUsiLG51bGwsIkhVIiwiNzI4MiJdLFsiSEFLIiwiMjAyNS0xMC0wOSIsIkNLRyIsbnVsbCwiSFUiLCI0NDUiXSxbIkNLRyIsIjIwMjUtMTAtMDkiLCJTRUEiLG51bGwsIkhVIiwiNDQ1Il0sWyJTRUEiLCIyMDI1LTEwLTA5IiwiQVVTIixudWxsLCJBUyIsIjM1MiJdXV0="
+}
+],
+"price_insights":
+{
+"lowest_price":
+1750,
+"price_level":
+"high",
+"typical_price_range":
+[
+1000,
+1500
+],
+"price_history":
+[
+[
+1754582400,
+1227
+],
+[
+1754668800,
+1256
+],
+[
+1754755200,
+1256
+],
+[
+1754841600,
+1256
+],
+[
+1754928000,
+1256
+],
+[
+1755014400,
+1226
+],
+[
+1755100800,
+1227
+],
+[
+1755187200,
+1228
+],
+[
+1755273600,
+1227
+],
+[
+1755360000,
+1227
+],
+[
+1755446400,
+1227
+],
+[
+1755532800,
+1227
+],
+[
+1755619200,
+1226
+],
+[
+1755705600,
+1225
+],
+[
+1755792000,
+1227
+],
+[
+1755878400,
+1226
+],
+[
+1755964800,
+1228
+],
+[
+1756051200,
+1228
+],
+[
+1756137600,
+1206
+],
+[
+1756224000,
+1184
+],
+[
+1756310400,
+1184
+],
+[
+1756396800,
+1184
+],
+[
+1756483200,
+1184
+],
+[
+1756569600,
+1188
+],
+[
+1756656000,
+1209
+],
+[
+1756742400,
+1209
+],
+[
+1756828800,
+1209
+],
+[
+1756915200,
+1188
+],
+[
+1757001600,
+1187
+],
+[
+1757088000,
+1187
+],
+[
+1757174400,
+1189
+],
+[
+1757260800,
+1209
+],
+[
+1757347200,
+1209
+],
+[
+1757433600,
+1189
+],
+[
+1757520000,
+1190
+],
+[
+1757606400,
+1191
+],
+[
+1757692800,
+1191
+],
+[
+1757779200,
+1190
+],
+[
+1757865600,
+1190
+],
+[
+1757952000,
+1209
+],
+[
+1758038400,
+1293
+],
+[
+1758124800,
+1292
+],
+[
+1758211200,
+1383
+],
+[
+1758297600,
+1381
+],
+[
+1758384000,
+1408
+],
+[
+1758470400,
+1408
+],
+[
+1758556800,
+1408
+],
+[
+1758643200,
+1113
+],
+[
+1758729600,
+1189
+],
+[
+1758816000,
+1344
+],
+[
+1758902400,
+1344
+],
+[
+1758988800,
+1344
+],
+[
+1759075200,
+1344
+],
+[
+1759161600,
+1343
+],
+[
+1759248000,
+1345
+],
+[
+1759334400,
+1371
+],
+[
+1759420800,
+1371
+],
+[
+1759507200,
+1567
+],
+[
+1759593600,
+1567
+],
+[
+1759680000,
+1567
+],
+[
+1759766400,
+1567
+],
+[
+1759852800,
+1750
+]
+]
+},
+"airports":
+[
+{
+"departure":
+[
+{
+"airport":
+{
+"id":
+"PEK",
+"name":
+"Beijing Capital International Airport"
+},
+"city":
+"Beijing",
+"country":
+"China",
+"country_code":
+"CN",
+"image":
+"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ9v_tNYxaummsU2qbFn8zuYzkcG0x6qCvqB2gbBnx-2FVlZZPsnkvUXGk07vxotk-0vRQMUYCjj2d4Wg",
+"thumbnail":
+"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSzsj_yw6o3vb8i54_D21VgI5rTohxexQkZ0TrZKDKJwTSKw2yqnRYLoIcBWIY50BlHo-OPMm68zbUO-qnFvmQmm6jvtWPwo7WOzjNGX_A"
+}
+],
+"arrival":
+[
+{
+"airport":
+{
+"id":
+"AUS",
+"name":
+"Austin-Bergstrom International Airport"
+},
+"city":
+"Austin",
+"country":
+"United States",
+"country_code":
+"US",
+"image":
+"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRKdjkMcBZuGRD1MjnuLQvdGtpTk0RyjdYs0Z8JsPtfIjer-6VvmfmMLxzvBkeyUrhf_focikfda4rVHg",
+"thumbnail":
+"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSQ73FSj9E8pKaNvjWKyEDQGfLV-pky_onARvOY-zHWvQ-hOuPJSqyyXzvyg4-kGGAcZxdO6T5SYGWBzrX8x6MSPq7gBHsSLzX9MYjFJWA"
+}
+]
+},
+{
+"departure":
+[
+{
+"airport":
+{
+"id":
+"AUS",
+"name":
+"Austin-Bergstrom International Airport"
+},
+"city":
+"Austin",
+"country":
+"United States",
+"country_code":
+"US",
+"image":
+"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRKdjkMcBZuGRD1MjnuLQvdGtpTk0RyjdYs0Z8JsPtfIjer-6VvmfmMLxzvBkeyUrhf_focikfda4rVHg",
+"thumbnail":
+"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSQ73FSj9E8pKaNvjWKyEDQGfLV-pky_onARvOY-zHWvQ-hOuPJSqyyXzvyg4-kGGAcZxdO6T5SYGWBzrX8x6MSPq7gBHsSLzX9MYjFJWA"
+}
+],
+"arrival":
+[
+{
+"airport":
+{
+"id":
+"PEK",
+"name":
+"Beijing Capital International Airport"
+},
+"city":
+"Beijing",
+"country":
+"China",
+"country_code":
+"CN",
+"image":
+"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ9v_tNYxaummsU2qbFn8zuYzkcG0x6qCvqB2gbBnx-2FVlZZPsnkvUXGk07vxotk-0vRQMUYCjj2d4Wg",
+"thumbnail":
+"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSzsj_yw6o3vb8i54_D21VgI5rTohxexQkZ0TrZKDKJwTSKw2yqnRYLoIcBWIY50BlHo-OPMm68zbUO-qnFvmQmm6jvtWPwo7WOzjNGX_A"
+}
+]
+}
+]
+}
