@@ -1,9 +1,10 @@
 import { Form, Button, Row, Col, Alert } from "react-bootstrap";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { ThemeContext } from "./_app";
 import UserSidebar from "/components/UserSidebar";
 import * as formik from "formik";
 import * as yup from "yup";
+import { getUserCookie } from "../lib/cookies";
 
 export default function Profile() {
   const { theme } = useContext(ThemeContext);
@@ -11,6 +12,10 @@ export default function Profile() {
 
   const [warning, setWarning] = useState("");
   const [success, setSuccess] = useState("");
+
+  useEffect(() => {
+    console.log(getUserCookie());
+  }, []);
 
   // Validation schema
   const schema = yup.object().shape({
