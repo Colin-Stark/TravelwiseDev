@@ -16,7 +16,7 @@ const FlightCard = ({ flight, index, numFlights, layovers }) => {
   return (
     <div>
         <Card className="shadow-lg rounded-4 mb-4">
-        <Card.Header className="bg-primary rounded-top-4">
+        <Card.Header className="bg-main-tertiary rounded-top-4">
             <h5 className="mb-0 text-light">Flight {index+1} of {numFlights} : <label className='text-nowrap'>{flight?.airline} ({flight?.flight_number})</label></h5>
         </Card.Header>
         <Card.Body>
@@ -128,13 +128,13 @@ const FlightCard = ({ flight, index, numFlights, layovers }) => {
 
         {
             layovers[index] ? (
-                <Row className='border border-secondary rounded mb-3 p-2 text-center justify-content-center align-items-center mx-2'>
+                <Row className='border border-main-tertiary rounded mb-3 p-2 text-center justify-content-center align-items-center mx-2'>
                     <Col xs={2}>
-                        <FaClock size={30} className="text-secondary" />
+                        <FaClock size={30} className="text-main-tertiary" />
                     </Col>
                     <Col xs={10}>
                         <div className='d-flex gap-2 justify-content-center align-items-center'>
-                            <label className='text-secondary'>{formatMinutes(layovers[index]?.duration)} layover</label>
+                            <label className='text-main-tertiary'>{formatMinutes(layovers[index]?.duration)} layover</label>
                             {
                                 layovers[index]?.overnight ? (
                                     <i className='bi bi-exclamation-triangle-fill text-danger'> Overnight layover</i>
@@ -142,7 +142,7 @@ const FlightCard = ({ flight, index, numFlights, layovers }) => {
                                 : (<></>)
                             }
                         </div>
-                        <label className='text-secondary'>{layovers[index]?.name} ({layovers[index]?.id})</label>
+                        <label className='text-main-tertiary'>{layovers[index]?.name} ({layovers[index]?.id})</label>
                     </Col>
                 </Row>
             )

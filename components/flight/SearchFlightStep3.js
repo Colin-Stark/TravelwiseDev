@@ -206,7 +206,7 @@ export default function SearchFlightStep3(props) {
                                     : 
                                     (
                                         <div className="d-flex justify-content-center align-items-center py-3">
-                                            <Alert variant="info" className="w-100 text-center">Please select a City first</Alert>
+                                            <Alert className="w-100 text-center bg-main-tertiary">Please select a City first</Alert>
                                         </div>
                                     )
                                 )

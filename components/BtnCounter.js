@@ -27,11 +27,11 @@ export default function BtnCounter(props) {
 
   return (
     <div className="d-flex">
-      <Button variant={props.theme === "light" ? "outline-dark" : "outline-light"} onClick={handleDecrease} className="rounded-circle round-btn me-2 d-flex justify-content-center align-items-center">
+      <Button onClick={handleDecrease} className="rounded-circle round-btn me-2 d-flex justify-content-center align-items-center">
         <label className='text-3xl d-block pb-1' role='button'>-</label>
       </Button>
       <h4>{count}</h4>
-      <Button variant={props.theme === "light" ? "outline-dark" : "outline-light"} onClick={handleIncrease} className="rounded-circle round-btn ms-2 d-flex justify-content-center align-items-center">
+      <Button onClick={handleIncrease} className="rounded-circle round-btn ms-2 d-flex justify-content-center align-items-center">
         <label className='text-2xl d-block' role='button'>+</label>
       </Button>
     </div>

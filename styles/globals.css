@@ -23,8 +23,13 @@
 /* light theme variables */
 :root {
   --background-color: #ffffff;
+  --background-color-secondary: #ECECEC;
+  --background-color-tertiary: #9BB2D2;
   --text-color: #333333;
+  --text-color-secondary: #333;
+  --text-color-tertiary: #2B3853;
   --border-color: #DBDFE4;
+  --border-color-secondary: #007bff;
   --input-background: #f0f0f0;
   --input-border: #cccccc;
   --input-text-color: #333333;
@@ -39,8 +44,13 @@
 /* dark theme variables */
 .dark-theme {
   --background-color: #121417;
+  --background-color-secondary: #2B3853;
+  --background-color-tertiary: #25334A;
   --text-color: #ffffff;
+  --text-color-secondary: #f8f8f8;
+  --text-color-tertiary: #9BB2D2;
   --border-color: #E1E4E7;
+  --border-color-secondary: #007bff;
   --input-background: #1A2433;
   --input-border: #2B3853;
   --input-text-color: #f8f8f8;
@@ -85,9 +95,36 @@ a.text-link:hover {
 .navbar-nav .dropdown-menu .dropdown-item {
   color: var(--input-text-color);
 }
-.navbar-nav .dropdown-menu .dropdown-item:hover {
+
+.bg-main-primary {
   background-color: var(--input-background);
+  border: 1px solid var(--input-border);
+}
+.text-main-primary {
   color: var(--input-text-color);
+}
+.border-main-primary {
+  border-color: var(--input-border) !important;
+}
+.bg-main-secondary {
+  background-color: var(--background-color-secondary);
+  border: 1px solid var(--input-border);
+}
+.text-main-secondary {
+  color: var(--text-color-secondary);
+}
+.border-main-secondary {
+  border-color: var(--background-color-secondary) !important;
+}
+.bg-main-tertiary {
+  background-color: var(--background-color-tertiary);
+  border: 1px solid var(--input-border);
+}
+.text-main-tertiary {
+  color: var(--text-color-tertiary);
+}
+.border-main-tertiary {
+  border-color: var(--text-color-tertiary) !important;
 }
 
 .dropdown-divider {
@@ -200,8 +237,11 @@ a.text-link:hover {
 .card-selectable:hover, .card-selectable.active {
   transform: scale(1.02); 
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
-  border-color: #007bff; 
-  color: #007bff;
+  border-color: var(--border-color-secondary); 
+  color: var(--text-color-secondary);
+}
+.card-selectable.active {
+  color: var(--text-color-tertiary);
 }
 
 .round-btn {
@@ -212,9 +252,13 @@ a.text-link:hover {
   border-color: var(--input-border);
 }
 .round-btn:hover {
-  background-color: var(--input-background-inverse);
-  color: var(--input-text-color-inverse);
-  border-color: var(--input-border-inverse);
+  background-color: var(--background-color-secondary);
+  color: var(--text-color-secondary);
+  border-color: var(--border-color-secondary);
+}
+.round-btn:active {
+  background-color: var(--background-color-tertiary) !important;
+  color: var(--text-color-tertiary) !important;
 }
 
 .cell-logo {
