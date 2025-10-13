@@ -92,11 +92,13 @@ export default function SearchHotelStep2(props) {
         //get country code
         const country_code = countryCodeObj.hasOwnProperty(values.country) ? countryCodeObj[values.country] : "";
 
+        const q = `hotels in ${values.city}, ${values.country}`;
         const data = {
             country : values.country,
             gl: country_code,
             city : values.city,
             countryObj : countryObj,
+            q : q,
         }
 
         console.log(data);
@@ -133,7 +135,7 @@ export default function SearchHotelStep2(props) {
                                         values.country = newVal[0];
                                         loadCityData(newVal[0]);
                                         setCountry(newVal[0]); 
-                                        
+
                                         values.city = "";
                                         inputRef.current.clear();
                                     }}
