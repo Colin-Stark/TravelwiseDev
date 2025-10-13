@@ -76,8 +76,7 @@ export default function MainNavbar() {
                                 <Nav.Link href='/'>My Trips</Nav.Link>
                                 <NavDropdown menuVariant={theme} title="Explore">
                                     <NavDropdown.Item href="/search/flight">Search Flights</NavDropdown.Item>
-                                    <NavDropdown.Item href="/">Search Hotels</NavDropdown.Item>
-                                    <NavDropdown.Item href="/">Search Transportation</NavDropdown.Item>
+                                    <NavDropdown.Item href="/search/hotel">Search Hotels</NavDropdown.Item>
                                 </NavDropdown>
                                 <Nav.Link href='/'>Guides</Nav.Link>
                                 <Nav.Link href='/'>Support</Nav.Link>

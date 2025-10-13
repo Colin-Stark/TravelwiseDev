@@ -1,9 +1,9 @@
 import { ThemeContext } from "@/pages/_app";
 import { isBlockedAtom } from "@/store";
 import { useAtom } from "jotai";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { Alert, Button, Card, Col, Form, Row } from "react-bootstrap";
-import { filterObjByCity, filterObjByCountry, getCityList, getCountryList } from "@/lib/airportData";
+import { fetchCountryData, filterObjByCity, filterObjByCountry, getCityList, getCountryList } from "@/lib/airportData";
 import { Typeahead } from "react-bootstrap-typeahead";
 import * as formik from 'formik';
 import * as yup from 'yup';
@@ -13,10 +13,12 @@ export default function SearchFlightStep2(props) {
     const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
     const { theme } = useContext(ThemeContext);
     const [warning, setWarning] = useState("");
+    const [countryObj, setCountryObj] = useState(props.initialData["countryObj"] ? props.initialData["countryObj"] : []);
     const [countryOptions, setCountryOptions] = useState([]);
     const [cityOptions, setCityOptions] = useState([]);
     const [airports, setAirports] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const inputRef = useRef(null);
 
     const initialValues = {
             departure_country : props.initialData["departure_country"] ? props.initialData["departure_country"] : "",
@@ -53,7 +55,13 @@ export default function SearchFlightStep2(props) {
     }, []);
 
     async function loadCountryData() {
-        const countries = await getCountryList();
+        var cObj = countryObj;
+        console.log(cObj);
+        if(cObj.length <= 0) {
+            cObj = await fetchCountryData();
+            setCountryObj(cObj);
+        }
+        const countries = await getCountryList(cObj);
         setCountryOptions(countries);
     }
 
@@ -96,6 +104,7 @@ export default function SearchFlightStep2(props) {
             departure_country : values.departure_country,
             departure_city : values.departure_city,
             departure_id : values.departure_id,
+            countryObj : countryObj,
         }
 
         console.log(data);
@@ -132,8 +141,12 @@ export default function SearchFlightStep2(props) {
                                         values.departure_country = newVal[0];
                                         loadCityData(newVal[0]);
                                         setCountry(newVal[0]);
+
                                         setAirports([]);
                                         setSelectedAirport("");
+
+                                        values.departure_city = "";
+                                        inputRef.current.clear();
                                     }}
                                 />
                             </Form.Group>
@@ -148,8 +161,13 @@ export default function SearchFlightStep2(props) {
                                     placeholder={cityOptions?.length > 0 ? "Choose a city..." : "No available cities found"}
                                     disabled={cityOptions?.length > 0 ? false : true}
                                     defaultSelected={[initialValues.departure_city]}
+                                    ref={inputRef}
                                     onChange={(newVal) => {
                                         values.departure_city = newVal[0];
+                                        values.departure_id = "";
+                                        setSelectedAirport("");
+                                        setAirports([]);
+
                                         if(newVal[0]) {
                                             setCity(newVal[0]);
                                             loadAirportData(newVal[0]);
@@ -206,7 +224,7 @@ export default function SearchFlightStep2(props) {
                                     : 
                                     (
                                         <div className="d-flex justify-content-center align-items-center py-3">
-                                            <Alert className="w-100 text-center bg-main-tertiary">Please select a City first</Alert>
+                                            <Alert className="w-100 text-center bg-main-tertiary">No airports found in selected City</Alert>
                                         </div>
                                     )
                                 )

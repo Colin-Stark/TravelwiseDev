@@ -1,21 +1,14 @@
-import { Card, Form, Alert, Button, Row, Carousel, Col, Image, Container, Figure } from "react-bootstrap";
+import { Card, Row } from "react-bootstrap";
 import { useRouter } from "next/router";
-import { registerUser } from "@/lib/authenticate";
 import { useContext, useEffect, useState } from "react";
-import Link from "next/link";
 import { ThemeContext } from "../_app";
-import {useFormik} from 'formik';
-import * as yup from 'yup';
-import OtpInput from 'react-otp-input';
 import { useAtom } from "jotai";
-import { isBlockedAtom, resetEmailAtom, resetOTPPassAtom } from "@/store";
-import { Typeahead } from "react-bootstrap-typeahead";
-import SearchFlightStep1 from "@/components/flight/SearchFlightStep1";
-import SearchFlightStep2 from "@/components/flight/SearchFlightStep2";
-import SearchFlightStep3 from "@/components/flight/SearchFlightStep3";
-import SearchFlightStep4 from "@/components/flight/SearchFlightStep4";
+import { isBlockedAtom } from "@/store";
+import SearchHotelStep1 from "@/components/hotel/SearchHotelStep1";
+import SearchHotelStep2 from "@/components/hotel/SearchHotelStep2";
+import SearchHotelStep3 from "@/components/hotel/SearchHotelStep3";
 
-export default function SearchFlight(props) {
+export default function SearchHotel(props) {
     const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
     
     const { theme } = useContext(ThemeContext);
@@ -56,13 +49,11 @@ export default function SearchFlight(props) {
     const renderStep = () => {
         switch (pageCount) {
         case 1:
-            return <SearchFlightStep1 onNext={handleNext} initialData={formData} />;
+            return <SearchHotelStep1 onNext={handleNext} initialData={formData} />;
         case 2:
-            return <SearchFlightStep2 onNext={handleNext} onPrevious={handlePrevious} initialData={formData} />;
+            return <SearchHotelStep2 onNext={handleNext} onPrevious={handlePrevious} initialData={formData} />;
         case 3:
-            return <SearchFlightStep3 onNext={handleNext} onPrevious={handlePrevious} initialData={formData} />;
-        case 4:
-            return <SearchFlightStep4 onNext={handleNext} onPrevious={handlePrevious} initialData={formData} />;
+            return <SearchHotelStep3 onNext={handleNext} onPrevious={handlePrevious} initialData={formData} />;
         default:
             return null;
         }
@@ -72,9 +63,9 @@ export default function SearchFlight(props) {
     <div>
         <Row className="mt-2">
             <Card className="bg-dark text-white m-0 p-0">
-                <Card.Img className="img-title rounded-0" src={`/images/search_flights_title.jpg`} alt="Card image" />
+                <Card.Img className="img-title rounded-0" src={`/images/search_hotels_title.png`} alt="Card image" />
                 <Card.ImgOverlay className="d-flex align-items-center px-4 px-md-5">
-                    <Card.Title><h1>Search Flights</h1></Card.Title>
+                    <Card.Title><h1>Search Hotels</h1></Card.Title>
                 </Card.ImgOverlay>
             </Card>
         </Row>

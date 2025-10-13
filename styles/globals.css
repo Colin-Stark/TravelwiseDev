@@ -226,7 +226,10 @@ a.text-link:hover {
 
 .img-title {
   height: 30vh;
-  opacity: 90%;
+  opacity: 70%;
+}
+.img-title.no-fit {
+  object-fit: none;
 }
 
 .card-selectable {
@@ -264,6 +267,9 @@ a.text-link:hover {
 .cell-logo {
   padding: 5px;
   max-height: 50px;
+}
+.cell-img {
+  height: 100px;
 }
 
 .line-connect {

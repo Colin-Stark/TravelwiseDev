@@ -27,6 +27,7 @@ import { BorderBottom } from 'react-bootstrap-icons';
                     backgroundColor:  props.theme === "light" ? '#fff' : '#121417',
                     borderTop: '1px solid #AAADB1',
                     cursor: 'pointer',
+                    minHeight: props.minHeight,
                 },
                 highlightOnHoverStyle: {
                     backgroundColor: props.theme === "light" ? '#ECECEC' : '#2B3853',
