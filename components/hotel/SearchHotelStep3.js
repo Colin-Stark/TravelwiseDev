@@ -124,13 +124,24 @@ export default function SearchFlightStep4(props) {
         handleModalShow();
     }
 
-    async function handleSubmit(hotelObj) 
-    {
-        if(!hotelObj) {
-            return;
-        }
-        console.log(hotelObj);
-    }
+    const handleSubmit = (hotelObj) => {
+            if (!hotelObj) return alert("Please select a hotel first");
+
+            const hotelPrice = hotelObj.rate_per_night?.extracted_lowest
+                ? parseFloat(hotelObj.rate_per_night.extracted_lowest)
+                : 0;
+
+            const hotelData = {
+                ...props.initialData,
+                hotelObj,
+                hotelName: hotelObj.name,
+                hotelPrice
+            };
+
+            props.onBookHotel(hotelData);
+        };
+
+
 
     return (
         hotelsData?.length > 0 ? (

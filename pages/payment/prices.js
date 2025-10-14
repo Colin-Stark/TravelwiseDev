@@ -8,21 +8,24 @@ export default function Price() {
   const plans = [
     {
       name: 'Basic',
-      price: 'Free',
+      price: 0, // numeric
+      displayPrice: 'Free',
       per: '/month',
       features: ['Access to basic features', 'Plan up to 3 trips', 'Community support'],
       highlight: '',
     },
     {
       name: 'Premium',
-      price: '$9.99',
+      price: 9.99, // numeric
+      displayPrice: '$9.99',
       per: '/month',
       features: ['Unlimited trip planning', 'Advanced AI recommendations', 'Priority support', 'Expense tracking'],
       highlight: 'Most Popular',
     },
     {
       name: 'Pro',
-      price: '$19.99',
+      price: 19.99, // numeric
+      displayPrice: '$19.99',
       per: '/month',
       features: ['All Premium features', 'Personalized travel concierge', 'Exclusive discounts', 'Early access to new features'],
       highlight: 'Best Value',
@@ -30,7 +33,7 @@ export default function Price() {
   ];
 
   const handleSelect = (plan) => {
-    router.push(`/payment/payment?plan=${plan.name}`);
+    router.push(`/payment/payment?plan=${plan.name}&planPrice=${plan.price}`);
   };
 
   return (
@@ -50,7 +53,7 @@ export default function Price() {
               </div>
 
               <h2 className={styles.priceText}>
-                {plan.price} <span className={styles.per}>{plan.per}</span>
+                {plan.displayPrice} <span className={styles.per}>{plan.per}</span>
               </h2>
 
               <Button className={styles.selectBtn} onClick={() => handleSelect(plan)}>
