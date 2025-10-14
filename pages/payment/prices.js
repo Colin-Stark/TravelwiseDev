@@ -1,26 +1,72 @@
-import {Card} from 'react-bootstrap';
-import styles from '@/styles/paymentPage.module.css'
-export default function price(){
-    var i = 0;
-    const cards = [];
-    while (i < 3){
-        cards.push(
-            <Card style={{ width: '18rem' }}>
-                <Card.Body>
-                    <Card.Title>Card Title</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
-                    <Card.Text>
-                    Some quick example text to build on the card title and make up the
-                    bulk of the content.
-                    </Card.Text>
-                    <Card.Link href="#">Card Link</Card.Link>
-                    <Card.Link href="#">Another Link</Card.Link>
-                </Card.Body>
-            </Card>
-        )
-        i++;
-    }
-    return (
-      <div className={styles.container}>{cards}</div>
-    );
+import { Card, Button, Badge } from 'react-bootstrap';
+import { useRouter } from 'next/router';
+import styles from '@/styles/paymentPage.module.css';
+
+export default function Price() {
+  const router = useRouter();
+
+  const plans = [
+    {
+      name: 'Basic',
+      price: 'Free',
+      per: '/month',
+      features: ['Access to basic features', 'Plan up to 3 trips', 'Community support'],
+      highlight: '',
+    },
+    {
+      name: 'Premium',
+      price: '$9.99',
+      per: '/month',
+      features: ['Unlimited trip planning', 'Advanced AI recommendations', 'Priority support', 'Expense tracking'],
+      highlight: 'Most Popular',
+    },
+    {
+      name: 'Pro',
+      price: '$19.99',
+      per: '/month',
+      features: ['All Premium features', 'Personalized travel concierge', 'Exclusive discounts', 'Early access to new features'],
+      highlight: 'Best Value',
+    },
+  ];
+
+  const handleSelect = (plan) => {
+    router.push(`/payment/payment?plan=${plan.name}`);
+  };
+
+  return (
+    <div className={styles.pricingContainer}>
+      <h2 className={styles.title}>Choose your plan</h2>
+      <div className={styles.cardRow}>
+        {plans.map((plan, i) => (
+          <Card key={i} className={`${styles.planCard} card-selectable`}>
+            <Card.Body>
+              <div className={styles.cardHeader}>
+                <Card.Title className={styles.planName}>{plan.name}</Card.Title>
+                {plan.highlight && (
+                  <Badge bg={plan.name === 'Pro' ? 'info' : 'primary'} className={styles.badge}>
+                    {plan.highlight}
+                  </Badge>
+                )}
+              </div>
+
+              <h2 className={styles.priceText}>
+                {plan.price} <span className={styles.per}>{plan.per}</span>
+              </h2>
+
+              <Button className={styles.selectBtn} onClick={() => handleSelect(plan)}>
+                Select
+              </Button>
+
+              <ul className={styles.featureList}>
+                {plan.features.map((f, j) => (
+                  <li key={j}>✓ {f}</li>
+                ))}
+              </ul>
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+      <p className={styles.cancelText}>Cancel anytime. No hidden fees.</p>
+    </div>
+  );
 }
