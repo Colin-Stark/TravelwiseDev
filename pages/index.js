@@ -3,16 +3,20 @@ import { useContext, useEffect, useState } from "react";
 import { getUserCookie, checkValidLogin } from "@/lib/cookies";
 import { useAtom } from "jotai";
 import { isBlockedAtom } from "@/store";
+import { getUser } from "@/lib/userData";
 
 export default function Home() {
   const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
   const [step, setStep] = useState(1);
+  const [currentUser, setCurrentUser] = useState('')
   
   useEffect(() => {
       //remove page blocker
       setIsBlocked(false);
 
       //checkValidLogin();
+      setCurrentUser(getUser())
+      console.log(getUser())
 
   }, []);
 
@@ -30,7 +34,7 @@ export default function Home() {
         <Row className="mb-4">
           <Col md={4}>
             <Card className="bg-dark text-white">
-              <Card.Img src="/images/placeholder1.jpg" className="dashboard-img" alt="Trip 1" fluid/>
+              <Card.Img src="/images/placeholder1.jpg" className="dashboard-img" alt="Trip 1"/>
               <Card.Body>
                 <Card.Title>Jasper, CA</Card.Title>
                 <Card.Text>July 15 - July 22</Card.Text>
@@ -39,7 +43,7 @@ export default function Home() {
           </Col>
           <Col md={4}>
             <Card className="bg-dark text-white">
-              <Card.Img src="/images/placeholder2.jpg" className="dashboard-img" alt="Trip 2" fluid/>
+              <Card.Img src="/images/placeholder2.jpg" className="dashboard-img" alt="Trip 2"/>
               <Card.Body>
                 <Card.Title>Kalibo, PH</Card.Title>
                 <Card.Text>August 5 - September 12</Card.Text>
@@ -48,7 +52,7 @@ export default function Home() {
           </Col>
           <Col md={4}>
             <Card className="bg-dark text-white">
-              <Card.Img src="/images/placeholder3.jpg" className="dashboard-img" alt="Trip 3" fluid/>
+              <Card.Img src="/images/placeholder3.jpg" className="dashboard-img" alt="Trip 3" />
               <Card.Body>
                 <Card.Title>Tokyo, JP</Card.Title>
                 <Card.Text>September 1 - September 10</Card.Text>
@@ -76,7 +80,7 @@ export default function Home() {
         <Row>
           <Col md={4}>
             <Card className="bg-dark text-white">
-              <Card.Img src="/images/placeholder4.jpg" className="recommend-img" alt="City 1" fluid/>
+              <Card.Img src="/images/placeholder4.jpg" className="recommend-img" alt="City 1"/>
               <Card.Body>
                 <Card.Title>Grand Canyon, US</Card.Title>
               </Card.Body>
@@ -84,7 +88,7 @@ export default function Home() {
           </Col>
           <Col md={4}>
             <Card className="bg-dark text-white">
-              <Card.Img src="/images/placeholder5.jpg" className="recommend-img" alt="City 2" fluid/>
+              <Card.Img src="/images/placeholder5.jpg" className="recommend-img" alt="City 2"/>
               <Card.Body>
                 <Card.Title>El Nido, PH</Card.Title>
               </Card.Body>
@@ -92,7 +96,7 @@ export default function Home() {
           </Col>
           <Col md={4}>
             <Card className="bg-dark text-white">
-              <Card.Img src="/images/placeholder6.jpg" className="recommend-img" alt="City 3" fluid/>
+              <Card.Img src="/images/placeholder6.jpg" className="recommend-img" alt="City 3"/>
               <Card.Body>
                 <Card.Title>Kyoto, JP</Card.Title>
               </Card.Body>
