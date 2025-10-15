@@ -63,7 +63,7 @@ export default function MainNavbar() {
                 )
             }
             </div>
-            <Navbar expand="md" className={theme === "dark" ? "fixed-top nav-border navbar-dark bg-dark" : "fixed-top nav-border bg-light"}>
+            <Navbar expand="md" className={theme === "dark" ? "fixed-top nav-border navbar-dark bg-navbar-dark" : "fixed-top nav-border bg-light"}>
                 <Container>
                     <Navbar.Brand>TravelWise</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -76,8 +76,7 @@ export default function MainNavbar() {
                                 <Nav.Link href='/'>My Trips</Nav.Link>
                                 <NavDropdown menuVariant={theme} title="Explore">
                                     <NavDropdown.Item href="/search/flight">Search Flights</NavDropdown.Item>
-                                    <NavDropdown.Item href="/">Search Hotels</NavDropdown.Item>
-                                    <NavDropdown.Item href="/">Search Transportation</NavDropdown.Item>
+                                    <NavDropdown.Item href="/search/hotel">Search Hotels</NavDropdown.Item>
                                 </NavDropdown>
                                 <Nav.Link href='/'>Guides</Nav.Link>
                                 <Nav.Link href='/'>Support</Nav.Link>

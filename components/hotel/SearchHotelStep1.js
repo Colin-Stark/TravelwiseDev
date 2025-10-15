@@ -10,16 +10,27 @@ import moment from 'moment';
 import { fetchCurrencyData } from "@/lib/currencyData";
 import BtnCounter from "../BtnCounter";
 
-const travelTypes = {
-    "1" : "Round Trip",
-    "2" : "One Way",
+const propertyTypes = {
+    "12" : "Beach hotels",
+    "13" : "Boutique hotels",
+    "14" : "Hostels",
+    "15" : "Inns",
+    "16" : "Motels",
+    "17" : "Resorts",
+    "18" : "Spa hotels",
+    "19" : "Bed and breakfasts",
+    "20" : "Other",
+    "21" : "Apartment hotels",
+    "22" : "Minshuku",
+    "23" : "Japanese-style business hotels",
+    "24" : "Ryokan",
 };
 
-const travelClasses = {
-    "1" : "Economy",
-    "2" : "Premium Economy",
-    "3" : "Business",
-    "4" : "First",
+const hotelClasses = {
+    "2" : "2-star",
+    "3" : "3-star",
+    "4" : "4-star",
+    "5" : "5-star",
 };
 
 const dateNow = moment();
@@ -30,7 +41,7 @@ dateNow.set({
     millisecond: 0
 });
 
-export default function SearchFlightStep1(props) {
+export default function SearchHotelStep1(props) {
     const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
     const { theme } = useContext(ThemeContext);
     const [warning, setWarning] = useState("");
@@ -38,21 +49,18 @@ export default function SearchFlightStep1(props) {
     const [currencies, setCurrencies] = useState({});
 
     const initialValues = {
-        type : props.initialData["type"] ? props.initialData["type"] : "1",
-        outbound_date : props.initialData["outbound_date"] ? props.initialData["outbound_date"] : "",
-        return_date : props.initialData["return_date"] ? props.initialData["return_date"] : "",
-        travel_class : props.initialData["travel_class"] ? props.initialData["travel_class"] : "1",
+        check_in_date : props.initialData["check_in_date"] ? props.initialData["check_in_date"] : "",
+        check_out_date : props.initialData["check_out_date"] ? props.initialData["check_out_date"] : "",
         adults: props.initialData["adults"] ? props.initialData["adults"] : 1,
         children: props.initialData["children"] ? props.initialData["children"] : 0,
-        infants_in_seat: props.initialData["infants_in_seat"] ? props.initialData["infants_in_seat"] : 0,
-        infants_on_lap: props.initialData["infants_on_lap"] ? props.initialData["infants_on_lap"] : 0,
+        hotel_class: props.initialData["hotel_class"] ? props.initialData["hotel_class"] : Object.keys(hotelClasses),
+        max_price: props.initialData["max_price"] ? props.initialData["max_price"] : "",
         currency : props.initialData["currency"] ? props.initialData["currency"] : "CAD",
+        property_types : props.initialData["property_types"] ? props.initialData["property_types"] : Object.keys(propertyTypes),
     };
 
     const { Formik } = formik;
     const schema = yup.object().shape({
-        type: yup.string(),
-        travel_class: yup.string(),
         currency: yup.string(),
     });
 
@@ -72,15 +80,15 @@ export default function SearchFlightStep1(props) {
     async function handleSubmit(values) {
         setWarning(""); // Clear previous warnings
 
-        const sDate = moment(values.outbound_date);
-        const eDate = moment(values.return_date);
+        const sDate = moment(values.check_in_date);
+        const eDate = moment(values.check_out_date);
 
         if(!sDate.isValid()) {
-            setWarning("Departure Date is required");
+            setWarning("Check-in is required");
             return;
         }
         if(!eDate.isValid()) {
-            setWarning("Return Date is required");
+            setWarning("Check-out is required");
             return;
         }
         if(sDate.isBefore(dateNow)) {
@@ -88,35 +96,40 @@ export default function SearchFlightStep1(props) {
             return;
         }
         if(eDate.isBefore(sDate)) {
-            setWarning("Return Date must not be before Departure Date");
+            setWarning("Check-out Date must not be before Check-in Date");
             return;
         }
 
         //check if there is at least one passenger
-        if(values.adults + values.children + values.infants_in_seat + values.infants_on_lap < 1) {
-            setWarning("Must have at least one passenger");
+        if(values.adults + values.children < 1) {
+            setWarning("Must have at least one guest");
             return;
         }
-        else if(values.adults === 0 && values.infants_in_seat + values.infants_on_lap > 0) {
-            setWarning("Infants must be accompanied by at least one adult");
+        else if(values.adults === 0 && values.children > 0) {
+            setWarning("Children must be accompanied by at least one adult");
+            return;
+        }
+
+        //check if max price is valid
+        if(values.max_price < 0) {
+            setWarning("Max price must be greater than or equal to 0");
             return;
         }
         
-        const formattedSDate = moment(values.outbound_date).format('YYYY-MM-DD');
-        const formattedEDate = moment(values.return_date).format('YYYY-MM-DD');
+        const formattedSDate = sDate.format('YYYY-MM-DD');
+        const formattedEDate = eDate.format('YYYY-MM-DD');
 
         const data = {
-            type : values.type,
-            type_name : travelTypes[values.type],
-            outbound_date : formattedSDate,
-            return_date : formattedEDate,
-            travel_class : values.travel_class,
-            travel_class_name : travelClasses[values.travel_class],
+            check_in_date : formattedSDate,
+            check_out_date : formattedEDate,
             adults: values.adults,
             children: values.children,
-            infants_in_seat: values.infants_in_seat,
-            infants_on_lap: values.infants_on_lap,
+            hotel_class: values.hotel_class,
+            max_price: values.max_price,
             currency : values.currency,
+            property_types : values.property_types,
+            all_property_types : propertyTypes,
+            all_hotel_classes: hotelClasses,
         }
 
         console.log(data);
@@ -134,31 +147,31 @@ export default function SearchFlightStep1(props) {
         >
         {({ handleSubmit, handleChange, values, touched, errors, setFieldValue}) => (
         <Form className="mx-sm-2 mx-md-5" onSubmit={handleSubmit} as={formik.Form}>
-            <h3 className="text-center">Flight Details</h3>
-            <p className="text-center">Enter the type, dates, and class of the flight</p>
+            <h3 className="text-center">Hotel Details</h3>
+            <p className="text-center">Enter the types, dates, and classes of the hotel</p>
             <Card>
                 <Card.Body>
                     <Row className="d-flex my-3 px-2 px-md-3 gy-4">
                         <Col xs={12} sm={6} lg={4}>
-                            <Form.Label className="fw-bold d-block">Departure Date</Form.Label>
+                            <Form.Label className="fw-bold d-block">Check-in Date</Form.Label>
                             <DatePickerField
-                                name="outbound_date"
-                                value={values.outbound_date}
-                                placeholderText={"Select Departure date"}
+                                name="check_in_date"
+                                value={values.check_in_date}
+                                placeholderText={"Select Check-in date"}
                                 onChange={setFieldValue} // Pass Formik's setFieldValue
                             />                            
                         </Col>
                         <Col xs={12} sm={6} lg={4}>
-                            <Form.Label className="fw-bold d-block">Return Date</Form.Label>
+                            <Form.Label className="fw-bold d-block">Check-out Date</Form.Label>
                             <DatePickerField
-                                name="return_date"
-                                value={values.return_date}
-                                placeholderText={"Select Return date"}
+                                name="check_out_date"
+                                value={values.check_out_date}
+                                placeholderText={"Select Check-out date"}
                                 onChange={setFieldValue} // Pass Formik's setFieldValue
                             />                            
                         </Col>
                         <Col xs={12} sm={6} lg={4}>
-                            <Form.Label className="fw-bold d-block">Number of Passengers</Form.Label>
+                            <Form.Label className="fw-bold d-block">Number of People</Form.Label>
                             <div>
                                 <Row className="my-2">
                                     <Col xs={6}>
@@ -178,64 +191,40 @@ export default function SearchFlightStep1(props) {
                                         <BtnCounter theme={theme} name="children" initialValue={initialValues.children} onChange={setFieldValue}></BtnCounter>                          
                                     </Col>
                                 </Row>
-                                <Row className="my-2">
-                                    <Col xs={6}>
-                                        <label className="d-block">Infants (in seat): </label>
-                                        <label className="d-block text-sm text-secondary">Younger than 2</label>
-                                    </Col>
-                                    <Col xs={6}>
-                                        <BtnCounter theme={theme} name="infants_in_seat" initialValue={initialValues.infants_in_seat} onChange={setFieldValue}></BtnCounter>                          
-                                    </Col>
-                                </Row>
-                                <Row className="my-2">
-                                    <Col xs={6}>
-                                        <label className="d-block">Infants (on lap): </label>
-                                        <label className="d-block text-sm text-secondary">Younger than 2</label>
-                                    </Col>
-                                    <Col xs={6}>
-                                        <BtnCounter theme={theme} name="infants_on_lap" initialValue={initialValues.infants_on_lap} onChange={setFieldValue}></BtnCounter>                          
-                                    </Col>
-                                </Row>
                             </div>
                             
                         </Col>
                         <Col xs={12} sm={6} lg={4}>
-                            <Form.Label className="fw-bold d-block">Flight Type</Form.Label>
-                            <fieldset>
+                            <Form.Label className="fw-bold">Hotel Class</Form.Label>
+                            <Row className="gy-2">
                             {
-                                Object.entries(travelTypes).map(([val, travelType], index) => (
-                                    <Form.Check
-                                        key={`trip_${val}`}
-                                        id={`trip_${val}`}
-                                        label={travelType}
-                                        name="type"
-                                        type="radio"
-                                        value={val}
-                                        checked={values.type === val}
-                                        as={formik.Field}
-                                    />
+                                Object.entries(hotelClasses).map(([val, hotelClass], index) => (
+                                    <Col xs={12} sm={6} key={`class_${val}`}>
+                                        <Form.Check
+                                                className="text-nowrap"
+                                                id={`class_${val}`}
+                                                label={hotelClass}
+                                                name="hotel_class"
+                                                type="checkbox"
+                                                value={val}
+                                                as={formik.Field}
+                                            />
+                                    </Col>
                                 ))
                             }
-                            </fieldset>
+                            </Row>
                         </Col>
                         <Col xs={12} sm={6} lg={4}>
-                            <Form.Label className="fw-bold">Flight Type</Form.Label>
-                            <fieldset>
-                            {
-                                Object.entries(travelClasses).map(([val, travelClass], index) => (
-                                    <Form.Check
-                                        key={`class_${val}`}
-                                        id={`class_${val}`}
-                                        label={travelClass}
-                                        name="travel_class"
-                                        type="radio"
-                                        value={val}
-                                        checked={values.travel_class === val}
-                                        as={formik.Field}
-                                    />
-                                ))
-                            }
-                            </fieldset>
+                            <Form.Label className="d-block"><b>Max Price</b> <label className="text-sm text-secondary">(leave blank for any)</label></Form.Label>
+                            <Form.Control
+                                id="max_price"
+                                name="max_price"
+                                type="number"
+                                value={values.max_price}
+                                onChange={handleChange}
+                                min={0}
+                                placeholder="Enter Max Price"
+                            />                         
                         </Col>
                         <Col xs={12} sm={6} lg={4}>
                             <Form.Group controlId="mySelect">
@@ -246,6 +235,25 @@ export default function SearchFlightStep1(props) {
                                 ))}
                                 </Form.Select>
                             </Form.Group>
+                        </Col>
+                        <Col xs={12}>
+                            <Form.Label className="fw-bold d-block">Property Type</Form.Label>
+                            <Row className="gy-2">
+                            {
+                                Object.entries(propertyTypes).map(([val, propertyType], index) => (
+                                    <Col key={`hotel_${val}`} sm={6} md={4}>
+                                        <Form.Check
+                                            id={`hotel_${val}`}
+                                            label={propertyType}
+                                            name="property_types"
+                                            type="checkbox"
+                                            value={val}
+                                            as={formik.Field}
+                                        />
+                                    </Col>
+                                ))
+                            }
+                            </Row>
                         </Col>
                     </Row>
                 </Card.Body>

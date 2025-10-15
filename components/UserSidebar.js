@@ -6,7 +6,7 @@ export default function Sidebar() {
     <div className="bg-dark text-white p-4 rounded h-100">
       {/* User Info */}
       <div className="d-flex align-items-center mb-4">
-        <Image src="/avatar.png" roundedCircle width="50" height="50" />
+        <Image src="/avatar.png" roundedCircle width="50" height="50" alt="avatar" />
         <div className="ms-3">
           <h5>Marc Gurwitz</h5>
           <small className="text-muted">marc.gurwitz@icloud.com</small>
