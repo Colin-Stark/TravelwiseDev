@@ -136,7 +136,7 @@ export default function SearchFlightStep1(props) {
         <Form className="mx-sm-2 mx-md-5" onSubmit={handleSubmit} as={formik.Form}>
             <h3 className="text-center">Flight Details</h3>
             <p className="text-center">Enter the type, dates, and class of the flight</p>
-            <Card>
+            <Card className="main-shadow">
                 <Card.Body>
                     <Row className="d-flex my-3 px-2 px-md-3 gy-4">
                         <Col xs={12} sm={6} lg={4}>
@@ -219,7 +219,7 @@ export default function SearchFlightStep1(props) {
                             </fieldset>
                         </Col>
                         <Col xs={12} sm={6} lg={4}>
-                            <Form.Label className="fw-bold">Flight Type</Form.Label>
+                            <Form.Label className="fw-bold">Flight Class</Form.Label>
                             <fieldset>
                             {
                                 Object.entries(travelClasses).map(([val, travelClass], index) => (

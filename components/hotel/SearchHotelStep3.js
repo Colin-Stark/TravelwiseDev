@@ -154,7 +154,7 @@ export default function SearchFlightStep4(props) {
             <h3 className="text-center">Hotel Results</h3>
             <p className="text-center">View available hotels to book</p>
             {warning && (<><br /><Alert variant="danger">{warning}</Alert></>)}
-            <Card>
+            <Card className="main-shadow">
                 <Card.Body>
                     <Row className="d-flex gy-2">
                         <Col sm={6} md={4}>

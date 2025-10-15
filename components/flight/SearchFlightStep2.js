@@ -127,7 +127,7 @@ export default function SearchFlightStep2(props) {
             {warning && (<><br /><Alert variant="danger">{warning}</Alert></>)}
             <Row className="d-flex mt-3 px-2 px-md-3 gy-4">
                 <Col sm={12} md={4}>
-                    <Card>
+                    <Card className="main-shadow">
                         <Card.Body>
                             <Form.Group>
                                 <Form.Label className="fw-bold d-block">Country</Form.Label>
@@ -180,7 +180,7 @@ export default function SearchFlightStep2(props) {
                 </Col>
 
                 <Col sm={12} md={8}>
-                    <Card className="min-h-50">
+                    <Card className="min-h-50 main-shadow">
                         <Card.Body>
                             <Form.Label className="fw-bold d-block">Airport List (Departure)</Form.Label>
                             <Row className="gy-3">

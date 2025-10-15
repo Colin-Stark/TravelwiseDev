@@ -15,7 +15,7 @@ const FlightCard = ({ flight, index, numFlights, layovers }) => {
 
   return (
     <div>
-        <Card className="shadow-lg rounded-4 mb-4">
+        <Card className="rounded-4 mb-4 main-shadow">
         <Card.Header className="bg-main-tertiary rounded-top-4">
             <h5 className="mb-0 text-light">Flight {index+1} of {numFlights} : <label className='text-nowrap'>{flight?.airline} ({flight?.flight_number})</label></h5>
         </Card.Header>

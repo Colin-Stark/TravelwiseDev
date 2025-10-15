@@ -1,5 +1,4 @@
     import React from 'react';
-import { BorderBottom } from 'react-bootstrap-icons';
     import DataTable from 'react-data-table-component';
 
     function DataTableComponent(props) {

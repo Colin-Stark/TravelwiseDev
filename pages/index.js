@@ -38,7 +38,7 @@ export default function Home() {
         <h5>Upcoming Trips</h5>
         <Row className="mb-4">
           <Col md={4}>
-            <Card className="bg-dark text-white">
+            <Card className="bg-dark text-white card-selectable">
               <Card.Img src="/images/placeholder1.jpg" className="dashboard-img" alt="Trip 1"/>
               <Card.Body>
                 <Card.Title>Jasper, CA</Card.Title>
@@ -47,7 +47,7 @@ export default function Home() {
             </Card>
           </Col>
           <Col md={4}>
-            <Card className="bg-dark text-white">
+            <Card className="bg-dark text-white card-selectable">
               <Card.Img src="/images/placeholder2.jpg" className="dashboard-img" alt="Trip 2"/>
               <Card.Body>
                 <Card.Title>Kalibo, PH</Card.Title>
@@ -56,7 +56,7 @@ export default function Home() {
             </Card>
           </Col>
           <Col md={4}>
-            <Card className="bg-dark text-white">
+            <Card className="bg-dark text-white card-selectable">
               <Card.Img src="/images/placeholder3.jpg" className="dashboard-img" alt="Trip 3" />
               <Card.Body>
                 <Card.Title>Tokyo, JP</Card.Title>
@@ -68,7 +68,7 @@ export default function Home() {
 
         {/* Expense Tracking */}
         <h5>Expense Tracking</h5>
-        <Card className="bg-dark text-white p-4 mb-4">
+        <Card className="bg-dark text-white p-4 mb-4 main-shadow">
           <h3>$2,500</h3>
           <p>Last 30 days <span className="text-success">+15%</span></p>
           {/* Placeholder for chart */}
@@ -84,7 +84,7 @@ export default function Home() {
         <h5>Personalized Recommendations</h5>
         <Row>
           <Col md={4}>
-            <Card className="bg-dark text-white">
+            <Card className="bg-dark text-white card-selectable">
               <Card.Img src="/images/placeholder4.jpg" className="recommend-img" alt="City 1"/>
               <Card.Body>
                 <Card.Title>Grand Canyon, US</Card.Title>
@@ -92,7 +92,7 @@ export default function Home() {
             </Card>
           </Col>
           <Col md={4}>
-            <Card className="bg-dark text-white">
+            <Card className="bg-dark text-white card-selectable">
               <Card.Img src="/images/placeholder5.jpg" className="recommend-img" alt="City 2"/>
               <Card.Body>
                 <Card.Title>El Nido, PH</Card.Title>
@@ -100,7 +100,7 @@ export default function Home() {
             </Card>
           </Col>
           <Col md={4}>
-            <Card className="bg-dark text-white">
+            <Card className="bg-dark text-white card-selectable">
               <Card.Img src="/images/placeholder6.jpg" className="recommend-img" alt="City 3"/>
               <Card.Body>
                 <Card.Title>Kyoto, JP</Card.Title>

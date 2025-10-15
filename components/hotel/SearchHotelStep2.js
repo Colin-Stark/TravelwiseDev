@@ -119,7 +119,7 @@ export default function SearchHotelStep2(props) {
             <h3 className="text-center">Hotel Location</h3>
             <p className="text-center">Select the location to search hotels from</p>
             {warning && (<><br /><Alert variant="danger">{warning}</Alert></>)}
-            <Card>
+            <Card className="main-shadow">
                 <Card.Body>
                     <Row className="d-flex mb-3 px-2 px-md-3 gy-4">
                         <Col sm={12} md={6}>

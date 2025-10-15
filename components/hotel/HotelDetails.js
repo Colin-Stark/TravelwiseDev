@@ -148,7 +148,7 @@ export default function FlightDetails({show, handleModalClose, handleSubmit, hot
             {
                 hotelObj?.reviews_breakdown?.map((review, index) => (
                     <Col sm={12} md={6} key={`review_${index}`}>
-                        <Card>
+                        <Card className='main-shadow'>
                             <Card.Header className='bg-main-tertiary'><Card.Title>{review.name}</Card.Title></Card.Header>
                             <Card.Body>
                                 <label className='fw-bold me-2'>Description: </label>

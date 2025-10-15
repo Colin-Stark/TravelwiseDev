@@ -149,7 +149,7 @@ export default function SearchHotelStep1(props) {
         <Form className="mx-sm-2 mx-md-5" onSubmit={handleSubmit} as={formik.Form}>
             <h3 className="text-center">Hotel Details</h3>
             <p className="text-center">Enter the types, dates, and classes of the hotel</p>
-            <Card>
+            <Card className="main-shadow">
                 <Card.Body>
                     <Row className="d-flex my-3 px-2 px-md-3 gy-4">
                         <Col xs={12} sm={6} lg={4}>
