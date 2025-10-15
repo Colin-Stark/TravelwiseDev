@@ -103,7 +103,7 @@ export default function SearchFlightStep4(props) {
     {
         name: 'Action',
         cell: (props) => <Button onClick={()=>{
-            handleSubmit(props);
+            handleBook(props);
         }}>Book</Button>,
     },
     ];
@@ -147,13 +147,23 @@ export default function SearchFlightStep4(props) {
         handleModalShow();
     }
 
-    async function handleSubmit(flightObj) 
-    {
-        if(!flightObj) {
-            return;
-        }
-        console.log(flightObj);
-    }
+
+    // Only showing updated handleBook
+        const handleBook = (flightObj) => {
+            if (!flightObj) return alert("Please select a flight first");
+
+            const flightPrice = flightObj.price ? parseFloat(flightObj.price) : 0;
+
+            const flightData = {
+                ...props.initialData,
+                flightObj,
+                flightPrice
+            };
+
+            props.onBookFlight(flightData);
+        };
+
+
 
     return (
         flightsData?.length > 0 ? (
@@ -205,7 +215,7 @@ export default function SearchFlightStep4(props) {
             <FlightDetails 
                 show={showModal}
                 handleModalClose={handleModalClose}
-                handleSubmit={handleSubmit}
+                handleSubmit={handleBook}
                 flightObj={selectedFlightObj}
                 currency={initialValues.currency}
                 theme={theme}
