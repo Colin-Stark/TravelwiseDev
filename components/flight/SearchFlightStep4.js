@@ -130,6 +130,8 @@ export default function SearchFlightStep4(props) {
             travel_class : parseInt(props.initialData.travel_class, 10),
         }
 
+        console.log(properties)
+
         const flightObj = await getFlightList(properties);
         const allFlights = [
             ...flightObj["best_flights"],
