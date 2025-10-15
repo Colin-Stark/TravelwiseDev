@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     try {
         // Forward the request to the external server
         const externalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/userManagement/get-by-email`, {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 // Add any other headers if needed (e.g., Authorization)

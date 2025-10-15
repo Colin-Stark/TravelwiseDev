@@ -15,10 +15,15 @@ export default function Home() {
       setIsBlocked(false);
 
       //checkValidLogin();
-      setCurrentUser(getUser())
-      console.log(getUser())
+      loadData();
 
   }, []);
+
+  async function loadData() {
+    const user = await getUser();
+    console.log(user);
+    setCurrentUser(user);
+  }
 
   return (
     <Row className="m-0">
@@ -27,7 +32,7 @@ export default function Home() {
       </Col> */}
 
       <Col md={12} className="p-4 bg-black text-white">
-        <h2 className="mb-4">Welcome back, Marc</h2>
+        <h2 className="mb-4">Welcome back, {currentUser?.firstName ? currentUser.firstName : ""}</h2>
 
         {/* Upcoming Trips */}
         <h5>Upcoming Trips</h5>
