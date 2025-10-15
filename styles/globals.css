@@ -277,5 +277,6 @@ a.text-link:hover {
   height: 10vh;
 }
 
-.dashboard-upcoming-img {
+.dashboard-img, .recommend-img {
+  max-height: 250px;
 }
