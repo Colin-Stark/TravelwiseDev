@@ -35,7 +35,7 @@ export default function Profile() {
             language: values.language,
           },
         };
-        const res = await fetch("/userManagement/update-user", {
+        const res = await fetch("/api/update-user", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -68,14 +68,20 @@ export default function Profile() {
   });
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const email = getUserCookie()?.email;
-      if (!email) {
-        setWarning("No user email found in cookie");
-        return;
-      }
-      try {
-        const res = await fetch(`/userManagement/get-by-email?email=${encodeURIComponent(email)}`);
+        const fetchUserData = async () => {
+        const email = getUserCookie()?.email;
+        if (!email) {
+          setWarning("No user email found in cookie");
+          return;
+        }
+        try {
+          const res = await fetch('/api/user', {  // Updated to use proxy route
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+          });
         const data = await res.json();
         if (data.success) {
           const user = data.user;
