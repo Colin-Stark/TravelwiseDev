@@ -1,0 +1,218 @@
+.container {
+  background-color: #0a0a0a;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.card {
+  background-color: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.paymentMethods {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.methodBtn {
+  background-color: transparent;
+  border: 1px solid #374151;
+  border-radius: 10px;
+  padding: 0.75rem;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.methodBtn:hover {
+  background-color: #1e3a8a;
+}
+
+.inputField {
+  background-color: #1f2937;
+  border: none;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+}
+
+.inputField::placeholder {
+  color: #9ca3af;
+}
+
+.inputRow {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.inputHalf {
+  flex: 1;
+  background-color: #1f2937;
+  border: none;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+}
+
+.inputHalf::placeholder {
+  color: #9ca3af;
+}
+
+.summary {
+  border-top: 1px solid #374151;
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.payBtn {
+  margin-top: 1.5rem;
+  background-color: #2563eb;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.75rem;
+  font-weight: 600;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.payBtn:hover {
+  background-color: #1e40af;
+}
+
+.loading {
+  color: white;
+  text-align: center;
+  margin-top: 50px;
+}
+.pricingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  background-color: #0a0a0a;
+  min-height: 100vh;
+  padding: 4rem 2rem;
+}
+
+.cardRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.planCard {
+  background-color: #111827;
+  color: white;
+  border: 1px solid #1f2937;
+  border-radius: 16px;
+  width: 18rem;
+  padding: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.planCard:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.planName {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.priceText {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+
+.per {
+  font-size: 1rem;
+  color: #9ca3af;
+}
+
+.selectBtn {
+  width: 100%;
+  background-color: #1e3a8a;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.selectBtn:hover {
+  background-color: #2563eb;
+}
+
+.featureList {
+  list-style: none;
+  padding-left: 0;
+  color: #d1d5db;
+  font-size: 0.9rem;
+}
+
+.cancelText {
+  margin-top: 2rem;
+  color: #9ca3af;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+}
+.error {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid #ff6b6b;
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 500;
+}

@@ -1,5 +1,6 @@
 import 'react-datepicker/dist/react-datepicker.css';
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import Layout from "@/components/Layout";
 import { SWRConfig } from "swr";
 import RouteGuard from "@/components/RouteGuard";

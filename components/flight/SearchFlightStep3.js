@@ -1,7 +1,7 @@
 import { ThemeContext } from "@/pages/_app";
 import { isBlockedAtom } from "@/store";
 import { useAtom } from "jotai";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { Alert, Button, Card, Col, Form, Row } from "react-bootstrap";
 import { filterObjByCity, filterObjByCountry, getCityList, getCountryList } from "@/lib/airportData";
 import { Typeahead } from "react-bootstrap-typeahead";
@@ -17,6 +17,7 @@ export default function SearchFlightStep3(props) {
     const [cityOptions, setCityOptions] = useState([]);
     const [airports, setAirports] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const inputRef = useRef(null);
 
     const initialValues = {
             arrival_country : props.initialData["arrival_country"] ? props.initialData["arrival_country"] : "",
@@ -118,7 +119,7 @@ export default function SearchFlightStep3(props) {
             {warning && (<><br /><Alert variant="danger">{warning}</Alert></>)}
             <Row className="d-flex mt-3 px-2 px-md-3 gy-4">
                 <Col sm={12} md={4}>
-                    <Card>
+                    <Card className="main-shadow">
                         <Card.Body>
                             <Form.Group>
                                 <Form.Label className="fw-bold d-block">Country</Form.Label>
@@ -134,6 +135,9 @@ export default function SearchFlightStep3(props) {
                                         setCountry(newVal[0]);
                                         setAirports([]);
                                         setSelectedAirport("");
+
+                                        values.arrival_city = "";
+                                        inputRef.current.clear();
                                     }}
                                 />
                             </Form.Group>
@@ -148,8 +152,13 @@ export default function SearchFlightStep3(props) {
                                     placeholder={cityOptions?.length > 0 ? "Choose a city..." : "No available cities found"}
                                     disabled={cityOptions?.length > 0 ? false : true}
                                     defaultSelected={[initialValues.arrival_city]}
+                                    ref={inputRef}
                                     onChange={(newVal) => {
                                         values.arrival_city = newVal[0];
+                                        values.arrival_id = "";
+                                        setSelectedAirport("");
+                                        setAirports([]);
+
                                         if(newVal[0]) {
                                             setCity(newVal[0]);
                                             loadAirportData(newVal[0]);
@@ -162,7 +171,7 @@ export default function SearchFlightStep3(props) {
                 </Col>
 
                 <Col sm={12} md={8}>
-                    <Card className="min-h-50">
+                    <Card className="min-h-50 main-shadow">
                         <Card.Body>
                             <Form.Label className="fw-bold d-block">Airport List (Arrival)</Form.Label>
                             <Row className="gy-3">
@@ -206,7 +215,7 @@ export default function SearchFlightStep3(props) {
                                     : 
                                     (
                                         <div className="d-flex justify-content-center align-items-center py-3">
-                                            <Alert variant="info" className="w-100 text-center">Please select a City first</Alert>
+                                            <Alert className="w-100 text-center bg-main-tertiary">No airports found in selected City</Alert>
                                         </div>
                                     )
                                 )

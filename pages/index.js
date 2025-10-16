@@ -3,18 +3,27 @@ import { useContext, useEffect, useState } from "react";
 import { getUserCookie, checkValidLogin } from "@/lib/cookies";
 import { useAtom } from "jotai";
 import { isBlockedAtom } from "@/store";
+import { getUser } from "@/lib/userData";
 
 export default function Home() {
   const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
   const [step, setStep] = useState(1);
+  const [currentUser, setCurrentUser] = useState('')
   
   useEffect(() => {
       //remove page blocker
       setIsBlocked(false);
 
       //checkValidLogin();
+      loadData();
 
   }, []);
+
+  async function loadData() {
+    const user = await getUser();
+    console.log(user);
+    setCurrentUser(user);
+  }
 
   return (
     <Row className="m-0">
@@ -22,36 +31,36 @@ export default function Home() {
         <DashboardSidebar />
       </Col> */}
 
-      <Col md={9} className="p-4 bg-black text-white">
-        <h2 className="mb-4">Welcome back, Marc</h2>
+      <Col md={12} className="p-4 bg-black text-white">
+        <h2 className="mb-4">Welcome back, {currentUser?.firstName ? currentUser.firstName : ""}</h2>
 
         {/* Upcoming Trips */}
         <h5>Upcoming Trips</h5>
         <Row className="mb-4">
           <Col md={4}>
-            <Card className="bg-dark text-white">
-              <Card.Img src="/placeholder.png" alt="Trip 1" />
+            <Card className="bg-dark text-white card-selectable">
+              <Card.Img src="/images/placeholder1.jpg" className="dashboard-img" alt="Trip 1"/>
               <Card.Body>
-                <Card.Title>Image 1</Card.Title>
-                <Card.Text>Start date - End date</Card.Text>
+                <Card.Title>Jasper, CA</Card.Title>
+                <Card.Text>July 15 - July 22</Card.Text>
               </Card.Body>
             </Card>
           </Col>
           <Col md={4}>
-            <Card className="bg-dark text-white">
-              <Card.Img src="/placeholder.png" alt="Trip 2" />
+            <Card className="bg-dark text-white card-selectable">
+              <Card.Img src="/images/placeholder2.jpg" className="dashboard-img" alt="Trip 2"/>
               <Card.Body>
-                <Card.Title>Image 2</Card.Title>
-                <Card.Text>Start date - End date</Card.Text>
+                <Card.Title>Kalibo, PH</Card.Title>
+                <Card.Text>August 5 - September 12</Card.Text>
               </Card.Body>
             </Card>
           </Col>
           <Col md={4}>
-            <Card className="bg-dark text-white">
-              <Card.Img src="/placeholder.png" alt="Trip 3" />
+            <Card className="bg-dark text-white card-selectable">
+              <Card.Img src="/images/placeholder3.jpg" className="dashboard-img" alt="Trip 3" />
               <Card.Body>
-                <Card.Title>Image 3</Card.Title>
-                <Card.Text>Start date - End date</Card.Text>
+                <Card.Title>Tokyo, JP</Card.Title>
+                <Card.Text>September 1 - September 10</Card.Text>
               </Card.Body>
             </Card>
           </Col>
@@ -59,9 +68,9 @@ export default function Home() {
 
         {/* Expense Tracking */}
         <h5>Expense Tracking</h5>
-        <Card className="bg-dark text-white p-4 mb-4">
-          <h3>Amount</h3>
-          <p>Duration <span className="text-success">Increment</span></p>
+        <Card className="bg-dark text-white p-4 mb-4 main-shadow">
+          <h3>$2,500</h3>
+          <p>Last 30 days <span className="text-success">+15%</span></p>
           {/* Placeholder for chart */}
           <div className="d-flex justify-content-between mt-3">
             <div>Food </div>
@@ -75,26 +84,26 @@ export default function Home() {
         <h5>Personalized Recommendations</h5>
         <Row>
           <Col md={4}>
-            <Card className="bg-dark text-white">
-              <Card.Img src="/placeholder.png" alt="City 1" />
+            <Card className="bg-dark text-white card-selectable">
+              <Card.Img src="/images/placeholder4.jpg" className="recommend-img" alt="City 1"/>
               <Card.Body>
-                <Card.Title>Recommendation 1</Card.Title>
+                <Card.Title>Grand Canyon, US</Card.Title>
               </Card.Body>
             </Card>
           </Col>
           <Col md={4}>
-            <Card className="bg-dark text-white">
-              <Card.Img src="/placeholder.png" alt="City 2" />
+            <Card className="bg-dark text-white card-selectable">
+              <Card.Img src="/images/placeholder5.jpg" className="recommend-img" alt="City 2"/>
               <Card.Body>
-                <Card.Title>Recommendation 2</Card.Title>
+                <Card.Title>El Nido, PH</Card.Title>
               </Card.Body>
             </Card>
           </Col>
           <Col md={4}>
-            <Card className="bg-dark text-white">
-              <Card.Img src="/placeholder.png" alt="City 3" />
+            <Card className="bg-dark text-white card-selectable">
+              <Card.Img src="/images/placeholder6.jpg" className="recommend-img" alt="City 3"/>
               <Card.Body>
-                <Card.Title>Recommendation 3</Card.Title>
+                <Card.Title>Kyoto, JP</Card.Title>
               </Card.Body>
             </Card>
           </Col>

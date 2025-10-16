@@ -4,16 +4,14 @@ import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../_app";
 import { useAtom } from "jotai";
 import { isBlockedAtom } from "@/store";
-import SearchFlightStep1 from "@/components/flight/SearchFlightStep1";
-import SearchFlightStep2 from "@/components/flight/SearchFlightStep2";
-import SearchFlightStep3 from "@/components/flight/SearchFlightStep3";
-import SearchFlightStep4 from "@/components/flight/SearchFlightStep4";
+import SearchHotelStep1 from "@/components/hotel/SearchHotelStep1";
+import SearchHotelStep2 from "@/components/hotel/SearchHotelStep2";
+import SearchHotelStep3 from "@/components/hotel/SearchHotelStep3";
 
-export default function SearchFlight() {
+export default function SearchHotel() {
     const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
     const { theme } = useContext(ThemeContext);
     const router = useRouter();
-    const [warning, setWarning] = useState("");
     const [pageCount, setPageCount] = useState(1);
     const [formData, setFormData] = useState({});
 
@@ -30,12 +28,8 @@ export default function SearchFlight() {
         setIsBlocked(false);
     }, [router.query, setIsBlocked]);
 
-    useEffect(() => {
-        if (warning !== "") setIsBlocked(false);
-    }, [warning]);
-
-    const handleBookFlight = (flightData) => {
-        const allData = { ...formData, ...flightData };
+    const handleBookHotel = (hotelData) => {
+        const allData = { ...formData, ...hotelData };
 
         // Only pass serializable fields in query
         const queryData = {
@@ -43,7 +37,7 @@ export default function SearchFlight() {
             flightName: allData.flightName,
             hotelPrice: allData.hotelPrice,
             hotelName: allData.hotelName,
-            // Include other primitive fields from formData if needed (e.g., city, dates)
+            // Include other primitive fields from formData if needed
             departure_city: allData.departure_city,
             arrival_city: allData.arrival_city,
             outbound_date: allData.outbound_date,
@@ -55,6 +49,7 @@ export default function SearchFlight() {
             currency: allData.currency,
         };
 
+        // Check if both flightPrice and hotelPrice exist
         if (allData.flightPrice && allData.hotelPrice) {
             router.push({
                 pathname: '/payment/payment',
@@ -62,33 +57,25 @@ export default function SearchFlight() {
             });
         } else {
             router.push({
-                pathname: '/search/hotel',
+                pathname: '/search/flight',
                 query: queryData,
             });
         }
     };
 
-    function handleNext(data) {
-        setFormData((prevData) => ({ ...prevData, ...data }));
-        setPageCount((prevCount) => prevCount + 1);
-    }
+    const handleNext = (data) => {
+        setFormData(prev => ({ ...prev, ...data }));
+        setPageCount(prev => prev + 1);
+    };
 
-    function handlePrevious() {
-        setPageCount((prevCount) => prevCount - 1);
-    }
+    const handlePrevious = () => setPageCount(prev => prev - 1);
 
     const renderStep = () => {
         switch (pageCount) {
-            case 1:
-                return <SearchFlightStep1 onNext={handleNext} initialData={formData} />;
-            case 2:
-                return <SearchFlightStep2 onNext={handleNext} onPrevious={handlePrevious} initialData={formData} />;
-            case 3:
-                return <SearchFlightStep3 onNext={handleNext} onPrevious={handlePrevious} initialData={formData} />;
-            case 4:
-                return <SearchFlightStep4 onNext={handleNext} onPrevious={handlePrevious} initialData={formData} onBookFlight={handleBookFlight} />;
-            default:
-                return null;
+            case 1: return <SearchHotelStep1 onNext={handleNext} initialData={formData} />;
+            case 2: return <SearchHotelStep2 onNext={handleNext} onPrevious={handlePrevious} initialData={formData} />;
+            case 3: return <SearchHotelStep3 onBookHotel={handleBookHotel} onPrevious={handlePrevious} initialData={formData} />;
+            default: return null;
         }
     };
 
@@ -96,14 +83,13 @@ export default function SearchFlight() {
         <div>
             <Row className="mt-2">
                 <Card className="bg-dark text-white m-0 p-0">
-                    <Card.Img className="img-title rounded-0" src="/images/search_flights_title.jpg" alt="Card image" />
+                    <Card.Img className="img-title rounded-0" src="/images/search_hotels_title.png" alt="Card image" />
                     <Card.ImgOverlay className="d-flex align-items-center px-4 px-md-5">
-                        <Card.Title><h1>Search Flights</h1></Card.Title>
+                        <Card.Title><h1>Search Hotels</h1></Card.Title>
                     </Card.ImgOverlay>
                 </Card>
             </Row>
-            <hr />
-            <br />
+            <hr /><br />
             {renderStep()}
         </div>
     );
