@@ -18,7 +18,6 @@ export default function Profile() {
       lastName: yup.string().required("Last name is required"),
       email: yup.string().email("Invalid email").required("Email is required"),
       phone: yup.string(),
-      emergencyContact: yup.string().required("Emergency contact is required"),
       language: yup.string(),
       currency: yup.string(),
       password: yup.string().min(8, "Password must be at least 8 characters"),
@@ -60,7 +59,6 @@ export default function Profile() {
       lastName: "",
       email: "",
       phone: "",
-      emergencyContact: "",
       language: "",
       currency: "",
       password: "",
@@ -90,7 +88,6 @@ export default function Profile() {
             lastName: user.lastName || "",
             email: user.email || "",
             phone: user.phone || "",
-            emergencyContact: "",
             language: user.preferences?.language || "",
             currency: user.preferences?.currency || "",
             password: "",
@@ -183,10 +180,14 @@ export default function Profile() {
                   name="phone"
                   value={formik.values.phone}
                   onChange={formik.handleChange}
+                  isInvalid={!!formik.errors.phone}
                 />
+                <Form.Control.Feedback type="invalid">
+                  {formik.errors.phone}
+                </Form.Control.Feedback>
               </Form.Group>
               <br />
-              <Form.Group>
+  {/**           <Form.Group>
                 <Form.Label>Emergency Contact Number</Form.Label>
                 <Form.Control
                   type="text"
@@ -195,7 +196,7 @@ export default function Profile() {
                   value={formik.values.emergencyContact}
                   onChange={formik.handleChange}
                 />
-              </Form.Group>
+              </Form.Group>*/}
               <br />
             </Col>
           </Row>
