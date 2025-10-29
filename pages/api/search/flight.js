@@ -4,19 +4,48 @@ export default async function handler(req, res) {
     }
 
     try {
-        // Forward the request to the external server
-        const externalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/search/flight`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // Add any other headers if needed (e.g., Authorization)
-            },
-            body: JSON.stringify(req.body), // Pass the request body from the frontend
+        // Extract flight details from req.body
+        const {
+            departure_id,
+            arrival_id,
+            outbound_date,
+            return_date,
+            type = 1, // Default to round-trip
+            travel_class = 1, // Default to economy
+            adults = 1, // Default to 1 adult
+            currency = 'USD',
+            gl = 'us',
+            hl = 'en'
+        } = req.body;
+
+        // Build query parameters for SerpApi
+        const params = new URLSearchParams({
+            engine: 'google_flights',
+            api_key: process.env.NEXT_SERP_API_KEY,
+            departure_id,
+            arrival_id,
+            outbound_date,
+            ...(return_date && { return_date }),
+            type,
+            travel_class,
+            adults,
+            currency,
+            gl,
+            hl
         });
 
-        // Check if the external response is OK
+        // Fetch from SerpApi
+        const serpApiUrl = `https://serpapi.com/search?${params.toString()}`;
+        const externalResponse = await fetch(serpApiUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        // Check if the response is OK
         if (!externalResponse.ok) {
-            const errorData = await externalResponse.json().catch(() => ({ message: 'Unknown error' }));
+            const errorData = await externalResponse.json().catch(() => ({ message: 'Unknown error from SerpApi' }));
             return res.status(externalResponse.status).json(errorData);
         }
 
