@@ -131,14 +131,14 @@ a.text-link:hover {
   border-top-color: var(--border-color);
 }
 
-.dark-theme input, .dark-theme input:focus {
+.dark-theme input, .dark-theme input:focus, .dark-theme textarea, .dark-theme textarea:focus {
   background-color: var(--input-background);
   border: 1px solid var(--input-border);
   color: var(--input-text-color);
   padding: 8px;
   border-radius: 4px;
 }
-.dark-theme input::placeholder {
+.dark-theme input::placeholder, .dark-theme textarea::placeholder {
   color: var(--input-text-placeholder);
 }
 
@@ -232,7 +232,7 @@ a.text-link:hover {
   object-fit: none;
 }
 
-input:hover:enabled, input:focus, select:hover:enabled, select:focus {
+input:hover:enabled, input:focus, select:hover:enabled, select:focus, textarea:hover:enabled, textarea:focus {
   border-color: var(--border-color-secondary);
   transform: scale(1.025); /* Slightly enlarge on hover */
   transition: all 0.2s ease-in-out;
@@ -299,4 +299,8 @@ button:hover {
 
 .dashboard-img, .recommend-img {
   max-height: 250px;
+}
+.itinerary-img {
+  max-height: 150px;
+  border-radius: 10px;
 }
