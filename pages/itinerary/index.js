@@ -343,48 +343,7 @@ const ItineraryPage = () => {
     };
 
     const handleSchedule = async (itinerary) => {
-        setWarning("");
-        setIsLoading(true); //show loading
-
-        // try {
-        //     const res = await fetch("/api/itinerary/edit-itinerary", {  // Changed to same-origin API route
-        //         method: 'POST',
-        //         headers: {
-        //             'content-type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             itinerary: itinerary?.id,
-        //         }),
-        //     });
-
-        //     const data = await res.json();
-        //     if (!res.ok) {
-        //         // Try to parse error message from server
-        //         let errorMsg = "Error deleting itinerary";
-        //         try {
-        //             errorMsg = data.message || errorMsg;
-        //         } catch (e) { }
-        //         setWarning(errorMsg);
-        //         setIsLoading(false); //hide loading
-        //         return;
-        //     }
-
-        //     if(type === "past") {
-        //         setPastTrips(data);
-        //     }
-        //     else {
-        //         setUpcomingTrips(data);
-        //     }
-
-        // } catch (err) {
-        //     setWarning("Network error: " + err.message);
-        // }
-
-        //reload list
-        await loadTrips(status);
-
-        setIsLoading(false); //hide loading
-    
+        window.open(`/itinerary/manage-schedule?id=${itinerary.id}`, "_blank");
     };
 
     
@@ -485,6 +444,7 @@ const ItineraryPage = () => {
                                             handleEdit={handleEdit} 
                                             handleDelete={handleDelete} 
                                             handleSummary={handleSummary}
+                                            handleSchedule={handleSchedule}
                                             countryOptions={countryOptions}
                                             theme={theme}
                                         />
@@ -532,6 +492,7 @@ const ItineraryPage = () => {
                                                 handleEdit={handleEdit}
                                                 handleDelete={handleDelete} 
                                                 handleSummary={handleSummary}
+                                                handleSchedule={handleSchedule}
                                                 countryOptions={countryOptions}
                                                 theme={theme}
                                             />
