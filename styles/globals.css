@@ -292,6 +292,9 @@ button:hover {
   height: 100px;
 }
 
+.line-connect-container {
+  height: 100px;
+}
 .line-connect {
   width: 3px;
   height: 10vh;
@@ -303,4 +306,14 @@ button:hover {
 .itinerary-img {
   max-height: 150px;
   border-radius: 10px;
+}
+.location-img {
+  height: 100px;
+  width: 100px;
+  border-radius: 10px;
+}
+
+.modal-result-container {
+  max-height: 50vh;
+  overflow-y: scroll;
 }

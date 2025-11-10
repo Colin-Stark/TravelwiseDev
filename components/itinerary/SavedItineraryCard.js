@@ -13,7 +13,6 @@ const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handle
     const formattedEDate = endDate.format('ddd, MMMM DD, YYYY');
     const duration = endDate.diff(startDate, 'days');
 
-    const [showAddModal, setShowAddModal] = useState(false);    
     const [showEditModal, setShowEditModal] = useState(false);    
     const [showDeleteModal, setShowDeleteModal] = useState(false);    
     const [showSummaryModal, setShowSummaryModal] = useState(false);    
@@ -23,10 +22,7 @@ const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handle
             return;
         }
 
-        if(action === "add") {
-            setShowAddModal(true);
-        }
-        else if(action === "edit") {
+        if(action === "edit") {
             setShowEditModal(true);
         }
         else if(action === "delete") {
@@ -37,10 +33,7 @@ const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handle
         }
     };
     const handleModalClose = (action) => {
-        if(action === "add") {
-            setShowAddModal(false);
-        }
-        else if(action === "edit") {
+        if(action === "edit") {
             setShowEditModal(false);
         }
         else if(action === "delete") {

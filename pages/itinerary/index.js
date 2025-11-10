@@ -7,6 +7,7 @@ import { Alert, Button, Card, Row, Tab, Tabs } from 'react-bootstrap';
 import { Commet } from 'react-loading-indicators';
 import { ThemeContext } from "@/pages/_app";
 import { fetchCountryData, getCountryList } from '@/lib/airportData';
+import ItineraryDetails from '@/components/itinerary/ItineraryDetails';
 
 //dummy data
 const upcomingItineraries = [
@@ -18,7 +19,7 @@ const upcomingItineraries = [
     country: 'France',
     city: 'Paris',
     description: 'Explore the Eiffel Tower, Louvre, and enjoy French cuisine.',
-    img: 'images/placeholder1.jpg',
+    img: '/images/placeholder1.jpg',
   },
   {
     id: 4,
@@ -28,7 +29,7 @@ const upcomingItineraries = [
     country: 'Japan',
     city: 'Tokyo',
     description: 'Visit Shibuya, temples, and try sushi at Tsukiji Market.',
-    img: 'images/placeholder3.jpg',
+    img: '/images/placeholder3.jpg',
   },
   {
     id: 5,
@@ -38,7 +39,7 @@ const upcomingItineraries = [
     country: 'United States',
     city: 'New York',
     description: 'Broadway show, Central Park stroll, and Times Square lights.',
-    img: 'images/placeholder2.jpg',
+    img: '/images/placeholder2.jpg',
   },
 ];
 
@@ -51,7 +52,7 @@ const pastItineraries = [
     country: 'Philippines',
     city: 'Boracay',
     description: 'Relax in beach resorts',
-    img: 'images/placeholder1.jpg',
+    img: '/images/placeholder1.jpg',
   },
   {
     id: 2,
@@ -61,7 +62,7 @@ const pastItineraries = [
     country: 'Canada',
     city: 'Vancouver',
     description: 'Quick trip',
-    img: 'images/placeholder3.jpg',
+    img: '/images/placeholder3.jpg',
   },
 ];
 
@@ -75,6 +76,14 @@ const ItineraryPage = () => {
     const [warning, setWarning] = useState("");
     const [countryObj, setCountryObj] = useState([]);
     const [countryOptions, setCountryOptions] = useState([]);
+    const [showAddModal, setShowAddModal] = useState(false);    
+
+    const handleModalShow = (event) => {
+        setShowAddModal(true);
+    };
+    const handleModalClose = (action) => {
+        setShowAddModal(false);
+    }
 
     useEffect(() => {
         loadData();
@@ -437,8 +446,18 @@ const ItineraryPage = () => {
         <hr />
         <div className="mx-sm-2 mx-md-5">
             <div className='d-flex justify-content-end my-3'>
-                <Button className='btn-info text-light'>Create New Trip</Button>
+                <Button className='btn-info text-light' onClick={handleModalShow}>Create New Trip</Button>
             </div>
+            <ItineraryDetails
+                show={showAddModal}
+                handleModalClose={handleModalClose}
+                handleAction={handleAdd}
+                itineraryObj={null}
+                status={null}
+                action="add"
+                countryOptions={countryOptions}
+                theme={theme}
+            />
             <Tabs defaultActiveKey="upcoming" id="uncontrolled-tab-example" className="mb-3" onSelect={loadTrips}>
                 <Tab eventKey="upcoming" title="Upcoming Trips">
                 {

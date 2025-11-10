@@ -45,7 +45,7 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
             //load data
             loadData();
 
-            if(itineraryObj.country) {
+            if(itineraryObj?.country) {
                 loadCityData(itineraryObj.country);
             }
         }

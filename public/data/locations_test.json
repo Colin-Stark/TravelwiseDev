@@ -1,0 +1,1939 @@
+{
+"search_metadata":
+{
+"id":
+"691106db932b0ea407c61433",
+"status":
+"Success",
+"json_endpoint":
+"https://serpapi.com/searches/5237a361e3dc9621/691106db932b0ea407c61433.json",
+"created_at":
+"2025-11-09 21:25:47 UTC",
+"processed_at":
+"2025-11-09 21:25:47 UTC",
+"google_maps_url":
+"https://www.google.com/maps/search/popular+tourist+spots+in+paris?hl=en",
+"raw_html_file":
+"https://serpapi.com/searches/5237a361e3dc9621/691106db932b0ea407c61433.html",
+"total_time_taken":
+1.98
+},
+"search_parameters":
+{
+"engine":
+"google_maps",
+"type":
+"search",
+"q":
+"popular tourist spots in paris",
+"google_domain":
+"google.com",
+"hl":
+"en"
+},
+"search_information":
+{
+"local_results_state":
+"Results for exact spelling",
+"query_displayed":
+"popular tourist spots in paris"
+},
+"local_results":
+[
+{
+"position":
+1,
+"title":
+"Eiffel Tower",
+"place_id":
+"ChIJLU7jZClu5kcR4PcOOO6p3I0",
+"data_id":
+"0x47e66e2964e34e2d:0x8ddca9ee380ef7e0",
+"data_cid":
+"10222232094831998944",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.858370099999995,
+"longitude":
+2.2944812999999997
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJLU7jZClu5kcR4PcOOO6p3I0",
+"provider_id":
+"/m/02j81",
+"rating":
+4.7,
+"reviews":
+475344,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Monument",
+"Historical landmark"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"monument",
+"historical_landmark"
+],
+"address":
+"Av. Gustave Eiffel, 75007 Paris, France",
+"open_state":
+"Closes soon ⋅ 11 PM ⋅ Opens 9:30 AM Mon",
+"website":
+"/url?q=https://www.toureiffel.paris/fr&opi=79508299&sa=U&ved=0ahUKEwjc-bz3gOaQAxX1LLkGHYwuOi0Q61gIGCgL&usg=AOvVaw285Y34f20tfTTM9uz-WetG",
+"description":
+"Landmark 330m-high 19th-century tower. Gustave Eiffel's iconic, wrought-iron 1889 tower, with steps and elevators to observation decks.",
+"extensions":
+[
+{
+"service_options":
+[
+"Onsite services"
+]
+},
+{
+"accessibility":
+[
+"Wheelchair accessible entrance",
+"Wheelchair accessible parking lot",
+"Wheelchair accessible restroom"
+]
+},
+{
+"planning":
+[
+"Getting tickets in advance recommended"
+]
+},
+{
+"children":
+[
+"Good for kids"
+]
+},
+{
+"parking":
+[
+"Paid parking lot"
+]
+}
+],
+"service_options":
+{
+"onsite_services":
+true
+},
+"user_review":
+"Quiet crowded with tourist.",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyADJFVVyaVnRGnpdFclZRgD8CV_dzHscAUMGqeBedi0Y_e-oYwu3pULaKpfHa4M8VNVEGc7a3DOjQffJUDrL8gSRLWY_twZHnjP--OGcmDPirFXjPOwaCG5rtf7Iqbq_D2bGS_=w131-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/PJ9Dp3icBcFRboIwAADQE1VUZmRL_GBUyhwKQqjiT1NLKTBsC60h7n4ewtv43uvZWKvNl-P0jTsTSome3w0fmZKWSztj6uYIbQAzwDg-mrd9_vDhLsT4QbHMkNRVyPpLJqAXYFL9R4b5xR4N_JtX7bwkHKhyuru6iOmvriP6sffwAW8RW1MXJt2xrncFHGNP5Fl8KomdLpHsUgASxG4wbcfw3KXJRAO0Gm29_hmuA4HLK8rJZlq4C9B8LsEfkOoNBFVE3g"
+},
+{
+"position":
+2,
+"title":
+"Arc de Triomphe",
+"place_id":
+"ChIJjx37cOxv5kcRPWQuEW5ntdk",
+"data_id":
+"0x47e66fec70fb1d8f:0xd9b5676e112e643d",
+"data_cid":
+"15687558599447307325",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e66fec70fb1d8f%3A0xd9b5676e112e643d&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e66fec70fb1d8f%3A0xd9b5676e112e643d&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.8737917,
+"longitude":
+2.2950274999999998
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJjx37cOxv5kcRPWQuEW5ntdk",
+"provider_id":
+"/m/0zv_",
+"rating":
+4.7,
+"reviews":
+279781,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Cultural landmark",
+"Museum",
+"Monument"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"cultural_landmark",
+"museum",
+"monument"
+],
+"address":
+"Pl. Charles de Gaulle, 75008 Paris, France",
+"open_state":
+"Closes soon ⋅ 10:30 PM ⋅ Opens 10 AM Mon",
+"phone":
+"+33 1 55 37 73 77",
+"website":
+"/url?q=https://www.paris-arc-de-triomphe.fr/&opi=79508299&sa=U&ved=0ahUKEwjc-bz3gOaQAxX1LLkGHYwuOi0Q61gINigP&usg=AOvVaw0LcxNx-cUqAsz0SWX4aDZR",
+"description":
+"Triumphal arch & national monument. Iconic triumphal arch built to commemorate Napoleon's victories, with an observation deck.",
+"extensions":
+[
+{
+"service_options":
+[
+"Onsite services"
+]
+},
+{
+"accessibility":
+[
+"Wheelchair accessible entrance"
+]
+},
+{
+"planning":
+[
+"Getting tickets in advance recommended"
+]
+},
+{
+"children":
+[
+"Good for kids"
+]
+}
+],
+"service_options":
+{
+"onsite_services":
+true
+},
+"user_review":
+"Gets super busy on all the street corners surrounding it.",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzGdukiJZejlPfznOSMD5-dSfiIy5cD2azDLMTmocMtaDRNgyTveR8l21Opz-7RtKW_kcMzSMPWdOejdziyPZCQy8u69BVsrKUXIvXRBI-gmY3Zxr6E_DgGHa61YqsNev6nE7cWgw=w122-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/FUVwnHicBcFdkoIgAADgE5FJo_3M9LBFY1akaWX50jhIaCKYoCUX3DPsbfb7_n4LrRu1sCxeTEZMSsZpp2hLpNBU6BGRtcUaBYgCyvrxxiWPjZd3VblL6YuHTyOCGCMH5PGz9AeHIJgZdMDnWhKsMxQd2XDuaTTj0A4aA6aR3iePimAT4zDJA_rKTTmE6fo0zDp3vrqqdn-5-f0tWvmA1fdJ-m3dzQMxb5u59v2tjrR3xWZKEvZZfmwIQTGHoAJC_gPr6UZz"
+},
+{
+"position":
+3,
+"title":
+"Notre-Dame Cathedral of Paris",
+"place_id":
+"ChIJATr1n-Fx5kcRjQb6q6cdQDY",
+"data_id":
+"0x47e671e19ff53a01:0x36401da7abfa068d",
+"data_cid":
+"3909157082539624077",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e671e19ff53a01%3A0x36401da7abfa068d&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e671e19ff53a01%3A0x36401da7abfa068d&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.8529682,
+"longitude":
+2.3499021
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJATr1n-Fx5kcRjQb6q6cdQDY",
+"provider_id":
+"/m/0gtxh",
+"rating":
+4.7,
+"reviews":
+79845,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Cathedral"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"cathedral"
+],
+"address":
+"6 Parvis Notre-Dame - Pl. Jean-Paul II, 75004 Paris, France",
+"open_state":
+"Closed ⋅ Opens 7:50 AM Mon",
+"phone":
+"+33 1 42 34 56 10",
+"website":
+"/url?q=https://www.notredamedeparis.fr/&opi=79508299&sa=U&ved=0ahUKEwjc-bz3gOaQAxX1LLkGHYwuOi0Q61gIVCgP&usg=AOvVaw1sptPWi77EgCsUXC8jMjpw",
+"description":
+"Iconic Gothic church with literary link. Towering, 12th-century cathedral with flying buttresses & gargoyles, setting for Hugo's novel.",
+"extensions":
+[
+{
+"service_options":
+[
+"Onsite services"
+]
+},
+{
+"accessibility":
+[
+"Assistive hearing loop",
+"Wheelchair accessible entrance"
+]
+}
+],
+"service_options":
+{
+"onsite_services":
+true
+},
+"user_review":
+"It is a really busy place and as a tourist you have not to be in hurry",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwlN0Gu9EbZ51dMdMFIIUwOWzZZus_LE8eG8HGaIbIo0z0y738x7_1igKamdWmhaOu3Dp_Gscf80bkvAFrrO3oj2oco_SSu4A0BfoHwFqVFK_RzhZ0DBDMXqo2DMFncSzO6Li2E=w80-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/zq6KUHicBcFLDoIwFADAE1Uq-KkmLjDQShRJJIph00BBigIPKRXlfF7C2zjz-8q-b9XaMCppTQqAosq1yjsBTZ83_URAbRStQkIhZdgMl1U4VEfM9MpN4_k08zOfet55CKIxjrXiB5fkjOxY4qUe4BF_lhZ5L_m0LPZJnUW1TAJtOS1nStwITh8vm3ZdYMHdBAE8DPXMxtsb7Ab6vNA9P40yxs7W8a9PMB2fNiIcg8WhNN3NQDCSKxM9UAN_anpD3w"
+},
+{
+"position":
+4,
+"title":
+"Basilique du Sacré-Cœur de Montmartre",
+"place_id":
+"ChIJ442GNENu5kcRGYUrvgqHw88",
+"data_id":
+"0x47e66e4334868de3:0xcfc3870abe2b8519",
+"data_cid":
+"14970958066519606553",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e66e4334868de3%3A0xcfc3870abe2b8519&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e66e4334868de3%3A0xcfc3870abe2b8519&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.886704599999995,
+"longitude":
+2.3431043
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJ442GNENu5kcRGYUrvgqHw88",
+"provider_id":
+"/g/1tdm30l7",
+"rating":
+4.7,
+"reviews":
+156835,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Catholic church",
+"Monument",
+"Basilica"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"catholic_church",
+"monument",
+"basilica"
+],
+"address":
+"35 Rue du Chevalier de la Barre, 75018 Paris, France",
+"open_state":
+"Closes soon ⋅ 10:30 PM ⋅ Opens 6:30 AM Mon",
+"phone":
+"+33 1 53 41 89 00",
+"website":
+"/url?q=https://www.sacre-coeur-montmartre.com/&opi=79508299&sa=U&ved=0ahUKEwjc-bz3gOaQAxX1LLkGHYwuOi0Q61gIcigP&usg=AOvVaw2XBnhslfx8SKIcHVp3di48",
+"description":
+"Landmark hilltop white basilica. Iconic, domed white church, completed in 1914, with interior mosaics, stained-glass windows & crypt.",
+"extensions":
+[
+{
+"service_options":
+[
+"Onsite services"
+]
+},
+{
+"accessibility":
+[
+"Wheelchair accessible entrance"
+]
+}
+],
+"service_options":
+{
+"onsite_services":
+true
+},
+"user_review":
+"Walkng around pretty nice, many restaurants, local painters, musicans.",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzWUju4Vvvi5TVIxzwbeQXiBDVSR2Erqs6UWbRa1a49lswvqvqqAriGaIez-0daqLNNfGZ2sGWBwCTfsBgzGYs5Tne3tgz_XVpCEIHXVMxGtGEX32pQHycwPnJ306Ynedvd4YY=w80-h94-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/rh86O3icBcHdboIwGADQJ6ogIJkmXoiSyjKNP1hgNwahFBy2lK-22tfbU-xtds7fb6vUAAvH6Vt_woRgPX0CHSvBFeVqUomHwwZAFSBwVtjt-rPNLvdnQLTuZilJXtbc6DHvog05n7x4lBBestupnJbBvAejpZZyNXa4TKhFbl3Kr_2-wd8e4Cwy67SBiFlcwCzl1FfMXnMyrONkm5PdCysc5743HLfvyhz4p--GBae1roOiWJoPF7XzAP0gLv4B-pxFoQ"
+},
+{
+"position":
+5,
+"title":
+"Place des Vosges",
+"place_id":
+"ChIJUeiI4P9x5kcRqEwHl6V32GQ",
+"data_id":
+"0x47e671ffe088e851:0x64d877a597074ca8",
+"data_cid":
+"7266689551849442472",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e671ffe088e851%3A0x64d877a597074ca8&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e671ffe088e851%3A0x64d877a597074ca8&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.8556114,
+"longitude":
+2.3655266
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJUeiI4P9x5kcRqEwHl6V32GQ",
+"provider_id":
+"/m/01qp70",
+"rating":
+4.6,
+"reviews":
+31240,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Park"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"park"
+],
+"address":
+"Pl. des Vosges, 75004 Paris, France",
+"website":
+"/url?q=https://parisjetaime.com/transport/place-des-vosges-p1907&opi=79508299&sa=U&ved=0ahUKEwjc-bz3gOaQAxX1LLkGHYwuOi0Q61gIjAEoCw&usg=AOvVaw2fvbiQIMzvmE2rtz_YRWOj",
+"description":
+"17th-century square lined with houses. Oldest planned square in Paris, lined with trees and red brick houses, built by Henri IV in 1612.",
+"extensions":
+[
+{
+"service_options":
+[
+"Onsite services"
+]
+},
+{
+"highlights":
+[
+"Picnics"
+]
+},
+{
+"accessibility":
+[
+"Wheelchair accessible entrance",
+"Wheelchair accessible parking lot"
+]
+},
+{
+"payments":
+[
+"Debit cards",
+"NFC mobile payments"
+]
+},
+{
+"children":
+[
+"Good for kids",
+"Playground"
+]
+},
+{
+"pets":
+[
+"Dogs allowed"
+]
+}
+],
+"service_options":
+{
+"onsite_services":
+true
+},
+"user_review":
+"Surrounded by art galleries and restaurants with outdoor serving",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwgMdPXwiQ6Z8ZXaYyhTZSCv8sOBx79ktLFhrDOTl2VGIrSXeuEVAlVRz0SIin-_lSZ3ug6Y-7edU29dfl-EISu63dg6gdoKsR2sxPcMKTosKv62A8hVG2TxPJDjvX3PUtV031Zew=w163-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/2nwzsXicBcHdboIwGADQJ6pgm1RYsgucShga0WKDvVkWWltmpYav_OgL-gy-zc55v4z3d_gIAmvITDunrepBdbVrvWr9rHa3QN8B1YAgSNKwsWzUO1lUY3OgIhLV7_lhSsG-hgj2y2kRX_12Y7rVvrSYp1nHKtWveWL58RmyrGnRj2WC9Jqe0ULJE47lxaJ1xnpKpKZauhyOGKai3uWlg3ygOIkMT3E5Fd-rv6EixcnzkMyFGj_HOSXIxBhdUev-AXFRRNc"
+},
+{
+"position":
+6,
+"title":
+"Louvre Museum",
+"place_id":
+"ChIJD3uTd9hx5kcR1IQvGfr8dbk",
+"data_id":
+"0x47e671d877937b0f:0xb975fcfa192f84d4",
+"data_cid":
+"13363865620386383060",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e671d877937b0f%3A0xb975fcfa192f84d4&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e671d877937b0f%3A0xb975fcfa192f84d4&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.8606111,
+"longitude":
+2.337644
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJD3uTd9hx5kcR1IQvGfr8dbk",
+"provider_id":
+"/m/04gdr",
+"rating":
+4.7,
+"reviews":
+358715,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Museum",
+"Art museum"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"museum",
+"art_museum"
+],
+"address":
+"75001 Paris, France",
+"open_state":
+"Closed ⋅ Opens 9 AM Mon",
+"phone":
+"+33 1 40 20 53 17",
+"website":
+"/url?q=https://www.louvre.fr/&opi=79508299&sa=U&ved=0ahUKEwjc-bz3gOaQAxX1LLkGHYwuOi0Q61gIqAEoDQ&usg=AOvVaw3GHGQI9ONEiZZrJ1P56Dln",
+"description":
+"Landmark art museum with vast collection. Former historic palace housing huge art collection, from Roman sculptures to da Vinci's Mona Lisa.",
+"extensions":
+[
+{
+"service_options":
+[
+"Onsite services"
+]
+},
+{
+"accessibility":
+[
+"Assisted listening devices",
+"Assistive hearing loop",
+"Wheelchair accessible entrance",
+"Wheelchair accessible parking lot",
+"Wheelchair accessible restroom"
+]
+},
+{
+"amenities":
+[
+"Restaurant",
+"Restroom",
+"Wi-Fi",
+"Free Wi-Fi"
+]
+},
+{
+"crowd":
+[
+"Family-friendly"
+]
+},
+{
+"planning":
+[
+"Getting tickets in advance recommended"
+]
+},
+{
+"children":
+[
+"Good for kids",
+"Has changing table(s)"
+]
+},
+{
+"parking":
+[
+"Paid parking lot"
+]
+}
+],
+"service_options":
+{
+"onsite_services":
+true
+},
+"user_review":
+"Just be prepared for crowds, especially during peak tourist seasons.",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxqrlxcLmk6Efc9SYW960NSXJfTWh2ToST--WZDegNhoInoFV5kPjoFDE6mQAZnLp_Y8nciZ0lgDnGHlWewyla3pyfkF3Z3CSwNpooghmeueHLowudHVMXIrtXFOBkKO7Iduacwig=w137-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/HMVjY3icDc5RboIwGADgE1WYzVBM9qBDhI3hlhJBXoyppWUt_TtaUj3hzuBt9DvBd_8Xzhm7CgIl8IwDcMUmy0YK2jHtZhSGgBuLqEU2WO_CXpHr36iutBhktO1oTI51HIUlaT66qhbzCkiFUN0mjJcCcg3p4VV-_0KabKPhZ93qwpyOS037NlQ80btM1czf1BmbWydT3OJ34kvzbIiBTSwrwE-X7PDV5KNr0v1Gfu4X-WU6U9_zN_-CF0jEcySRhgfD4UcS"
+},
+{
+"position":
+7,
+"title":
+"Square du Vert-Galant",
+"place_id":
+"ChIJizggvyBu5kcRqb8xJVCQPQE",
+"data_id":
+"0x47e66e20bf20388b:0x13d90502531bfa9",
+"data_cid":
+"89386241513078697",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e66e20bf20388b%3A0x13d90502531bfa9&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e66e20bf20388b%3A0x13d90502531bfa9&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.857487,
+"longitude":
+2.3401677
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJizggvyBu5kcRqb8xJVCQPQE",
+"provider_id":
+"/g/122x83qk",
+"rating":
+4.5,
+"reviews":
+1471,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Garden",
+"Park",
+"City park"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"garden",
+"park",
+"city_park"
+],
+"address":
+"15 Pl. du Pont Neuf, 75001 Paris, France",
+"open_state":
+"Open 24 hours",
+"website":
+"/url?q=https://www.parisinfo.com/musee-monument-paris/71519/Square-du-Vert-Galant&opi=79508299&sa=U&ved=0ahUKEwjc-bz3gOaQAxX1LLkGHYwuOi0Q61gIwwEoCw&usg=AOvVaw1JJhmGRHqzEOYkk6sFuszj",
+"description":
+"Public garden with a Henri IV statue. Small popular garden with fauna and flora, erected with a statue tribute of King Henri IV.",
+"extensions":
+[
+{
+"highlights":
+[
+"Picnics"
+]
+},
+{
+"children":
+[
+"Good for kids"
+]
+},
+{
+"pets":
+[
+"Dogs allowed"
+]
+}
+],
+"unsupported_extensions":
+[
+{
+"accessibility":
+[
+"Wheelchair accessible parking lot"
+]
+}
+],
+"user_review":
+"River cruise boats leave from a dock right here",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxEgX853Bt7kjN58jmjqKVUDU2GttTmy1yuoFPxuMuLs_ZiWuQySkJCodky5QHjcYn3Dlfmft8vLi8hhPL1RNnKwEFr62WDB4ncAgnGQovghbPuwlmZTexFXh-JsfaE-QegCFN6=w163-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/eij38XicBcHbEoFAAADQL1qplJjxQDdDmnLXi2Ftu9VesLuqD_QR_sY5vy9R6imnhkGJPcBCYIq0RG8ouEJcDaBgBn5KACWQxjweVnTXhfjsOfZCjZs6dbya1a_18RAcrFipPevNXoso6_RGJ_JaVCed97tm5YtH0zv5soYXbge0ZKXyPknlEZIl5jbl6zaM3q51ChYjDueYx7n4YHLPdEtZsUdddCZgJctbCHKE_Sh1Z63p2oBMLNAALv5dykYX"
+},
+{
+"position":
+8,
+"title":
+"Panthéon",
+"place_id":
+"ChIJc8mX0udx5kcRWKcjTwDr5QA",
+"data_id":
+"0x47e671e7d297c973:0xe5eb004f23a758",
+"data_cid":
+"64716156227004248",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e671e7d297c973%3A0xe5eb004f23a758&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e671e7d297c973%3A0xe5eb004f23a758&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.846221799999995,
+"longitude":
+2.3464138
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJc8mX0udx5kcRWKcjTwDr5QA",
+"provider_id":
+"/m/0gsp5",
+"rating":
+4.6,
+"reviews":
+64479,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Monument"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"monument"
+],
+"address":
+"Pl. du Panthéon, 75005 Paris, France",
+"open_state":
+"Closed ⋅ Opens 10 AM Mon",
+"website":
+"/url?q=https://www.paris-pantheon.fr/&opi=79508299&sa=U&ved=0ahUKEwjc-bz3gOaQAxX1LLkGHYwuOi0Q61gI3QEoCw&usg=AOvVaw0q0kBviK_MytGnd5AjIewJ",
+"description":
+"Colonnaded neoclassical mausoleum. 18th-century mausoleum with colonnaded facade, housing remains of notable French citizens.",
+"extensions":
+[
+{
+"accessibility":
+[
+"Wheelchair accessible entrance"
+]
+},
+{
+"planning":
+[
+"Getting tickets in advance recommended"
+]
+},
+{
+"children":
+[
+"Good for kids"
+]
+},
+{
+"parking":
+[
+"Paid parking lot",
+"Paid street parking"
+]
+}
+],
+"user_review":
+"Like almost every popular tourist area, to avoid the crowds.",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyVAign6RVDRiayaStFMV184wccRJUp5uMBvTciJOED4fX2YpkhZgvBZjBJvu9WViJb7Ie8oKdvfPm4WilY6nEUkqCXDh1OxnxoYX1Pz9Y1N22DP8F9wg6XPRAn9l2azdHzqbUK8A=w92-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/9r7wF3icDcP_EoEwAADgJ0qapLnzR8mvHLoo1X-ZbNNssVXqAb2Dt-G7-74folQlp7rOyGiAhcCsqGXxQoKrgqsBEg8dV1JDUpO6sxpSduxih2JuhbEX0rzLj2q5iw3bbBEK_aga1zu3OSHqHxaeeUtAWpUkw42b3V2_qeE5pv5lsilssb02t-BhnilLLb6Iyuc88YhxePO3SBMj6GFq7AHwAnsJW2wlQehwyEDeX9f98xJtbWfWQqCR_1Lj4gdCfkUJ"
+},
+{
+"position":
+9,
+"title":
+"Promenade Jean-Paul Belmondo",
+"place_id":
+"ChIJAQppDdJx5kcRv5Arh3daFX8",
+"data_id":
+"0x47e671d20d690a01:0x7f155a77872b90bf",
+"data_cid":
+"9157324886743158975",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e671d20d690a01%3A0x7f155a77872b90bf&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e671d20d690a01%3A0x7f155a77872b90bf&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.855581199999996,
+"longitude":
+2.287589
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJAQppDdJx5kcRv5Arh3daFX8",
+"provider_id":
+"/g/11ssqf99m9",
+"rating":
+4.7,
+"reviews":
+42,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Promenade"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"promenade"
+],
+"address":
+"Pont de Bir-Hakeim, 75015 Paris, France",
+"extensions":
+[
+{
+"accessibility":
+[
+"Wheelchair accessible entrance"
+]
+},
+{
+"children":
+[
+"Good for kids"
+]
+}
+],
+"user_review":
+"Not busy at all and nice for a walk around the river.",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzHXe_o1Q6LLiSiaQPmgJMKY-dkWuBmxVgbwiPl-8nQKs6e7TN0ImQVq9Say-Z3q7RiDDwLI6PfcAf1abGLY-7fEPS9unFLL8UL_murkRhHJRujSDc5pggOSZEbHwDHenqrkIIqQg=w80-h106-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/ZecrOHicBcHdboIwGADQJ_oEYga4xAsXVNBOKZ2_NwZqKRXaAqVh-oJ7Bt9m57z_qmFozafjNNV0wrXmDbOG9VSrgalhQrV0eGuAGjDOYu2KhrziM7tpD_sICSJynEq--d5e4F6f7Jf8PfJiFGkDocJb47PgZ-cmEh-7GcmfcJ12QSaiaESJn5Z0UXp5sUYXCMplSmZWrRAKD-gmbV9nVbzJ7INE9KPlfE-uyyIeo5iprq-TpMN8PoYuVJ7rQw1K_wNgIEVv"
+},
+{
+"position":
+10,
+"title":
+"Tuileries Garden",
+"place_id":
+"ChIJAQAAMCxu5kcRx--_4QnbGcI",
+"data_id":
+"0x47e66e2c30000001:0xc219db09e1bfefc7",
+"data_cid":
+"13986450953264426951",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e66e2c30000001%3A0xc219db09e1bfefc7&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e66e2c30000001%3A0xc219db09e1bfefc7&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.863491599999996,
+"longitude":
+2.3274942999999997
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJAQAAMCxu5kcRx--_4QnbGcI",
+"provider_id":
+"/m/0bx_wd_",
+"rating":
+4.6,
+"reviews":
+114934,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Garden"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"garden"
+],
+"address":
+"75001 Paris, France",
+"open_state":
+"Closed ⋅ Opens 7 AM Mon",
+"website":
+"/url?q=https://parisjetaime.com/culture/jardin-des-tuileries-p3545&opi=79508299&sa=U&ved=0ahUKEwjc-bz3gOaQAxX1LLkGHYwuOi0Q61gIjgIoCQ&usg=AOvVaw0vHrVcd1L8_kWWJwmt6X3Y",
+"description":
+"Vast statue-studded 17th-century gardens. Expansive, 17th-century formal garden dotted with statues, including 18 bronzes by Maillol.",
+"extensions":
+[
+{
+"service_options":
+[
+"Onsite services"
+]
+},
+{
+"highlights":
+[
+"Picnics"
+]
+},
+{
+"accessibility":
+[
+"Wheelchair accessible entrance",
+"Wheelchair accessible parking lot"
+]
+},
+{
+"amenities":
+[
+"Cycling lanes",
+"Picnic tables",
+"Public restroom"
+]
+},
+{
+"payments":
+[
+"Credit cards",
+"Debit cards"
+]
+},
+{
+"children":
+[
+"Good for kids",
+"Playground"
+]
+},
+{
+"parking":
+[
+"Paid parking lot",
+"Paid street parking"
+]
+},
+{
+"pets":
+[
+"Dogs allowed"
+]
+}
+],
+"service_options":
+{
+"onsite_services":
+true
+},
+"user_review":
+"Lots of walking space but crowded with tourists",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzk5X--YRYrhf_2V2PefuXr-t2z_fNjYlzBjgTmOTughw7hN7JNWPFVNpQrioEIIL3TjB4yYDDUh_-jmBS7p9OeP5_1wNuiXNBhDu2cFnacCmv8Czg0EkLfveRR5NApIx9vHp-otA=w138-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/yfgiK3icBcHdboIwGADQJ_oEywiyxAsQVBZTGTIHV2RpSstvG9rC5AV9Bt_Gc15PrrVUn5bVc2fDhGA9NYpORIyajnpDxGAxqYAoUFZwspv-tnZuAVBm5cTrCt1RSmtTTKDRWtW4Lfs1bFk-XHPD-OJx7H3h3_R4x_J7akScJBcnb8OPRxlFP7yCdghvnvSvNHWr7YJNU-CQRwaR4_hHDsO8O6zMjrtLPdMsc3Egk39_PksQOtgvW2cH3EfQwSjelWJFsw"
+},
+{
+"position":
+11,
+"title":
+"Conciergerie",
+"place_id":
+"ChIJR3122B9u5kcRajG2bEZLypA",
+"data_id":
+"0x47e66e1fd8767d47:0x90ca4b466cb6316a",
+"data_cid":
+"10433234252600848746",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e66e1fd8767d47%3A0x90ca4b466cb6316a&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e66e1fd8767d47%3A0x90ca4b466cb6316a&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.8560114,
+"longitude":
+2.3454953
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJR3122B9u5kcRajG2bEZLypA",
+"provider_id":
+"/m/0k16z",
+"rating":
+4.4,
+"reviews":
+10874,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Monument",
+"Museum"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"monument",
+"museum"
+],
+"address":
+"2 Bd du Palais, 75001 Paris, France",
+"open_state":
+"Closed ⋅ Opens 9:30 AM Mon",
+"phone":
+"+33 1 53 40 60 80",
+"website":
+"/url?q=https://www.paris-conciergerie.fr/&opi=79508299&sa=U&ved=0ahUKEwjc-bz3gOaQAxX1LLkGHYwuOi0Q61gIrAIoDw&usg=AOvVaw3gZLAebbH0V5LyhH39MsRW",
+"description":
+"14th-century royal palace & prison. Gothic, riverside fortress & French Revolution prison, housing Marie Antoinette's former cell.",
+"extensions":
+[
+{
+"service_options":
+[
+"Onsite services"
+]
+},
+{
+"accessibility":
+[
+"Wheelchair accessible entrance"
+]
+},
+{
+"amenities":
+[
+"Restroom"
+]
+},
+{
+"crowd":
+[
+"Family-friendly"
+]
+},
+{
+"planning":
+[
+"Getting tickets in advance recommended"
+]
+},
+{
+"children":
+[
+"Good for kids"
+]
+}
+],
+"unsupported_extensions":
+[
+{
+"accessibility":
+[
+"Wheelchair accessible parking lot",
+"Wheelchair accessible restroom"
+]
+},
+{
+"amenities":
+[
+"Restaurant"
+]
+}
+],
+"service_options":
+{
+"onsite_services":
+true
+},
+"user_review":
+"Not crowded but you do need a timed entry.",
+"thumbnail":
+"https://lh3.googleusercontent.com/p/AF1QipMJtE4vNnyGr806jRUsXbuSo1pd84UsAXVPc89p=w141-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/LcuR6HicuxmXUVJSUGylr5-TYayXnp-fnpNaWpxalJyfV5KaV6KXnJ-rX6Dv6GYYmFng61XialLml1fpXmRhYJYVFFockVQanG9YkGJhElrsGBEWkGxhWWBbbmhiqJthaaSbrZuXDwCphiEv"
+},
+{
+"position":
+12,
+"title":
+"Sainte-Chapelle",
+"place_id":
+"ChIJR3122B9u5kcRaCck3PlB9DM",
+"data_id":
+"0x47e66e1fd8767d47:0x33f441f9dc242768",
+"data_cid":
+"3743689731647743848",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e66e1fd8767d47%3A0x33f441f9dc242768&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e66e1fd8767d47%3A0x33f441f9dc242768&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.855374999999995,
+"longitude":
+2.3449609
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJR3122B9u5kcRaCck3PlB9DM",
+"provider_id":
+"/m/0jvg5",
+"rating":
+4.6,
+"reviews":
+46825,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Monument",
+"Chapel"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"monument",
+"chapel"
+],
+"address":
+"10 Bd du Palais, 75001 Paris, France",
+"open_state":
+"Closed ⋅ Opens 9 AM Mon",
+"phone":
+"+33 1 53 40 60 80",
+"website":
+"/url?q=https://www.sainte-chapelle.fr/&opi=79508299&sa=U&ved=0ahUKEwjc-bz3gOaQAxX1LLkGHYwuOi0Q61gIygIoDw&usg=AOvVaw0Ip-lJ2gyNsnLYy3L8f_O-",
+"description":
+"Gothic chapel with stained-glass windows. Ornate, 13th-century, Gothic chapel with relics & notable stained-glass windows of biblical scenes.",
+"extensions":
+[
+{
+"service_options":
+[
+"Onsite services"
+]
+},
+{
+"accessibility":
+[
+"Wheelchair accessible entrance"
+]
+},
+{
+"amenities":
+[
+"Restroom"
+]
+},
+{
+"planning":
+[
+"Getting tickets in advance recommended"
+]
+}
+],
+"unsupported_extensions":
+[
+{
+"accessibility":
+[
+"Assistive hearing loop",
+"Wheelchair accessible parking lot"
+]
+}
+],
+"service_options":
+{
+"onsite_services":
+true
+},
+"user_review":
+"It’s often less crowded, so a good spot to catch your breath.",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyvfmURqYb9dsCD3mxlG82HU-Isctpg-0pUVDZEsfbPIbfPrOLq-armFm5BsrCJ-Nk-zhxnGPbDqHgJT9iUY19DXKWan12Ji1zO9nO5IMClLP0XHMv7WauiZOdBikSvpw9_nI7dmA=w138-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/73K3lXicBcHZboJAFADQL7qyxeg06YNCy1ItRIvbS8M6TJgN7ojLD_Yb-jee8__XGaPxzbJ4582oUpQ3V2zGSknTSDOrlLCoRqgQ0FqFNuP7x9SKfDecS1KjH3jizsOlG-UQY2U0BVvnh-DygW2ZxWWbjelmgGIUn2K-xtFP4LuHZ3eXYVYGQ0STH8Lys0OC09exkI6bMOeZEpnO463PN5l9irbT4lhc2SWt16zfT_pGfmW8qMXq_eZ4S-iICz1I9QJ_gkVJ"
+},
+{
+"position":
+13,
+"title":
+"Place de la Bastille",
+"place_id":
+"ChIJKZKprAFy5kcREOvlZ8mwHiM",
+"data_id":
+"0x47e67201aca99229:0x231eb0c967e5eb10",
+"data_cid":
+"2530654419706833680",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e67201aca99229%3A0x231eb0c967e5eb10&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e67201aca99229%3A0x231eb0c967e5eb10&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.8531827,
+"longitude":
+2.3691443
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJKZKprAFy5kcREOvlZ8mwHiM",
+"provider_id":
+"/m/01pwty",
+"rating":
+4.3,
+"reviews":
+25401,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Fortress",
+"Landmark",
+"Plaza",
+"Historical landmark"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"fortress",
+"landmark",
+"plaza",
+"historical_landmark"
+],
+"address":
+"Pl. de la Bastille, 75004 Paris, France",
+"open_state":
+"Open now",
+"phone":
+"+33 1 49 52 42 81",
+"website":
+"/url?q=https://parisjetaime.com/transport/place-de-la-bastille-p1985&opi=79508299&sa=U&ved=0ahUKEwjc-bz3gOaQAxX1LLkGHYwuOi0Q61gI6AIoDw&usg=AOvVaw2wCIkjkN74I-PMpdeuQup8",
+"description":
+"Bustling square where prison once stood. The July Column rises above this iconic square's bars & cafes, former site of the Bastille prison.",
+"extensions":
+[
+{
+"service_options":
+[
+"Onsite services"
+]
+},
+{
+"accessibility":
+[
+"Wheelchair accessible entrance",
+"Wheelchair accessible parking lot"
+]
+},
+{
+"children":
+[
+"Good for kids"
+]
+}
+],
+"service_options":
+{
+"onsite_services":
+true
+},
+"user_review":
+"The square is known for its historical significance and vibrant atmosphere.",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzHU6JTFizFADm2N2XUsTvzre9SNDDgUZnVFY7q5ixl7XNPomdO4GcTMa0JUmyckJJ4IiZVU_lOkkRonaXps0GsMgED8W2LNG7z_Ar6cbWKSQRHXKXUXslufDvsxJJFKoE3DcFb=w80-h106-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/ASiDLHicBcFbjoIwFADQFVUqKugkfpDUokXREarVH6MVC6G0yMXHsL9ZhLvxnM9_3rY1_DiOzgc9Za3S2QOyRlrTZqbtSVs5qgYkAYEThLjQSTfnHktp0dGAVG7sCg7ps2uySRITovjR7OjBv4-Kt_ZFvLHVdT0MZbo6Y8arP1kyNlwUxx0_6XVZbq05ixpwCCs1I-O9u4xDvzsFjScv-yj53c5FJLgA_biRJ7wZo5GdDYikl-lrjFHexx4qkbFf3n9EuA"
+},
+{
+"position":
+14,
+"title":
+"Overlook of Paris",
+"place_id":
+"ChIJV-oEDbZv5kcRciSi_eVZIgE",
+"data_id":
+"0x47e66fb60d04ea57:0x12259e5fda22472",
+"data_cid":
+"81726587583734898",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e66fb60d04ea57%3A0x12259e5fda22472&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e66fb60d04ea57%3A0x12259e5fda22472&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.885660099999996,
+"longitude":
+2.3432519
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJV-oEDbZv5kcRciSi_eVZIgE",
+"provider_id":
+"/g/11tdpp39fj",
+"rating":
+4.6,
+"reviews":
+658,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Observation deck",
+"Vista point"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"observation_deck",
+"vista_point"
+],
+"address":
+"5 Rue du Cardinal Dubois, 75018 Paris, France",
+"open_state":
+"Open 24 hours",
+"extensions":
+[
+{
+"service_options":
+[
+"Onsite services"
+]
+},
+{
+"children":
+[
+"Good for kids"
+]
+}
+],
+"service_options":
+{
+"onsite_services":
+true
+},
+"user_review":
+"It gets crowded, but you can usually find a nice spot.",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSx5YwXJ7DiXUGv5INzICqsAB4Zves34KFl6SmXta9crV9UNo9lZcyMBGeNH6zJGS3xSwHySESN8MUQVijjZMmypDkPsW6insCNMatPI985eYZJ975hi5r35mSKM-_E_lXQc4aI=w138-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/IkCRZ3icBcFRboIwGADgE1WmpUiX7AHFIZg2mgaHvBDSNFAtFPmriOfbJXabfd_fb-vcAJ-eZ1q8aKxtjHqAGqXtnerdQtrOawZAEhB4UfKhjXiRy1Rk61gXefIkKX-n2ztEG798KsD-4dsEoitcTeV4pjm31JRyZptE8X3wzhKBX2Laz2IneMjy01lfryXr5iG-HeEn0D1sOavdMaUhUZcyo2vSajJi0okDQ9WuMsVJ-nX6NS1xiFq6QjfU239xmUOB"
+},
+{
+"position":
+15,
+"title":
+"Jardin du Luxembourg",
+"place_id":
+"ChIJe2jeNttx5kcRi_mJsGHdkQc",
+"data_id":
+"0x47e671db36de687b:0x791dd61b089f98b",
+"data_cid":
+"545460441531939211",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e671db36de687b%3A0x791dd61b089f98b&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e671db36de687b%3A0x791dd61b089f98b&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.8466144,
+"longitude":
+2.3363309
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJe2jeNttx5kcRi_mJsGHdkQc",
+"provider_id":
+"/m/02qtwx",
+"rating":
+4.7,
+"reviews":
+121711,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Park",
+"Garden"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"park",
+"garden"
+],
+"address":
+"75006 Paris, France",
+"phone":
+"+33 1 42 34 20 00",
+"website":
+"/url?q=https://jardin.senat.fr/&opi=79508299&sa=U&ved=0ahUKEwjc-bz3gOaQAxX1LLkGHYwuOi0Q61gInQMoDQ&usg=AOvVaw10vC2cKuGxslmatYvPodcY",
+"description":
+"Park with manicured lawns & statues. 17th-century park with formally laid-out gardens, trees planted in patterns & statues on pedestals.",
+"extensions":
+[
+{
+"service_options":
+[
+"Onsite services"
+]
+},
+{
+"highlights":
+[
+"Picnics"
+]
+},
+{
+"accessibility":
+[
+"Wheelchair accessible entrance",
+"Wheelchair accessible parking lot"
+]
+},
+{
+"amenities":
+[
+"Cycling lanes",
+"Has a tennis court",
+"Picnic tables",
+"Public restroom",
+"Slides",
+"Swings"
+]
+},
+{
+"payments":
+[
+"Credit cards",
+"Debit cards",
+"NFC mobile payments"
+]
+},
+{
+"children":
+[
+"Good for kids",
+"Good for kids birthday",
+"Playground"
+]
+},
+{
+"parking":
+[
+"Paid street parking"
+]
+},
+{
+"pets":
+[
+"Dog park",
+"Dogs allowed"
+]
+}
+],
+"service_options":
+{
+"onsite_services":
+true
+},
+"user_review":
+"This place has a sightseeing feel with a local park kind of ambience!",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwBljlV5Z5XpUkaNrHNDVlRxUwQsvE6PiK3j8efkPKYJqibSjqkHqwNTkY-QbAggzn3YVl4yW9b5KNDS8qZVrNIOIpyJlCjtqdNiXbjKPvz-kfEexdGyquTvxODCdBTozZhJKOo=w138-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/FRg183icBcH_EoEwAADgJ5qQXNz5Azm0uxUl6j_VrLZprU2_3s9DeBvf9_sWWtdqbRi8MCdECMLxR-EmE5XGlZ5k4m2QWoFMAWVsj9OSB92OUx5ZifWob-yJmhNyIn7tb91FtYelX0KT2vjFfBi7skwDKtlJdihkMbikW0LGyowjvhjuq9SCyAlsmUQNOnvnenD5nmqZo_KRUui3I2CvA-7z4yA_Ydt7zj7fhWJMChd6YtPNTBsUqzlgoBJ_iDhHFQ"
+},
+{
+"position":
+16,
+"title":
+"Republic Square Paris",
+"place_id":
+"ChIJIbZBRIxv5kcRPrhYs1BXVJ0",
+"data_id":
+"0x47e66f8c4441b621:0x9d545750b358b83e",
+"data_cid":
+"11336782166116317246",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e66f8c4441b621%3A0x9d545750b358b83e&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e66f8c4441b621%3A0x9d545750b358b83e&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.8676635,
+"longitude":
+2.3640304
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJIbZBRIxv5kcRPrhYs1BXVJ0",
+"provider_id":
+"/g/11shgb_35b",
+"rating":
+4.4,
+"reviews":
+207,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction"
+],
+"address":
+"Pl. de la République, 75011 Paris, France",
+"open_state":
+"Open 24 hours",
+"extensions":
+[
+{
+"accessibility":
+[
+"Wheelchair accessible entrance"
+]
+},
+{
+"children":
+[
+"Good for kids"
+]
+}
+],
+"user_review":
+"Nice and huge square with historical monument in the middle.",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwjFOSbIsy2Lc7mVjUjNXIFo1TskbZ143-VMmgb_0BDZsJrFGtTMrbGoebb_ppYRhN933yhdLClV6YEbIi-JgI9C9IbF-z7MAxbM8UV142tGDKm_i5dapeZr39eLeWsbn1bh7XqBK6lAX8=w145-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/V0zpQnicBcHRboIwFADQL6pYimKX7AF1kCq4ZCpDXsguNi1YaMft4tw37gf2Nzvn71d77_ApCIxmM2WtMvIL5dTa0cvRz1o7BMohaZFgkGTzzhzvffp6BIGPMG_joezP_aESqaUnvEFNI0bKYlDQzNfbGndTmvlTMUFmJUDj3OVNHzhjD33NN6ZcXl5AdGSnBN9wASn5iYvkG4rVuaRR6LPtfmi6xfXDyXpiXObyHWGkoOPqc71fmqRaPd9ptCCah-RGRvsPmIFF5Q"
+},
+{
+"position":
+17,
+"title":
+"Pont Neuf",
+"place_id":
+"ChIJiwXbjSBu5kcRG_Vjyw1gadQ",
+"data_id":
+"0x47e66e208ddb058b:0xd469600dcb63f51b",
+"data_cid":
+"15305870420958508315",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e66e208ddb058b%3A0xd469600dcb63f51b&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e66e208ddb058b%3A0xd469600dcb63f51b&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.8567198,
+"longitude":
+2.3407594
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJiwXbjSBu5kcRG_Vjyw1gadQ",
+"provider_id":
+"/m/01v4k3",
+"rating":
+4.6,
+"reviews":
+21631,
+"type":
+"Bridge",
+"types":
+[
+"Bridge",
+"Tourist attraction"
+],
+"type_id":
+"bridge",
+"type_ids":
+[
+"bridge",
+"tourist_attraction"
+],
+"address":
+"75001 Paris, France",
+"description":
+"Stone bridge with a statue of Henri IV. Arched stone bridge, opened in 1607, with 2 spans & a bronze, equine statue of King Henri IV.",
+"extensions":
+[
+{
+"service_options":
+[
+"Onsite services"
+]
+},
+{
+"accessibility":
+[
+"Wheelchair accessible entrance"
+]
+}
+],
+"unsupported_extensions":
+[
+{
+"amenities":
+[
+"Restroom"
+]
+}
+],
+"service_options":
+{
+"onsite_services":
+true
+},
+"user_review":
+"Beautiful views and less crowded than the surrounding bridges",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyCA9xCCcGLz6H38oU7bEsABlelpJekE0jDnS0K3_VPuQPkLah2qZWSCtsazsa1Eb1FY2KOXnldsgh_MM60m2JzRep3UJNmUHnjZ4KsYbiG8sid5ZQBrhrr_BWiYxLTbNnTV3_A=w122-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/O7nzxnicBcFLDoIwFADAE1Wg9Z-4AEQM4BdRYUMAG4qUFnk1KvfzEN7Gmd-XKdXCXNM4I4NSypLTJ9CukEJRoQaFbLSyBVQAAs109YqHH9ucvW27cIN-vCZTGU1yB0yLU956tHb0-1KEuk_S8_552NdBxvAjuYS2gqyHzHByYxVjf3cV_AYlSzebsd5grz_SlkTetonW4p4MfYjzyp1CdRslB6tjXZdalyp-B6d8K05nkpqLl4ExYjOMaiTkH7R7RKU"
+},
+{
+"position":
+18,
+"title":
+"Musée National Picasso-Paris",
+"place_id":
+"ChIJS2t0QgFu5kcR92388prakcE",
+"data_id":
+"0x47e66e0142746b4b:0xc191da9af2fc6df7",
+"data_cid":
+"13948169879979585015",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e66e0142746b4b%3A0xc191da9af2fc6df7&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e66e0142746b4b%3A0xc191da9af2fc6df7&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.859877499999996,
+"longitude":
+2.362285
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJS2t0QgFu5kcR92388prakcE",
+"provider_id":
+"/m/04xfzf",
+"rating":
+4.4,
+"reviews":
+14328,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Art museum",
+"Museum"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"art_museum",
+"museum"
+],
+"address":
+"5 Rue de Thorigny, 75003 Paris, France",
+"open_state":
+"Closed ⋅ Opens 9:30 AM Tue",
+"phone":
+"+33 1 85 56 00 36",
+"website":
+"/url?q=https://www.museepicassoparis.fr/&opi=79508299&sa=U&ved=0ahUKEwjc-bz3gOaQAxX1LLkGHYwuOi0Q61gI6wMoDw&usg=AOvVaw3ExcTMqp7oY8fqbVeUa_My",
+"description":
+"5,000 Picasso artworks & his archive. 17th-century building holding 5,000 artworks by Pablo Picasso, his own art collection & archive.",
+"extensions":
+[
+{
+"service_options":
+[
+"Onsite services"
+]
+},
+{
+"highlights":
+[
+"Live performances"
+]
+},
+{
+"accessibility":
+[
+"Assistive hearing loop",
+"Wheelchair accessible entrance",
+"Wheelchair accessible parking lot",
+"Wheelchair accessible restroom"
+]
+},
+{
+"amenities":
+[
+"Restaurant",
+"Restroom"
+]
+},
+{
+"crowd":
+[
+"Family-friendly"
+]
+},
+{
+"planning":
+[
+"Getting tickets in advance recommended"
+]
+},
+{
+"children":
+[
+"Good for kids",
+"Has changing table(s)"
+]
+}
+],
+"service_options":
+{
+"onsite_services":
+true
+},
+"user_review":
+"Not crowded at all on a weekday late afternoon.",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzD7219fc8eQNMNmvZtN00qwVCSKvAP5llD8r0haouortiM6UGerC1jHlq3eMjwT06jbFRrINwX1X2h1hTr-iFx8pnV23sKDsND4cWeVEr3oXMr9dp7QGn4CeJlsNSUK8YsYRw=w102-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/Qy0XvXicBcFbcoIwFADQFUWS4AM64wcDSluGTBVF9E9jJNCYYG40HdfXTbgbz3n9S-cG-AgCJcNRa0yrxB2E5UY7od2Im2vQDoA4IAiSHHeqemYzSuILj8SKlez6ODiG8c3XaVU8kp-JUllksTyau7GuK6fbXNiU9J_qFoqy9xs87U_Ltf1iviENlURuLOqWf9GgaxpCkQHLxnwn6oUNTVPa-DzMVrkep-JbAau2RbSH_drPPcEUyZiiX6TNG2VCQ9Q"
+},
+{
+"position":
+19,
+"title":
+"Tunnel des Tuileries",
+"place_id":
+"ChIJ54F3Hjxv5kcRX_06-J4r9ZM",
+"data_id":
+"0x47e66f3c1e7781e7:0x93f52b9ef83afd5f",
+"data_cid":
+"10661475654638959967",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e66f3c1e7781e7%3A0x93f52b9ef83afd5f&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e66f3c1e7781e7%3A0x93f52b9ef83afd5f&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.8587499,
+"longitude":
+2.3401362
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJ54F3Hjxv5kcRX_06-J4r9ZM",
+"provider_id":
+"/g/11jsc_ggnq",
+"rating":
+4.4,
+"reviews":
+244,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Cultural landmark"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"cultural_landmark"
+],
+"address":
+"75001 Quai Henri IV, Paris, France",
+"open_state":
+"Closes soon ⋅ 10:45 PM ⋅ Opens 7:45 AM Mon",
+"user_review":
+"Very popular with bikes, well trafficked and safe during the day.",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyftYgrsHEpd1zymsO7uXIBkGhxx6JV-nbvEIUWb2c0hZ2m7UiJj2_7Nsowao9X_pxIA9cCDIYAbA1V7QnNUzPR0sZkevKs9B40QEw1knKPwsYdMq-WYX1GK4qvUQ2jVH7XFE0GNw=w122-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/CTPlCnicBcFRboIwGADgE1Xaamww8QE3hkhE0YDgCxkFqQIt-leKXnBn8Db7vs-f0LqHhWW1Yjqplarb6gnVgyupK6knXHVW3QPigMByPHxtj6-LzuoHrN2-JO9XBzv2TP1V44lxnG8SJIvB9eNTQTkWZ9qx-Lq50ZyFoMyvstO8H33H5l_ffuYUDklYJMP4vT9gODfVEIC9muHINaSRwd5AVm7v6JSlxAtm9yGO6C1Zs_THxV5oloZQioRNUYOk-ge0E0Ua"
+},
+{
+"position":
+20,
+"title":
+"Pinky Tour - Paris",
+"place_id":
+"ChIJ9RPmD2Jv5kcRPq0bXsdkyC4",
+"data_id":
+"0x47e66f620fe613f5:0x2ec864c75e1bad3e",
+"data_cid":
+"3371055128526957886",
+"reviews_link":
+"https://serpapi.com/search.json?data_id=0x47e66f620fe613f5%3A0x2ec864c75e1bad3e&engine=google_maps_reviews&hl=en",
+"photos_link":
+"https://serpapi.com/search.json?data_id=0x47e66f620fe613f5%3A0x2ec864c75e1bad3e&engine=google_maps_photos&hl=en",
+"gps_coordinates":
+{
+"latitude":
+48.873098999999996,
+"longitude":
+2.2969013
+},
+"place_id_search":
+"https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJ9RPmD2Jv5kcRPq0bXsdkyC4",
+"provider_id":
+"/g/11w1cppcp3",
+"rating":
+5,
+"reviews":
+83,
+"type":
+"Tourist attraction",
+"types":
+[
+"Tourist attraction",
+"Photography service",
+"Sightseeing tour agency",
+"Transportation escort service"
+],
+"type_id":
+"tourist_attraction",
+"type_ids":
+[
+"tourist_attraction",
+"photography_service",
+"sightseeing_tour_agency",
+"transportation_escort_service"
+],
+"address":
+"75008 Paris, France",
+"open_state":
+"Open ⋅ Closes 12 AM",
+"phone":
+"+33 7 85 05 03 71",
+"website":
+"/url?q=https://pinkytourparis.com/&opi=79508299&sa=U&ved=0ahUKEwjc-bz3gOaQAxX1LLkGHYwuOi0Q61gIoAQoDQ&usg=AOvVaw0kgmhlla_o7fyICD5YTMiu",
+"extensions":
+[
+{
+"planning":
+[
+"Getting tickets in advance recommended"
+]
+},
+{
+"payments":
+[
+"Credit cards"
+]
+},
+{
+"children":
+[
+"Good for kids"
+]
+}
+],
+"user_review":
+"It was the perfect mix of iconic sights and local gems.",
+"thumbnail":
+"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSy47yE22tE2Cg_Qky1G-ySU7uBWz1Ab0dksvKigKOtEfIYDzGDGOwyarz0pmqnkV_okXYM2UWoR-48SCwUKheYp-8zOvFTGUl1ndAkA0AO3jUQ4OOttpWPThRBfaF1m4jOgabh0_0sgt56I=w116-h92-k-no",
+"serpapi_thumbnail":
+"https://serpapi.com/images/url/glNvZnicDc5RboIwAADQE1XaytQt8aMKNoYsVbFjfBEEbLXQMlsl5Y4ewNu4d4L3ekrnevsVBK2cToQxom3utrlVRrtGu0llukD0FlQW2IBQeGlTH859jLGL8VoUe-URBT7l8_sqGxE5wVrZR3IRCXPxeZtHI40oG3x5G2Hf_Wn1Uxj1m39jnpkDCBfpeuCJbPIeLEb22Bwpb5GuiSKQsOmV70PG_n_Z7igPq3O5QV14ZaI8SVhAK9zHbLscEJoB-YmBAtq8AQbmRwo"
+}
+]
+}
