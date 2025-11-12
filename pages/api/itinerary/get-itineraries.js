@@ -5,13 +5,13 @@ export default async function handler(req, res) {
 
     try {
         // Forward the request to the external server
-        const url = req.body?.photos_link;
-        const externalResponse = await fetch(url, {
+        const externalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/itineraries`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 // Add any other headers if needed (e.g., Authorization)
             },
+            body: JSON.stringify(req.body), // Pass the request body from the frontend
         });
 
         // Check if the external response is OK

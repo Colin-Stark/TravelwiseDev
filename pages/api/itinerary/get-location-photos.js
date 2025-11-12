@@ -4,39 +4,17 @@ export default async function handler(req, res) {
     }
 
     try {
-        // Extract flight details from req.body
+        // Extract location details from req.body
         const {
-            departure_id,
-            arrival_id,
-            outbound_date,
-            return_date,
-            type = 1, // Default to round-trip
-            travel_class = 1, // Default to economy
-            adults = 1, // Default to 1 adult
-            children = 0,
-            infants_in_seat = 0,
-            infants_on_lap = 0,
-            currency = 'USD',
-            gl = 'us',
+            data_id,
             hl = 'en'
         } = req.body;
 
         // Build query parameters for SerpApi
         const params = new URLSearchParams({
-            engine: 'google_flights',
+            engine: 'google_maps_photos',
             api_key: process.env.NEXT_SERP_API_KEY,
-            departure_id,
-            arrival_id,
-            outbound_date,
-            ...(return_date && { return_date }),
-            type,
-            travel_class,
-            adults,
-            ...(children && { children }),
-            ...(infants_in_seat && { infants_in_seat }),
-            ...(infants_on_lap && { infants_on_lap }),
-            currency,
-            gl,
+            data_id,
             hl
         });
 

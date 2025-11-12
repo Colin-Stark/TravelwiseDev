@@ -8,7 +8,7 @@ import { Commet } from 'react-loading-indicators';
 import { ThemeContext } from "@/pages/_app";
 import { fetchCountryData, getCountryList } from '@/lib/airportData';
 import ItineraryDetails from '@/components/itinerary/ItineraryDetails';
-import { getLocationList } from '@/lib/locationData';
+import { getLocationList, getLocationPhotos } from '@/lib/locationData';
 import LocationCard from '@/components/itinerary/LocationCard';
 import moment from 'moment';
 import LocationDetails from '@/components/itinerary/LocationDetails';
@@ -16,120 +16,42 @@ import LocationDetails from '@/components/itinerary/LocationDetails';
 //dummy data
 const upcomingItineraries = [
   {
+    user_id: "asadasa",
     id: 3,
     title: 'Paris Adventure',
     start_date: '2025-11-10',
     end_date: '2025-11-18',
     country: 'France',
     city: 'Paris',
+    gl: 'fr',
     description: 'Explore the Eiffel Tower, Louvre, and enjoy French cuisine.',
-    img: '/images/placeholder1.jpg',
+    img: '',
+    flight: {
+        "departure_token":
+        "WyJDalJJY20wMGNXaGZaRzh0UTBsQlFWOXRVbEZDUnkwdExTMHRMUzB0TFhCcWEyc3hORUZCUVVGQlIycHNkRVE0UkZNMmRDMUJFZ3hWUVRnNE9YeFZRVEl6TXpJYUN3aVYxd29RQWhvRFZWTkVPQnh3bGRjSyIsW1siUEVLIiwiMjAyNS0xMC0wOCIsIlNGTyIsbnVsbCwiVUEiLCI4ODkiXSxbIlNGTyIsIjIwMjUtMTAtMDgiLCJBVVMiLG51bGwsIlVBIiwiMjMzMiJdXV0="
+    },
     schedules: [
         {
             day: '2025-11-10',
             locations: [
                 {
-                "position":
-                1,
-                "title":
-                "Eiffel Tower",
-                "place_id":
-                "ChIJLU7jZClu5kcR4PcOOO6p3I0",
-                "data_id":
-                "0x47e66e2964e34e2d:0x8ddca9ee380ef7e0",
-                "data_cid":
-                "10222232094831998944",
-                "reviews_link":
-                "https://serpapi.com/search.json?data_id=0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0&engine=google_maps_reviews&hl=en",
-                "photos_link":
-                "https://serpapi.com/search.json?data_id=0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0&engine=google_maps_photos&hl=en",
-                "gps_coordinates":
-                {
-                "latitude":
-                48.858370099999995,
-                "longitude":
-                2.2944812999999997
-                },
-                "place_id_search":
-                "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&place_id=ChIJLU7jZClu5kcR4PcOOO6p3I0",
-                "provider_id":
-                "/m/02j81",
-                "rating":
-                4.7,
-                "reviews":
-                475344,
-                "type":
-                "Tourist attraction",
-                "types":
-                [
-                "Tourist attraction",
-                "Monument",
-                "Historical landmark"
-                ],
-                "type_id":
-                "tourist_attraction",
-                "type_ids":
-                [
-                "tourist_attraction",
-                "monument",
-                "historical_landmark"
-                ],
-                "address":
-                "Av. Gustave Eiffel, 75007 Paris, France",
-                "open_state":
-                "Closes soon ⋅ 11 PM ⋅ Opens 9:30 AM Mon",
-                "website":
-                "/url?q=https://www.toureiffel.paris/fr&opi=79508299&sa=U&ved=0ahUKEwjc-bz3gOaQAxX1LLkGHYwuOi0Q61gIGCgL&usg=AOvVaw285Y34f20tfTTM9uz-WetG",
-                "description":
-                "Landmark 330m-high 19th-century tower. Gustave Eiffel's iconic, wrought-iron 1889 tower, with steps and elevators to observation decks.",
-                "extensions":
-                [
-                {
-                "service_options":
-                [
-                "Onsite services"
-                ]
-                },
-                {
-                "accessibility":
-                [
-                "Wheelchair accessible entrance",
-                "Wheelchair accessible parking lot",
-                "Wheelchair accessible restroom"
-                ]
-                },
-                {
-                "planning":
-                [
-                "Getting tickets in advance recommended"
-                ]
-                },
-                {
-                "children":
-                [
-                "Good for kids"
-                ]
-                },
-                {
-                "parking":
-                [
-                "Paid parking lot"
-                ]
-                }
-                ],
-                "service_options":
-                {
-                "onsite_services":
-                true
-                },
-                "user_review":
-                "Quiet crowded with tourist.",
-                "thumbnail":
-                "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyADJFVVyaVnRGnpdFclZRgD8CV_dzHscAUMGqeBedi0Y_e-oYwu3pULaKpfHa4M8VNVEGc7a3DOjQffJUDrL8gSRLWY_twZHnjP--OGcmDPirFXjPOwaCG5rtf7Iqbq_D2bGS_=w131-h92-k-no",
-                "serpapi_thumbnail":
-                "https://serpapi.com/images/url/PJ9Dp3icBcFRboIwAADQE1VUZmRL_GBUyhwKQqjiT1NLKTBsC60h7n4ewtv43uvZWKvNl-P0jTsTSome3w0fmZKWSztj6uYIbQAzwDg-mrd9_vDhLsT4QbHMkNRVyPpLJqAXYFL9R4b5xR4N_JtX7bwkHKhyuru6iOmvriP6sffwAW8RW1MXJt2xrncFHGNP5Fl8KomdLpHsUgASxG4wbcfw3KXJRAO0Gm29_hmuA4HLK8rJZlq4C9B8LsEfkOoNBFVE3g",
-                time: '8:30 AM',
-                duration: 90,
+                    "title": "Eiffel Tower",
+                    "place_id": "ChIJLU7jZClu5kcR4PcOOO6p3I0",
+                    "rating": 4.7,
+                    "reviews": 475344,
+                    "type": "Tourist attraction",
+                    "address": "Av. Gustave Eiffel, 75007 Paris, France",
+                    "open_state": "Closes soon ⋅ 11 PM ⋅ Opens 9:30 AM Mon",
+                    "description": "Landmark 330m-high 19th-century tower. Gustave Eiffel's iconic, wrought-iron 1889 tower, with steps and elevators to observation decks.",
+                    "service_options":
+                    {
+                        "onsite_services": true
+                    },
+                    "user_review": "Quiet crowded with tourist.",
+                    "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyADJFVVyaVnRGnpdFclZRgD8CV_dzHscAUMGqeBedi0Y_e-oYwu3pULaKpfHa4M8VNVEGc7a3DOjQffJUDrL8gSRLWY_twZHnjP--OGcmDPirFXjPOwaCG5rtf7Iqbq_D2bGS_=w131-h92-k-no",
+                    "serpapi_thumbnail": "https://serpapi.com/images/url/PJ9Dp3icBcFRboIwAADQE1VUZmRL_GBUyhwKQqjiT1NLKTBsC60h7n4ewtv43uvZWKvNl-P0jTsTSome3w0fmZKWSztj6uYIbQAzwDg-mrd9_vDhLsT4QbHMkNRVyPpLJqAXYFL9R4b5xR4N_JtX7bwkHKhyuru6iOmvriP6sffwAW8RW1MXJt2xrncFHGNP5Fl8KomdLpHsUgASxG4wbcfw3KXJRAO0Gm29_hmuA4HLK8rJZlq4C9B8LsEfkOoNBFVE3g",
+                    time: '8:30 AM',
+                    duration: 90,
                 },
                 {
                 "position":
@@ -416,12 +338,19 @@ const upcomingItineraries = [
   {
     id: 4,
     title: 'Tokyo Highlights',
-    start_date: '2025-12-22',
-    end_date: '2025-12-26',
+    start_date: '2025-11-25',
+    end_date: '2025-11-29',
     country: 'Japan',
     city: 'Tokyo',
     description: 'Visit Shibuya, temples, and try sushi at Tsukiji Market.',
-    img: '/images/placeholder3.jpg',
+    img: '',
+    user_id: "asadasa",
+    gl: 'jp',
+    flight: {
+        "departure_token": 
+        "WyJDalJJY20wMGNXaGZaRzh0UTBsQlFWOXRVbEZDUnkwdExTMHRMUzB0TFhCcWEyc3hORUZCUVVGQlIycHNkRVE0UkZNMmRDMUJFZ3hWUVRnNE9YeFZRVEl6TXpJYUN3aVYxd29RQWhvRFZWTkVPQnh3bGRjSyIsW1siUEVLIiwiMjAyNS0xMC0wOCIsIlNGTyIsbnVsbCwiVUEiLCI4ODkiXSxbIlNGTyIsIjIwMjUtMTAtMDgiLCJBVVMiLG51bGwsIlVBIiwiMjMzMiJdXV1=",
+    },
+    schedules: [],
   },
   {
     id: 5,
@@ -431,7 +360,8 @@ const upcomingItineraries = [
     country: 'United States',
     city: 'New York',
     description: 'Broadway show, Central Park stroll, and Times Square lights.',
-    img: '/images/placeholder2.jpg',
+    img: '',
+    schedules: [],
   },
 ];
 
@@ -466,14 +396,11 @@ const ManageSchedulePage = () => {
     const [itinerary, setItinerary] = useState(null);
     const [days, setDays] = useState([]);
     const [selectedDay, setSelectedDay] = useState("");
+    const [prevLoc, setPrevLoc] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [upcomingTrips, setUpcomingTrips] = useState([]);
-    const [pastTrips, setPastTrips] = useState([]);
-    const [savedLocations, setSavedLocations] = useState([]);
     const [warning, setWarning] = useState("");
     const [countryObj, setCountryObj] = useState([]);
-    const [countryOptions, setCountryOptions] = useState([]);
-    const [showAddModal, setShowAddModal] = useState(false);    
+    const [showAddModal, setShowAddModal] = useState(false);
 
     const handleModalShow = (event) => {
         setShowAddModal(true);
@@ -492,13 +419,10 @@ const ManageSchedulePage = () => {
     
     async function loadCountryData() {
         var cObj = countryObj;
-        console.log(cObj);
         if(cObj.length <= 0) {
             cObj = await fetchCountryData();
             setCountryObj(cObj);
         }
-        const countries = await getCountryList(cObj);
-        setCountryOptions(countries);
     }
 
     async function loadData() {
@@ -509,7 +433,11 @@ const ManageSchedulePage = () => {
         setUser(data_user);
 
         //get itinerary
-        const data_itinerary = await loadItinerary();        
+        const data_itinerary = await loadItinerary();    
+        
+        if(!data_itinerary) {
+            return;
+        }
 
         //set number of days
         var tmpDays = [];
@@ -540,7 +468,6 @@ const ManageSchedulePage = () => {
         //get itinerary id from url
         const queryParams = new URLSearchParams(window.location.search);
         const itinerary_id = queryParams.get("id");
-        setItineraryId(itinerary_id);
         // try {
         //     const res = await fetch("/api/itinerary/get-itinerary", {  // Changed to same-origin API route
         //         method: 'POST',
@@ -548,7 +475,7 @@ const ManageSchedulePage = () => {
         //             'content-type': 'application/json',
         //         },
         //         body: JSON.stringify({
-        //             user_id: user?.id,
+        //             email: user?.email,
         //             itinerary_id:  itinerary_id,
         //         }),
         //     });
@@ -565,13 +492,23 @@ const ManageSchedulePage = () => {
         //         return;
         //     }
         //     setItinerary(data);
+        //     setItineraryId(itinerary_id);
 
         // } catch (err) {
         //     setWarning("Network error: " + err.message);
         // }
         //dummy itinerary
-        data = upcomingItineraries[0];
+        for(const trip of upcomingItineraries) {
+            if((""+trip.id) === (""+itinerary_id)) {
+                data = trip;
+                break;
+            }
+        }
+        if(!data) {
+            data = upcomingItineraries[0];
+        }
         setItinerary(data);
+        setItineraryId(itinerary_id);
 
         setIsLoading(false);
 
@@ -588,7 +525,24 @@ const ManageSchedulePage = () => {
             duration: formValues.duration,
             form_type: 1,
         }
-        console.log(loc);
+
+        //get location image
+        if(!itinerary.img) {
+            const img_properties = {
+                data_id : loc.data_id,
+            }
+            const dataImg = await getLocationPhotos(img_properties);
+            for(const photo of dataImg?.photos) {
+                if(photo.image) {
+                    console.log("added img", photo.image);
+                    var tmpIter = itinerary;
+                    tmpIter.img = photo.image;
+
+                    setItinerary(tmpIter);
+                    break;
+                }
+            }
+        }
 
         // try {
         //     const res = await fetch("/api/itinerary/add-location", {  // Changed to same-origin API route
@@ -702,6 +656,8 @@ const ManageSchedulePage = () => {
             form_type: 1,
         }
 
+        console.log(itinerary);
+
         // try {
         //     const res = await fetch("/api/itinerary/edit-location", {  // Changed to same-origin API route
         //         method: 'POST',
@@ -766,6 +722,7 @@ const ManageSchedulePage = () => {
             schedules: tmpSchedules,
         };
         setItinerary(tmpItinerary);
+        console.log(tmpItinerary);
 
         //reload list
         //await loadItinerary();
@@ -854,7 +811,7 @@ const ManageSchedulePage = () => {
     <div>
         <Row className="mt-2">
             <Card className="bg-dark text-white m-0 p-0">
-                <Card.Img className="img-title rounded-0" src="/images/search_flights_title.jpg" alt="Card image" />
+                <Card.Img className="img-title rounded-0" src="/images/manage_schedule_title.png" alt="Card image" />
                 <Card.ImgOverlay className="d-flex align-items-center px-4 px-md-5">
                     <Card.Title><h1>Itinerary Schedule</h1></Card.Title>
                 </Card.ImgOverlay>
@@ -866,14 +823,17 @@ const ManageSchedulePage = () => {
                 <label><strong>Main Location: </strong>{`${itinerary?.city}, ${itinerary?.country}`}</label>
                 <Button className='btn-info text-light' onClick={handleModalShow}>Add Location to Schedule</Button>
             </div>
-            <ItineraryDetails
+            <LocationDetails
                 show={showAddModal}
                 handleModalClose={handleModalClose}
                 handleAction={handleAdd}
-                itineraryObj={null}
-                status={null}
+                locationObj={null}
                 action="add"
-                countryOptions={countryOptions}
+                country={itinerary?.country}
+                city={itinerary?.city}
+                day={selectedDay}
+                itinerary={itinerary}
+                countryObj={countryObj}
                 theme={theme}
             />
 
@@ -905,19 +865,6 @@ const ManageSchedulePage = () => {
 
                 return (
                     <Tab key={`tab_${index}`} eventKey={`day_${index}`} title={`${day}`}>
-                        <LocationDetails
-                            id={`add_${day}`}
-                            key={`add_${day}`}
-                            show={showAddModal}
-                            handleModalClose={handleModalClose}
-                            handleAction={handleAdd}
-                            locationObj={null}
-                            action="add"
-                            country={itinerary?.country}
-                            city={itinerary?.city}
-                            day={selectedDay}
-                            theme={theme}
-                        />
                     {
                         isLoading ? 
                             (
@@ -938,19 +885,21 @@ const ManageSchedulePage = () => {
                                     {
                                         tmpSchedule?.locations?.length > 0 ?
                                         tmpSchedule.locations.map((location, ind) => (
-                                        <LocationCard 
-                                            key={`saved_loc_${ind}`}
-                                            location={location}
-                                            index={ind}
-                                            day={day}
-                                            time={location.time}
-                                            duration={location.duration}
-                                            country={itinerary?.country}
-                                            city={itinerary?.city}
-                                            handleEdit={handleEdit}
-                                            handleDelete={handleDelete}
-                                            theme={theme}
-                                        />
+                                            <LocationCard 
+                                                key={`saved_loc_${ind}`}
+                                                location={location}
+                                                index={ind}
+                                                day={day}
+                                                time={location.time}
+                                                duration={location.duration}
+                                                country={itinerary?.country}
+                                                city={itinerary?.city}
+                                                handleEdit={handleEdit}
+                                                handleDelete={handleDelete}
+                                                itinerary={itinerary}
+                                                countryObj={countryObj}
+                                                theme={theme}
+                                            />
                                         ))
                                         :
                                         (

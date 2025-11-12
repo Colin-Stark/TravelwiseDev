@@ -308,9 +308,10 @@ button:hover {
   border-radius: 10px;
 }
 .location-img {
-  height: 100px;
-  width: 100px;
+  height: 120px;
+  width: 120px;
   border-radius: 10px;
+  object-fit: cover;
 }
 
 .modal-result-container {

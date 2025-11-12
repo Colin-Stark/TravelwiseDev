@@ -127,7 +127,7 @@ const FlightCard = ({ flight, index, numFlights, layovers }) => {
         </Card>
 
         {
-            layovers[index] ? (
+            layovers && layovers[index] ? (
                 <Row className='border border-main-tertiary rounded mb-3 p-2 text-center justify-content-center align-items-center mx-2'>
                     <Col xs={2}>
                         <FaClock size={30} className="text-main-tertiary" />

@@ -5,7 +5,7 @@ import FlightCard from './FlightCard';
 import { formatMinutes, formatCurrency } from '@/lib/airportData';
 
 export default function FlightDetails({show, handleModalClose, handleSubmit, flightObj, currency, theme}) {
-  return flightObj?.airline_name ? 
+  return flightObj?.airline_logo ? 
   (
     <Modal show={show} onHide={handleModalClose} data-bs-theme={theme}>
         <Modal.Header closeButton>
@@ -33,11 +33,11 @@ export default function FlightDetails({show, handleModalClose, handleSubmit, fli
                     </Col>
                     <Col xs={6}>
                         <label className='fw-bold me-2'>Layovers: </label>
-                        <label>{flightObj.layovers.length}</label>
+                        <label>{flightObj.layovers?.length}</label>
                     </Col>
                     <Col xs={6}>
                         <label className='fw-bold me-2'>Emissions: </label>
-                        <label>{(flightObj.carbon_emissions.this_flight / 1000.0)} kg CO<sub>2</sub></label>
+                        <label>{(flightObj.carbon_emissions?.this_flight / 1000.0)} kg CO<sub>2</sub></label>
                     </Col>
                 </Row>
             </Tab>

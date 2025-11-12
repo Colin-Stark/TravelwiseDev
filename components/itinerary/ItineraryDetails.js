@@ -7,13 +7,15 @@ import { useEffect, useRef, useState } from 'react';
 import * as formik from 'formik';
 import * as yup from 'yup';
 import { useAtom } from 'jotai';
-import { userAtom } from '@/store';
+import { isBlockedAtom, userAtom } from '@/store';
 import { getUser, getUserFlights } from '@/lib/userData';
 import { Typeahead } from 'react-bootstrap-typeahead';
+import moment from 'moment';
 
-export default function ItineraryDetails({show, handleModalClose, handleAction, itineraryObj, status, action, countryOptions, theme}) {
+export default function ItineraryDetails({show, handleModalClose, handleAction, itineraryObj, status, action, countryObj, countryOptions, theme}) {
     const [user, setUser] = useAtom(userAtom);
     
+    const [warning, setWarning] = useState("");
     const [customFlight, setCustomFlight] = useState(action === "add" ? false : !itineraryObj.flight?.departure_token);
     const [country, setCountry] = useState(action === "add" ? "" : itineraryObj.country);
     const [city, setCity] = useState(action === "add" ? "" : itineraryObj.city);
@@ -26,8 +28,8 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
         description : action === "add" ? "" : itineraryObj.description,
         start_date : action === "add" ? "" : itineraryObj.start_date,
         end_date : action === "add" ? "" : itineraryObj.end_date,
-        departure_country : action === "add" ? "" : itineraryObj.country,
-        departure_city : action === "add" ? "" : itineraryObj.city,
+        country : action === "add" ? "" : itineraryObj.country,
+        city : action === "add" ? "" : itineraryObj.city,
         flight : action === "add" ? "" : itineraryObj.flight?.departure_token,
     };
 
@@ -72,19 +74,123 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
         setUserFlights(await getUserFlights(data?.id));
     }
 
+     const handleSubmit = (values) => {
+        setWarning("");
+        
+        var country = customFlight ? values.country : "";
+        var city = customFlight ? values.city : "";
+        var start_date = customFlight ? values.start_date : "";
+        var end_date = customFlight ? values.end_date : "";
+
+        //change start date and end date format
+        if(customFlight) {
+            start_date = start_date ? moment(start_date).format('YYYY-MM-DD') : "";
+            end_date = end_date ? moment(end_date).format('YYYY-MM-DD') : "";
+        }
+
+        //retrieve data from flight if selected
+        if(values.flight) {
+            for(const flight of userFlights) {
+                if(flight.departure_token == values.flight) {
+                    country = flight.arrival_country;
+                    city = flight.arrival_city;
+                    start_date = flight.outbound_date;
+                    end_date = flight.return_date;
+                    break;
+                }
+            }
+        }
+
+        if(!values.title) {
+            setWarning("Title must not be empty");
+            return;
+        }
+        if(!start_date) {
+            if(!customFlight) {
+                setWarning("Select a Flight or create a custom flight");
+                return;
+            }
+            setWarning("Start Date must not be empty");
+            return;
+        }
+        if(!end_date) {
+            if(!customFlight) {
+                setWarning("Select a Flight or create a custom flight");
+                return;
+            }
+            setWarning("End Date must not be empty");
+            return;
+        }
+        if(!country) {
+            if(!customFlight) {
+                setWarning("Select a Flight or create a custom flight");
+                return;
+            }
+            setWarning("Country must not be empty");
+            return;
+        }
+        if(!city) {
+            if(!customFlight) {
+                setWarning("Select a Flight or create a custom flight");
+                return;
+            }
+            setWarning("City must not be empty");
+            return;
+        }
+        const now = new Date();
+        if(moment(start_date).isBefore(moment(now.toDateString()))) {
+            setWarning("Start Date cannot be a past date");
+            return;
+        }
+        if(moment(start_date).isAfter(moment(end_date))) {
+            setWarning("End Date must not be before Start Date");
+            return;
+        }
+
+        //determine country code
+        var gl = null;
+        for(const cObj of countryObj) {
+            if(cObj.country_name === country) {
+                gl = cObj.country_code;
+                break;
+            }
+        }
+        
+        if(!gl) {
+            setWarning("Error determining country");
+            return;
+        }
+
+        const formData = {
+            title : values.title,
+            description : values.description,
+            country : country,
+            city : city,
+            start_date : start_date,
+            end_date : end_date,
+            gl: gl,
+            departure_token: values.flight,
+        }
+
+        handleAction(itineraryObj, formData);
+        handleModalClose();
+    };
+
     return (
     <Modal show={show} onHide={handleModalClose} data-bs-theme={theme}>
         <Modal.Header closeButton>
             <Modal.Title>{action === "add" ? "Create New Itinerary" : "Edit Itinerary"}</Modal.Title>
         </Modal.Header>
+
+        <Formik
+            validationSchema={schema}
+            onSubmit={(values)=>{handleSubmit(values)}}
+            initialValues={initialValues}
+        >
+        {({ handleSubmit, handleChange, values, touched, errors, setFieldValue}) => (
+        <Form onSubmit={handleSubmit} as={formik.Form}>
+
         <Modal.Body>
-            <Formik
-                validationSchema={schema}
-                onSubmit={(values)=>{handleSubmit(values)}}
-                initialValues={initialValues}
-            >
-            {({ handleSubmit, handleChange, values, touched, errors, setFieldValue}) => (
-            <Form onSubmit={handleSubmit} as={formik.Form}>
                 <Row className='gy-3 align-items-center'>
                     <Col xs={12}>
                         <Form.Label className="fw-bold d-block">Trip Title <label className='text-danger'>*</label></Form.Label>
@@ -121,7 +227,7 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
                             <Form.Select name="flight" value={values.flight} onChange={handleChange} disabled={customFlight}>
                                 <option className='text-secondary' value={""}>{"-- Select a Saved Flight --"}</option>
                             {userFlights.map((flight, index) => {
-                                return <option key={`user_flight_${index}`} value={flight.departure_token}>{`${flight.city}, ${flight.country} (${flight.departure_date} - ${flight.return_date})`}</option>
+                                return <option key={`user_flight_${index}`} value={flight.departure_token}>{`${flight.arrival_city}, ${flight.arrival_country} (${flight.outbound_date} - ${flight.return_date})`}</option>
                             })}
                             </Form.Select>
                         </Form.Group>                         
@@ -172,13 +278,13 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
                                             name="country"
                                             options={countryOptions}
                                             placeholder="Choose a country..."
-                                            defaultSelected={[initialValues.departure_country]}
+                                            defaultSelected={[initialValues.country]}
                                             onChange={(newVal) => {
-                                                values.departure_country = newVal[0];
+                                                values.country = newVal[0];
                                                 loadCityData(newVal[0]);
                                                 setCountry(newVal[0]);
 
-                                                values.departure_city = "";
+                                                values.city = "";
                                                 inputRef.current.clear();
                                             }}
                                         />
@@ -193,10 +299,10 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
                                             options={cityOptions}
                                             placeholder={cityOptions?.length > 0 ? "Choose a city..." : "No available cities found"}
                                             disabled={cityOptions?.length > 0 ? false : true}
-                                            defaultSelected={[initialValues.departure_city]}
+                                            defaultSelected={[initialValues.city]}
                                             ref={inputRef}
                                             onChange={(newVal) => {
-                                                values.departure_city = newVal[0];
+                                                values.city = newVal[0];
 
                                                 if(newVal[0]) {
                                                     setCity(newVal[0]);
@@ -237,21 +343,28 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
                     )}
                     </formik.FieldArray> */}
                 </Row>
-            </Form>
-            )}
-            </Formik>
         </Modal.Body>
         <Modal.Footer>
-            <Button variant="secondary" onClick={handleModalClose}>
-            Close
-            </Button>
-            <Button variant={action === "add" ? "info" : "warning"} className='text-light' onClick={()=>{
-                handleAction(itineraryObj, status); 
-                handleModalClose();
-            }}>
-            {action === "add" ? "Create Itinerary" : "Edit Itinerary"}
-            </Button>
+            {warning &&
+                <div className='d-flex justify-content-center me-auto ms-auto'>
+                    <Alert variant='danger'>{warning}</Alert>
+                </div>
+            }
+            <Row className='m-0 p-0'>
+                <div className='d-flex justify-content-end gap-2'>
+                    <Button variant="secondary" onClick={handleModalClose}>
+                    Close
+                    </Button>
+                    <Button variant={action === "add" ? "info" : "warning"} className='text-light' onClick={handleSubmit}>
+                    {action === "add" ? "Create Itinerary" : "Edit Itinerary"}
+                    </Button>
+                </div>
+            </Row>
         </Modal.Footer>
+
+        </Form>
+        )}
+        </Formik>
     </Modal>
     )
 }

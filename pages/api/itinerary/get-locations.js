@@ -4,19 +4,38 @@ export default async function handler(req, res) {
     }
 
     try {
-        // Forward the request to the external server
-        const externalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/itinerary/get-locations`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // Add any other headers if needed (e.g., Authorization)
-            },
-            body: JSON.stringify(req.body), // Pass the request body from the frontend
+        // Extract location details from req.body
+        const {
+            q,
+            // location,
+            gl,
+            type = 'search',
+            hl = 'en'
+        } = req.body;
+
+        // Build query parameters for SerpApi
+        const params = new URLSearchParams({
+            engine: 'google_maps',
+            api_key: process.env.NEXT_SERP_API_KEY,
+            q,
+            // location,
+            gl,
+            type,
+            hl
         });
 
-        // Check if the external response is OK
+        // Fetch from SerpApi
+        const serpApiUrl = `https://serpapi.com/search?${params.toString()}`;
+        const externalResponse = await fetch(serpApiUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        // Check if the response is OK
         if (!externalResponse.ok) {
-            const errorData = await externalResponse.json().catch(() => ({ message: 'Unknown error' }));
+            const errorData = await externalResponse.json().catch(() => ({ message: 'Unknown error from SerpApi' }));
             return res.status(externalResponse.status).json(errorData);
         }
 

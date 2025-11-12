@@ -5,7 +5,7 @@ import { formatMinutes } from '@/lib/airportData';
 import ConfirmItineraryDelete from './ConfirmItineraryDelete';
 import ItineraryDetails from './ItineraryDetails';
 
-const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handleSummary, handleSchedule, countryOptions, theme}) => {
+const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handleSummary, handleSchedule, countryObj, countryOptions, theme}) => {
 
     const startDate = moment(itinerary.start_date);
     const formattedSDate = startDate.format('ddd, MMMM DD, YYYY');
@@ -16,6 +16,12 @@ const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handle
     const [showEditModal, setShowEditModal] = useState(false);    
     const [showDeleteModal, setShowDeleteModal] = useState(false);    
     const [showSummaryModal, setShowSummaryModal] = useState(false);    
+
+    const img = itinerary?.schedules?.length > 0 && 
+        itinerary.schedules[0].locations?.length > 0 && 
+        itinerary.schedules[0].locations[0]?.serpapi_thumbnail ?
+            itinerary.schedules[0].locations[0]?.serpapi_thumbnail : "/images/location_default.png";
+
     const handleModalShow = (event, action) => {
 
         if(event.target.className.includes('action-btn') && action === "summary") {
@@ -29,6 +35,8 @@ const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handle
             setShowDeleteModal(true);
         }
         else if(action === "summary") {
+            handleSummary(itinerary);
+            return;
             setShowSummaryModal(true);
         }
     };
@@ -62,7 +70,7 @@ const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handle
                         <Row className='justify-content-center align-items-center g-3'>
                             <Col sm={12} md={8}>
                                 <div className='d-flex justify-content-center align-items-center gap-2'>
-                                    <Image className="itinerary-img" src={itinerary.img} alt="itinerary img" fluid />
+                                    <Image className="location-img" src={img} alt="itinerary img" fluid />
                                 </div>
                             </Col>
                             <Col sm={12} md={4}>
@@ -95,6 +103,7 @@ const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handle
             itineraryObj={itinerary}
             status={status}
             action="edit"
+            countryObj={countryObj}
             countryOptions={countryOptions}
             theme={theme}
         />

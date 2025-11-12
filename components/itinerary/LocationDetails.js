@@ -1,32 +1,41 @@
-import { Alert, Col, Form, Row, Tab, Tabs } from 'react-bootstrap';
+import { Alert, Col, Form, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { formatMinutes, formatCurrency, getCityList } from '@/lib/airportData';
 import { DatePickerField } from '../DatePickerField';
 import { useEffect, useRef, useState } from 'react';
 import * as formik from 'formik';
 import * as yup from 'yup';
 import { useAtom } from 'jotai';
-import { userAtom } from '@/store';
-import { getUser, getUserFlights } from '@/lib/userData';
-import { Typeahead } from 'react-bootstrap-typeahead';
-import { getLocation, getLocationList } from '@/lib/locationData';
+import { isBlockedAtom, userAtom } from '@/store';
+import { getUser } from '@/lib/userData';
+import { getDirections, getLocationList } from '@/lib/locationData';
 import LocationCard from './LocationCard';
 import { Commet } from 'react-loading-indicators';
 import moment from 'moment';
 
-export default function LocationDetails({show, handleModalClose, handleAction, locationObj, action, country, city, day, theme}) {
+const travelTypes = {
+    "0": "Drive",
+    "3": "Transit",
+    "2": "Walk",
+}
+
+export default function LocationDetails({show, handleModalClose, handleAction, locationObj, action, country, city, day, itinerary, countryObj, theme}) {
     const [user, setUser] = useAtom(userAtom);
+    const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
     const mainLoc = country ? `${city}, ${country}` : '';
     
     const [warning, setWarning] = useState("");
+    const [computeWarning, setComputeWarning] = useState("");
     const [selectLoc, setSelectLoc] = useState(null);
     const [selectFormType, setSelectFormType] = useState(action === "add" ? 1 : locationObj?.form_type);
+    const [cityOnly, setCityOnly] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
+    const [gl, setGl] = useState("");
     const [startSearch, setStartSearch] = useState(false);
     const [locations, setLocations] = useState([]);
     const [selectIsLoading, setSelectIsLoading] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [allLocations, setAllLocations] = useState([]);
     const targetRef = useRef(null); // Create a ref to attach to the target element
 
     const scrollToTarget = () => {
@@ -40,6 +49,8 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
     const initialValues = {
         time : action === "add" ? "" : initDate,
         duration : action === "add" ? "" : locationObj.duration,
+        travel_mode : action === "add" ? "0" : locationObj.travel_mode,
+        travel_time : action === "add" ? "" : locationObj.travel_time,
     };
 
     const { Formik } = formik;
@@ -50,6 +61,8 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
 
     useEffect(() => {
         if(show === true) {
+            setWarning("");
+            setComputeWarning("");
             setSelectLoc(locationObj);
             
             //load data
@@ -64,8 +77,27 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
         const data = await getUser();
         setUser(data);
 
-        // const data_loc = await getLocation(locationObj.place_id);
         setSelectLoc(locationObj);
+
+        //determine country code
+        if(!gl) {
+            for(const cObj of countryObj) {
+                if(cObj.country_name === country) {
+                    setGl(cObj.country_code);
+                    break;
+                }
+            }
+        }
+
+        //load all locations
+        if(allLocations?.length <= 0) {
+            for(const schedule of itinerary?.schedules) {
+                if(moment(schedule?.day).isSame(moment(day))) {
+                    setAllLocations(schedule?.locations);
+                    break;
+                }
+            }
+        }
 
         setSelectIsLoading(false);
 
@@ -73,22 +105,27 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
 
     async function handleSearch() {
         setWarning("");
-        setIsLoading(true); //show loading
-        setStartSearch(false);
 
         if(!searchQuery?.trim()) {
             setWarning("Search Query must not be empty");
+            setStartSearch(false);
             return;
         }
 
+        setIsLoading(true); //show loading
+        setStartSearch(true);
+
+        const location = cityOnly ? mainLoc : country;
+        const q = searchQuery + " in " + location;
         const properties = {
-            q: searchQuery,
-            location: mainLoc,
+            q: q,
+            // location: location,
+            gl: gl,
         }
-        setLocations(await getLocationList(properties));
+        const data = await getLocationList(properties);
+        setLocations(data);
 
         setIsLoading(false); //hide loading
-        setStartSearch(true);
     }
 
     async function handleSelect(selectedLoc) {
@@ -96,23 +133,77 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
         scrollToTarget();
     }
 
+    async function handleCompute(values) {
+        setComputeWarning("");
+
+        if(!values.time) {
+            setComputeWarning("Start Time must not be empty");
+            return;
+        }
+        if(!values.travel_mode) {
+            setComputeWarning("Select a travel mode");
+            return;
+        }
+        if(!selectLoc) {
+            setComputeWarning("Must select a location");
+            return;
+        }
+
+        const currTime = moment(`2025-12-12 ${values.time.getHours()}:${values.time.getMinutes()}`);
+        //determine the previous location
+        var prevLoc = null;
+        var prevTime = null;
+        for(const loc of allLocations) {
+            const tmpTime = moment(`2025-12-12 ${loc.time}`);
+            if(tmpTime.isBefore(currTime)) {
+                if(prevTime === null || tmpTime.isAfter(prevTime)) {
+                    prevTime = tmpTime;
+                    prevLoc = loc;
+                }
+            }
+        }
+        
+        if(prevLoc === null) {
+            setComputeWarning("Cannot compute travel time of starting location");
+            return;
+        }
+
+        const start_addr = prevLoc.title + ", " + prevLoc.address;
+        const end_addr = selectLoc.title + ", " + selectLoc.address;
+
+        if(start_addr === end_addr) {
+            setComputeWarning("No travel time for same location");
+            return;
+        }
+
+        console.log(start_addr, end_addr);
+        const properties = {
+            start_addr : start_addr,
+            end_addr : end_addr,
+            travel_mode : parseInt(values.travel_mode),
+        }
+        const data = await getDirections(properties);
+        console.log(data);
+
+    }
+
     const handleSubmit = (values) => {
         setWarning("");
 
         if(!values.time) {
-            setWarning("Arrival Time must not be empty");
+            setWarning("Start Time must not be empty");
             return;
         }
         if(!(values.time instanceof Date)) {
-            setWarning("Arrival Time must be a valid date");
+            setWarning("Start Time must be a valid date");
             return;
         }
-        if(!values.duration) {
-            setWarning("Duration must not be empty");
-            return;
-        }
-        if(values.duration < 15) {
+        if(values.duration && values.duration < 15) {
             setWarning("Duration must be at least 15 minutes");
+            return;
+        }
+        if(values.travel_time && !values.travel_mode) {
+            setWarning("Must select a travel mode");
             return;
         }
         if(!selectLoc) {
@@ -120,14 +211,40 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
             return;
         }
 
+        //check if duration is valid
+        if(values.duration) {
+            const currTime = moment(`2025-12-12 ${values.time.getHours()}:${values.time.getMinutes()}`);
+            //determine the previous location
+            var nextLoc = null;
+            var nextTime = null;
+            for(const loc of allLocations) {
+                const tmpTime = moment(`2025-12-12 ${loc.time}`);
+                if(tmpTime.isAfter(currTime)) {
+                    if(nextTime === null || tmpTime.isBefore(nextTime)) {
+                        nextTime = tmpTime;
+                        nextLoc = loc;
+                    }
+                }
+            }
+            if(nextLoc) {
+                const newTime = currTime.add(values.duration, "minutes");
+                if(newTime.isAfter(nextTime)) {
+                    setWarning("Duration goes over the time of next location");
+                    return;
+                }
+            }
+        }
+        
+
         const dateTime = moment(values.time.toString());
         const formValues = {
             day: day,
             time: dateTime.format("h:mm A"),
             prevTime: locationObj?.time,
             duration: values.duration,
+            travel_mode: values.travel_mode,
+            travel_time: values.travel_time,
         }
-        console.log(formValues);
 
         handleAction(selectLoc, formValues);
         handleModalClose();
@@ -148,20 +265,20 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
         <Modal.Body>
             <Row className='gy-3 align-items-center'>
                 <Col xs={12} sm={6}>
-                    <Form.Label className="fw-bold d-block">Arrival Time<label className='text-danger'>*</label></Form.Label>
+                    <Form.Label className="fw-bold d-block">Start Time <label className='text-danger'>*</label></Form.Label>
                     <DatePickerField
                         name="time"
                         value={values.time}
-                        placeholderText={"Select Arrival Time"}
+                        placeholderText={"Select starting/arrival time"}
                         onChange={setFieldValue} // Pass Formik's setFieldValue
                         timeOnly={1}
                     />                            
                 </Col>
                 <Col xs={12} sm={6}>
-                    <Form.Label className="fw-bold d-block">Duration (hours)<label className='text-danger'>*</label></Form.Label>
+                    <Form.Label className="fw-bold d-block">Stay Duration (minutes)</Form.Label>
                     <Form.Control 
                         type="number" 
-                        placeholder="Enter duration of stay in location" 
+                        placeholder="Enter estimated duration of stay in location" 
                         name="duration" 
                         value={values.duration}
                         onChange={handleChange}
@@ -172,8 +289,47 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
                     {errors.duration}
                     </Form.Control.Feedback>                          
                 </Col>
+                {/* <Col xs={12} sm={6}>
+                    <Form.Label className="fw-bold d-block">Travel Mode</Form.Label>
+                    <fieldset>
+                    {
+                        Object.entries(travelTypes).map(([val, travelMode], index) => (
+                            <Form.Check
+                                key={`travel_mode_${val}`}
+                                id={`travel_mode_${val}`}
+                                label={travelMode}
+                                name="travel_mode"
+                                type="radio"
+                                value={val}
+                                checked={values.travel_mode === val}
+                                as={formik.Field}
+                            />
+                        ))
+                    }
+                    </fieldset>                           
+                </Col>
+                <Col xs={12} sm={6}>
+                    <Row className='justify-content-end align-items-end'>
+                        <Col sm={10}>
+                            <Form.Label className="fw-bold d-block">Travel Time (minutes)</Form.Label>
+                            {
+                                computeWarning && <Alert variant='danger'>{computeWarning}</Alert>
+                            }
+                            <Form.Control 
+                                type="number" 
+                                placeholder="Enter estimated travel time" 
+                                name="travel_time" 
+                                value={values.travel_time}
+                                onChange={handleChange}
+                            />
+                        </Col>
+                        <Col sm={2}>
+                            <Button variant='success' className='mb-1' title='Calculate estimated travel time' onClick={(e)=>handleCompute(values)}><i className='bi bi-calculator'></i></Button> 
+                        </Col>
+                    </Row>                     
+                </Col> */}
                 <Col xs={12}>
-                    <Form.Label className="fw-bold d-block">Selected Location<label className='text-danger'>*</label></Form.Label>
+                    <Form.Label className="fw-bold d-block">Selected Location <label className='text-danger'>*</label></Form.Label>
                     {
                         selectIsLoading ? (
                             <div className="d-flex justify-content-center align-items-center py-3">
@@ -205,11 +361,23 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
             <Row className='align-items-end'>
                 <h5>Search Locations</h5>
                 <hr/>
+                <Col xs={12}>
+                <Form.Check
+                    id='cityOnly'
+                    label={`Search within ${city} only`}
+                    type="checkbox"
+                    defaultChecked={cityOnly}
+                    onChange={()=>{
+                        const isChecked = !cityOnly;
+                        setCityOnly(isChecked);
+                    }}
+                />                        
+            </Col>
                 <Col xs={12} sm={9}>
-                    <Form.Label className="fw-bold d-block">Search Query</Form.Label>
+                    <Form.Label className="fw-bold d-block mt-2">Search Query</Form.Label>
                     <Form.Control 
                         type="text" 
-                        placeholder="i.e. tourist spots" 
+                        placeholder={`i.e. tourist spots in ${city}`}
                         value={searchQuery}
                         onChange={(e)=>{setSearchQuery(e.target.value)}}
                     />                         
@@ -219,7 +387,7 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
                 </Col>
                 
                 {
-                    startSearch && (
+                    startSearch &&  (
                         <>
                         {
                             isLoading ?
@@ -236,6 +404,7 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
                                     <br/>
                                     <Row className='gy-3 modal-result-container'>
                                 {
+                                    locations ?
                                     locations.map((loc, index)=>(
                                         <LocationCard 
                                             key={`search_loc_${index}`}
@@ -247,6 +416,12 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
                                             theme={theme}
                                         />
                                     ))
+                                    :
+                                    (
+                                        <div className="d-flex justify-content-center align-items-center py-3">
+                                            <Alert className="w-100 text-center bg-main-tertiary">No locations found</Alert>
+                                        </div>
+                                    )
                                 }
                                     </Row>
                                 </div>

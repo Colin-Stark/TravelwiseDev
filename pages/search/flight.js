@@ -55,17 +55,21 @@ export default function SearchFlight() {
             currency: allData.currency,
         };
 
-        if (allData.flightPrice && allData.hotelPrice) {
-            router.push({
-                pathname: '/payment/payment',
-                query: queryData,
-            });
-        } else {
-            router.push({
-                pathname: '/search/hotel',
-                query: queryData,
-            });
-        }
+        router.push({
+            pathname: '/payment/payment',
+            query: queryData,
+        });
+        // if (allData.flightPrice && allData.hotelPrice) {
+        //     router.push({
+        //         pathname: '/payment/payment',
+        //         query: queryData,
+        //     });
+        // } else {
+        //     router.push({
+        //         pathname: '/search/hotel',
+        //         query: queryData,
+        //     });
+        // }
     };
 
     function handleNext(data) {

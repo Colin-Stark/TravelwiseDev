@@ -73,13 +73,13 @@ export default function SearchFlightStep1(props) {
         setWarning(""); // Clear previous warnings
 
         const sDate = moment(values.outbound_date);
-        const eDate = moment(values.return_date);
+        const eDate = values.return_date ? moment(values.return_date) : "";
 
         if(!sDate.isValid()) {
             setWarning("Departure Date is required");
             return;
         }
-        if(!eDate.isValid()) {
+        if(values.type === 2 && !eDate.isValid()) {
             setWarning("Return Date is required");
             return;
         }
@@ -87,7 +87,7 @@ export default function SearchFlightStep1(props) {
             setWarning("Check-in Date must not be before today's date");
             return;
         }
-        if(eDate.isBefore(sDate)) {
+        if(values.type === 2 && eDate.isBefore(sDate)) {
             setWarning("Return Date must not be before Departure Date");
             return;
         }
@@ -103,7 +103,7 @@ export default function SearchFlightStep1(props) {
         }
         
         const formattedSDate = moment(values.outbound_date).format('YYYY-MM-DD');
-        const formattedEDate = moment(values.return_date).format('YYYY-MM-DD');
+        const formattedEDate = eDate ? moment(values.return_date).format('YYYY-MM-DD') : "";
 
         const data = {
             type : values.type,

@@ -6,8 +6,8 @@ import { formatMinutes } from '@/lib/airportData';
 import ConfirmLocationDelete from './ConfirmLocationDelete';
 import LocationDetails from './LocationDetails';
 
-const LocationCard = ({ location, day, time, duration, index, transition, handleEdit, handleDelete, handleCancel, handleSelect, selected, country, city, theme }) => {
-    const timeStr = duration ? `Stop #${index+1} ⋅ ${time} ⋅ (${formatMinutes(location?.duration)})` : time;
+const LocationCard = ({ location, day, time, duration, index, transition, handleEdit, handleDelete, handleCancel, handleSelect, selected, country, city, itinerary, countryObj, theme }) => {
+    const timeStr = duration ? `Stop #${index+1} ⋅ ${time} ⋅ (${formatMinutes(location?.duration)})` : `Stop #${index+1} ⋅ ${time}`;
 
     const [showEditModal, setShowEditModal] = useState(false);    
     const [showDeleteModal, setShowDeleteModal] = useState(false);    
@@ -44,7 +44,13 @@ const LocationCard = ({ location, day, time, duration, index, transition, handle
             </div>                 
         }
         <Card className={cardClass} onClick={(e)=> {
-                if(selected) return;
+                if(selected) {
+                    return;
+                }
+                else if(!time) {
+                    handleSelect(location);
+                    return;
+                }
                 handleModalShow(e, "edit")
             }
         } role={selected ? 'default' : 'button'}>
@@ -68,27 +74,27 @@ const LocationCard = ({ location, day, time, duration, index, transition, handle
                     <label className='d-block'><strong>Description:</strong> {location?.description}</label>
                     {location?.price && <label className='d-block'><strong>Estimated Price:</strong> {location?.price}</label>}
                     <label className='d-block'><strong>Rating:</strong> {location?.rating}<i className="bi bi-star-fill text-yellow-300 ms-2"></i> <label className='text-secondary'>({location?.reviews})</label></label>
-                    <label className='d-block'><strong>User Review:</strong> {location?.user_review}</label>
+                    {location?.user_review && <label className='d-block'><strong>User Review:</strong> {location?.user_review}</label>}
                 </Col>
                 <Col sm={6}>
                     <Row className='justify-content-between align-items-center g-3'>
                         <Col sm={12} md={8}>
                             <div className='d-flex justify-content-center align-items-center gap-2'>
-                                <Image className="location-img" src={location?.serpapi_thumbnail} alt="itinerary img" fluid />
+                                <Image className="location-img" src={location?.serpapi_thumbnail ? location?.serpapi_thumbnail : (location?.thumbnail ? location?.thumbnail : "/images/location_default.png")} alt="itinerary img" fluid />
                             </div>
                         </Col>
                     {
                         selected ? (
                         <Col sm={12} md={4}>
                             <Row className='g-2'>
-                                <Button className='btn-secondary' onClick={(e)=>handleCancel()}>Deselect</Button>
+                                <Button variant='outline-secondary' onClick={(e)=>handleCancel()}>Deselect</Button>
                             </Row>
                         </Col>
                         )
                         : (
                         <Col sm={12} md={4}>
                             <Row className='g-2'>
-                                { !time && <Button className='btn-primary action-btn' onClick={(e)=>handleSelect(location)}>Select</Button>}
+                                { !time && <Button variant='outline-primary' className='action-btn' onClick={(e)=>handleSelect(location)}>Select</Button>}
                                 { time && <Button className='btn-warning text-light' onClick={(e)=>handleModalShow(e, "edit")}>Edit Schedule</Button>}
                                 { time && <Button className='btn-danger action-btn' onClick={(e)=>handleModalShow(e, "delete")}>Remove</Button>}
                             </Row>
@@ -140,6 +146,8 @@ const LocationCard = ({ location, day, time, duration, index, transition, handle
             country={country}
             city={city}
             day={day}
+            itinerary={itinerary}
+            countryObj={countryObj}
             theme={theme}
         />
 

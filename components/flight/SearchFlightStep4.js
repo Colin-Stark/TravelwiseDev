@@ -30,9 +30,9 @@ export default function SearchFlightStep4(props) {
         sortable: true,
         cell: (props) => {
             return (
-                <div className="d-flex gap-2 justify-content-center align-items-center">
+                <div className="d-lg-flex gap-2 justify-content-center align-items-center">
                     <Image className="cell-logo" src={props?.airline_logo} alt="airline logo" fluid />
-                    <label className="text-nowrap">{props?.airline_name}</label>
+                    <label className="d-block">{props?.airline_name}</label>
                 </div>
             )
         },
@@ -97,14 +97,15 @@ export default function SearchFlightStep4(props) {
         cell: (props) => <label className="text-nowrap">{formatCurrency(props?.price, 'en-US', initialValues.currency)}</label>,
     },
     {
-        name: 'Details',
-        cell: (props) => <Button variant="success" className="text-nowrap" onClick={()=>{handleRowClick(props)}}>View Details</Button>,
-    },
-    {
         name: 'Action',
-        cell: (props) => <Button onClick={()=>{
-            handleBook(props);
-        }}>Book</Button>,
+        cell: (props) => (
+            <div className="d-lg-flex gap-2">
+            <Button variant="success" className="text-nowrap my-2 my-lg-0" onClick={()=>{handleRowClick(props)}}>View</Button>
+            <Button className="text-nowrap mb-2 mb-lg-0" onClick={()=>{
+                handleBook(props);
+            }}>Book</Button>
+            </div>
+        ),
     },
     ];
 
@@ -123,20 +124,34 @@ export default function SearchFlightStep4(props) {
     }, []);
 
     async function loadData() {
+        //get country code
+        var gl = "";
+        if(!props.initialData?.gl) {
+            for(const cObj of props.initialData?.countryObj) {
+                if(cObj.country_name === props.initialData?.arrival_country) {
+                    gl = cObj.country_code;
+                    break;
+                }
+            }
+        }
+
         //fix some value types in json properties
         const properties = {
             ...props.initialData,
             type : parseInt(props.initialData.type, 10),
             travel_class : parseInt(props.initialData.travel_class, 10),
+            gl: gl,
         }
 
-        console.log(properties)
+        console.log(properties);
 
         const flightObj = await getFlightList(properties);
+
         const allFlights = [
             ...flightObj["best_flights"],
             ...flightObj["other_flights"]
         ];
+        console.log(allFlights);
         setFlightsData(allFlights);
     }
 

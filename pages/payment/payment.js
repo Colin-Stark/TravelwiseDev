@@ -40,6 +40,9 @@ export default function Payment() {
             return;
         }
 
+        //add to user's flight
+        
+
         setError('');
         alert(`Payment successful! Total charged: $${total.toFixed(2)}`);
         router.push('/');
@@ -136,7 +139,7 @@ export default function Payment() {
                         </div>
                     </div>
 
-                    <Button type="submit" className={styles.payBtn}>Pay Now</Button>
+                    <Button type="submit" className={styles.payBtn} onClick={handleSubmit}>Pay Now</Button>
                 </Form>
             </Card>
         </div>
