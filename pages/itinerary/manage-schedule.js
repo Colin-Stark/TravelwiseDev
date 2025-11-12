@@ -19,8 +19,8 @@ const upcomingItineraries = [
     user_id: "asadasa",
     id: 3,
     title: 'Paris Adventure',
-    start_date: '2025-11-10',
-    end_date: '2025-11-18',
+    start_date: '2025-12-10',
+    end_date: '2025-12-14',
     country: 'France',
     city: 'Paris',
     gl: 'fr',
@@ -32,7 +32,7 @@ const upcomingItineraries = [
     },
     schedules: [
         {
-            day: '2025-11-10',
+            day: '2025-12-10',
             locations: [
                 {
                     "title": "Eiffel Tower",
@@ -156,7 +156,7 @@ const upcomingItineraries = [
             ],
         },
         {
-           day: '2025-11-11',
+           day: '2025-12-11',
             locations: [
                 {
                 "position":

@@ -5,14 +5,18 @@ export default async function handler(req, res) {
 
     try {
         // Forward the request to the external server
-        const externalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/itineraries`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                // Add any other headers if needed (e.g., Authorization)
-            },
-            body: JSON.stringify(req.body), // Pass the request body from the frontend
-        });
+        // const externalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/itineraries`, {
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         // Add any other headers if needed (e.g., Authorization)
+        //     },
+        //     body: JSON.stringify(req.body), // Pass the request body from the frontend
+        // });
+        const externalResponse = new URL(`${process.env.NEXT_PUBLIC_API_URL}/api/itineraries`);
+        if (req.method === 'GET' && req.body.email) {
+            externalResponse.searchParams.append('email', req.body.email);
+        }
 
         // Check if the external response is OK
         if (!externalResponse.ok) {

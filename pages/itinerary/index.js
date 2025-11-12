@@ -12,11 +12,11 @@ import ItineraryDetails from '@/components/itinerary/ItineraryDetails';
 //dummy data
 const upcomingItineraries = [
   {
-    user_id: "asadasa",
+    email: 'jojus.stpeter@gmail.com',
     id: 3,
     title: 'Paris Adventure',
-    start_date: '2025-11-10',
-    end_date: '2025-11-18',
+    start_date: '2025-12-10',
+    end_date: '2025-12-14',
     country: 'France',
     city: 'Paris',
     description: 'Explore the Eiffel Tower, Louvre, and enjoy French cuisine.',
@@ -27,7 +27,7 @@ const upcomingItineraries = [
     },
     schedules: [
         {
-            day: '2025-11-10',
+            day: '2025-12-10',
             locations: [
                 {
                     "title": "Eiffel Tower",
@@ -151,7 +151,7 @@ const upcomingItineraries = [
             ],
         },
         {
-           day: '2025-11-11',
+           day: '2025-12-11',
             locations: [
                 {
                 "position":
@@ -331,6 +331,7 @@ const upcomingItineraries = [
     ],
   },
   {
+    email: 'jojus.stpeter@gmail.com',
     id: 4,
     title: 'Tokyo Highlights',
     start_date: '2025-12-22',
@@ -341,6 +342,7 @@ const upcomingItineraries = [
     img: '/images/placeholder3.jpg',
   },
   {
+    email: 'jojus.stpeter@gmail.com',
     id: 5,
     title: 'New York Weekend',
     start_date: '2026-01-12',
@@ -354,6 +356,7 @@ const upcomingItineraries = [
 
 const pastItineraries = [
   {
+    email: 'jojus.stpeter@gmail.com',
     id: 1,
     title: 'Boracay Adventure',
     start_date: '2025-08-08',
@@ -364,6 +367,7 @@ const pastItineraries = [
     img: '/images/placeholder1.jpg',
   },
   {
+    email: 'jojus.stpeter@gmail.com',
     id: 2,
     title: 'Quick Getaway Trip',
     start_date: '2025-09-01',
@@ -420,13 +424,15 @@ const ItineraryPage = () => {
         const data = await getUser();
         setUser(data);
 
-        await loadTrips("upcoming");
+        await loadTrips("upcoming", data);
     }
 
-    async function loadTrips(status) {
+    async function loadTrips(status, dataUser=null) {
         setWarning("");
         setIsLoading(true); //show loading
 
+        const tmpUser = dataUser ? dataUser : user;
+        console.log(tmpUser?.email);
         // try {
         //     const res = await fetch("/api/itinerary/get-itineraries", {  // Changed to same-origin API route
         //         method: 'POST',
@@ -434,7 +440,7 @@ const ItineraryPage = () => {
         //             'content-type': 'application/json',
         //         },
         //         body: JSON.stringify({
-        //             user: user?.email,
+        //             email: tmpUser?.email,
         //         }),
         //     });
 
