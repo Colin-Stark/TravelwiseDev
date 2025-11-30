@@ -65,37 +65,39 @@ export default function MainNavbar() {
             </div>
             <Navbar expand="md" className={theme === "dark" ? "fixed-top nav-border navbar-dark bg-navbar-dark px-5" : "fixed-top nav-border bg-light px-5"}>
                 <Navbar.Brand><Nav.Link href='/'>TravelWise</Nav.Link></Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="ms-auto">
-                    {
-                        user ? 
-                        (<>
-                            <Nav.Link href='/'>Home</Nav.Link>
-                            <Nav.Link href='/'>My Trips</Nav.Link>
-                            <NavDropdown menuVariant={theme} title="Explore">
-                                <NavDropdown.Item href="/search/flight">Search Flights</NavDropdown.Item>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="ms-auto">
+                        {
+                            user ? 
+                            (<>
+                                <Nav.Link href='/'>Home</Nav.Link>
+                                <Nav.Link href='/'>My Trips</Nav.Link>
+                                <Nav.Link href='/payment/prices'>Pricing</Nav.Link>
+                                <NavDropdown menuVariant={theme} title="Explore">
+                                    <NavDropdown.Item href="/search/flight">Search Flights</NavDropdown.Item>
                                 <NavDropdown.Item href="/search/hotel">Search Hotels</NavDropdown.Item>
-                            </NavDropdown>
-                            <Nav.Link href='/'>Guides</Nav.Link>
-                            <Nav.Link href='/'>Support</Nav.Link>
-                            <NavDropdown title={<span><Image className='d-inline' src={imgPath + userProfile} alt="avatar" width={24} height={24} /></span>} menuVariant={theme}>
-                                <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                                <NavDropdown.Item href="/">
-                                    <div onClick={(e)=>{removeUserCookie()}}>Logout</div>
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                        </>)
-                        :
-                            pathname === "/login" ? 
-                            (<Nav.Link href='/register'>Signup</Nav.Link>) :
-                            (<Nav.Link href='/login'>Login</Nav.Link>)
-                    }
-                        <Dropdown>
-                            <Dropdown.Toggle variant={theme}>
-                                <Image className='d-inline me-2' src={imgPath + languages[language]?.img} alt="avatar" width={24} height={24} style={{ borderRadius: '50%' }} />
-                                <label>{language}</label>
-                            </Dropdown.Toggle>
+                                </NavDropdown>
+                                <Nav.Link href='/guide'>Guides</Nav.Link>
+                                <Nav.Link href='/guide/inbox'>Inbox</Nav.Link>
+                                <Nav.Link href='/'>Support</Nav.Link>
+                                <NavDropdown title={<span><Image className='d-inline' src={imgPath + userProfile} alt="avatar" width={24} height={24} /></span>} menuVariant={theme}>
+                                    <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                                    <NavDropdown.Item href="/">
+                                        <div onClick={(e)=>{removeUserCookie()}}>Logout</div>
+                                    </NavDropdown.Item>
+                                </NavDropdown>
+                            </>)
+                            :
+                                pathname === "/login" ? 
+                                (<Nav.Link href='/register'>Signup</Nav.Link>) :
+                                (<Nav.Link href='/login'>Login</Nav.Link>)
+                        }
+                            <Dropdown>
+                                <Dropdown.Toggle variant={theme}>
+                                    <Image className='d-inline me-2' src={imgPath + languages[language]?.img} alt="avatar" width={24} height={24} style={{ borderRadius: '50%' }} />
+                                    <label>{language}</label>
+                                </Dropdown.Toggle>
 
                             <Dropdown.Menu variant={theme}>
                             {
