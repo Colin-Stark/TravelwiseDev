@@ -52,6 +52,7 @@ const upcomingItineraries = [
                     "serpapi_thumbnail": "https://serpapi.com/images/url/PJ9Dp3icBcFRboIwAADQE1VUZmRL_GBUyhwKQqjiT1NLKTBsC60h7n4ewtv43uvZWKvNl-P0jTsTSome3w0fmZKWSztj6uYIbQAzwDg-mrd9_vDhLsT4QbHMkNRVyPpLJqAXYFL9R4b5xR4N_JtX7bwkHKhyuru6iOmvriP6sffwAW8RW1MXJt2xrncFHGNP5Fl8KomdLpHsUgASxG4wbcfw3KXJRAO0Gm29_hmuA4HLK8rJZlq4C9B8LsEfkOoNBFVE3g",
                     time: '8:30 AM',
                     duration: 90,
+                    cost: 25,
                 },
                 {
                 "position":
@@ -151,6 +152,9 @@ const upcomingItineraries = [
                 "https://serpapi.com/images/url/FUVwnHicBcFdkoIgAADgE5FJo_3M9LBFY1akaWX50jhIaCKYoCUX3DPsbfb7_n4LrRu1sCxeTEZMSsZpp2hLpNBU6BGRtcUaBYgCyvrxxiWPjZd3VblL6YuHTyOCGCMH5PGz9AeHIJgZdMDnWhKsMxQd2XDuaTTj0A4aA6aR3iePimAT4zDJA_rKTTmE6fo0zDp3vrqqdn-5-f0tWvmA1fdJ-m3dzQMxb5u59v2tjrR3xWZKEvZZfmwIQTGHoAJC_gPr6UZz",
                 time: '11:00 AM',
                 duration: 60,
+                cost: 40,
+                travel_mode: 0,
+                travel_time: "",
                 form_type: 1,
                 },
             ],
@@ -523,6 +527,9 @@ const ManageSchedulePage = () => {
             ...loc,
             time: formValues.time,
             duration: formValues.duration,
+            cost: formValues.cost,
+            travel_mode: formValues.travel_mode,
+            travel_time: formValues.travel_time,
             form_type: 1,
         }
 
@@ -653,6 +660,9 @@ const ManageSchedulePage = () => {
             ...loc,
             time: formValues.time,
             duration: formValues.duration,
+            cost: formValues.cost,
+            travel_mode: formValues.travel_mode,
+            travel_time: formValues.travel_time,
             form_type: 1,
         }
 
@@ -898,6 +908,7 @@ const ManageSchedulePage = () => {
                                                 handleDelete={handleDelete}
                                                 itinerary={itinerary}
                                                 countryObj={countryObj}
+                                                transition={1}
                                                 theme={theme}
                                             />
                                         ))

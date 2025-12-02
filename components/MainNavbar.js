@@ -78,7 +78,7 @@ export default function MainNavbar() {
                                 <NavDropdown.Item href="/search/hotel">Search Hotels</NavDropdown.Item>
                             </NavDropdown>
                             <Nav.Link href='/'>Guides</Nav.Link>
-                            <Nav.Link href='/'>Support</Nav.Link>
+                            <Nav.Link href='/'>Inbox</Nav.Link>
                             <NavDropdown title={<span><Image className='d-inline' src={imgPath + userProfile} alt="avatar" width={24} height={24} /></span>} menuVariant={theme}>
                                 <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                                 <NavDropdown.Item href="/">

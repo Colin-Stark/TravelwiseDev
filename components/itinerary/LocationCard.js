@@ -1,7 +1,7 @@
 import moment, { duration } from 'moment';
 import React, { useState } from 'react';
 import { Card, Row, Col, Badge, Image, Accordion, ListGroup, Button } from 'react-bootstrap';
-import { FaPlaneDeparture, FaPlaneArrival, FaClock } from 'react-icons/fa';
+import { FaBus, FaCar, FaWalking } from 'react-icons/fa';
 import { formatMinutes } from '@/lib/airportData';
 import ConfirmLocationDelete from './ConfirmLocationDelete';
 import LocationDetails from './LocationDetails';
@@ -35,12 +35,45 @@ const LocationCard = ({ location, day, time, duration, index, transition, handle
 
     const cardClass = selected ? "rounded-4 main-shadow" : "rounded-4 main-shadow card-selectable";
 
+    //travel time constants
+    const lineClass = location.travel_time ? "line-connect-sm" : "line-connect";
+    const travelTimeMap = {
+        "0": {"name": "Driving", "icon": <FaCar size={30} className='text-main-tertiary' />},
+        "3": {"name": "Transit", "icon": <FaBus size={30} className='text-main-tertiary' />},
+        "2": {"name": "Walking", "icon": <FaWalking size={30} className='text-main-tertiary' />},
+    }
+    const travelTimeObj = travelTimeMap.hasOwnProperty(location?.travel_mode) ?
+        travelTimeMap[location.travel_mode] : travelTimeMap[0];
+
   return (
     <div>
         {
-            time && index > 0 &&
+            transition && transition > 0 && location.travel_time ? (
+                <>
+                {
+                    index > 0 &&
+                <div className='d-flex justify-content-center align-items-center'>
+                    <label className={`bg-secondary ${lineClass}`}></label>   
+                </div> 
+                }
+                <Row className='border border-main-tertiary rounded p-2 text-center justify-content-center align-items-center mx-2'>
+                    <div className='d-flex gap-2 justify-content-center align-items-center gap-3'>
+                        {travelTimeObj?.icon}
+                        <label className='text-main-tertiary'>{`Travel Time (${travelTimeObj?.name}): `}</label>
+                        <label className='text-main-tertiary'>{formatMinutes(location.travel_time)}</label>
+                    </div>
+                </Row>
+                </>
+            )
+            : 
+            (
+                <></>
+            )
+        }
+        {
+            time && (index > 0 || location.travel_time) &&
             <div className='d-flex justify-content-center align-items-center'>
-                <label className='line-connect bg-secondary'></label>   
+                <label className={`bg-secondary ${lineClass}`}></label>   
             </div>                 
         }
         <Card className={cardClass} onClick={(e)=> {
@@ -107,26 +140,6 @@ const LocationCard = ({ location, day, time, duration, index, transition, handle
             
         </Card.Body>
         </Card>
-
-        {
-            transition ? (
-                <Row className='border border-main-tertiary rounded mb-3 p-2 text-center justify-content-center align-items-center mx-2'>
-                    <Col xs={2}>
-                        <FaClock size={30} className="text-main-tertiary" />
-                    </Col>
-                    <Col xs={10}>
-                        <div className='d-flex gap-2 justify-content-center align-items-center'>
-                            <label className='text-main-tertiary'>{transition?.type}</label>
-                        </div>
-                        <label className='text-main-tertiary'>{transition?.duration}</label>
-                    </Col>
-                </Row>
-            )
-            : 
-            (
-                <></>
-            )
-        }
 
         <ConfirmLocationDelete
             show={showDeleteModal}

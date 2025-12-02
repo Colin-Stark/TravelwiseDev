@@ -106,14 +106,16 @@ export default function SearchFlightStep4(props) {
         //fix some value types in json properties
         const properties = {
             ...props.initialData,
-            property_types : property_types,
-            hotel_class : hotel_class,
+            property_types : property_types.join(","),
+            hotel_class : hotel_class.join(","),
         }
 
         console.log(properties);
 
         const hotelObj = await getHotelList(properties);
         setHotelsData(hotelObj);
+
+        console.log(hotelObj);
 
     }
 

@@ -6,19 +6,21 @@ export default async function handler(req, res) {
     try {
         // Extract location details from req.body
         const {
-            start_coords,
-            end_coords,
+            start_addr,
+            end_addr,
             travel_mode,
-            hl = 'en'
+            gl,
+            hl = 'en',
         } = req.body;
 
         // Build query parameters for SerpApi
         const params = new URLSearchParams({
             engine: 'google_maps_directions',
             api_key: process.env.NEXT_SERP_API_KEY,
-            start_coords,
-            end_coords,
+            start_addr,
+            end_addr,
             travel_mode,
+            gl,
             hl
         });
 

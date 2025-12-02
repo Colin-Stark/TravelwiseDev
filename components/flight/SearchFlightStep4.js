@@ -167,12 +167,9 @@ export default function SearchFlightStep4(props) {
         const handleBook = (flightObj) => {
             if (!flightObj) return alert("Please select a flight first");
 
-            const flightPrice = flightObj.price ? parseFloat(flightObj.price) : 0;
-
             const flightData = {
                 ...props.initialData,
                 flightObj,
-                flightPrice
             };
 
             props.onBookFlight(flightData);

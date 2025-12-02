@@ -8,6 +8,7 @@ import { Commet } from 'react-loading-indicators';
 import { ThemeContext } from "@/pages/_app";
 import { fetchCountryData, getCountryList } from '@/lib/airportData';
 import ItineraryDetails from '@/components/itinerary/ItineraryDetails';
+import { getLocationPhotos } from '@/lib/locationData';
 
 //dummy data
 const upcomingItineraries = [
@@ -20,7 +21,7 @@ const upcomingItineraries = [
     country: 'France',
     city: 'Paris',
     description: 'Explore the Eiffel Tower, Louvre, and enjoy French cuisine.',
-    img: '/images/placeholder1.jpg',
+    img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/15/6d/d6/paris.jpg?w=1400&h=1400&s=1',
     flight: {
         "departure_token":
         "WyJDalJJY20wMGNXaGZaRzh0UTBsQlFWOXRVbEZDUnkwdExTMHRMUzB0TFhCcWEyc3hORUZCUVVGQlIycHNkRVE0UkZNMmRDMUJFZ3hWUVRnNE9YeFZRVEl6TXpJYUN3aVYxd29RQWhvRFZWTkVPQnh3bGRjSyIsW1siUEVLIiwiMjAyNS0xMC0wOCIsIlNGTyIsbnVsbCwiVUEiLCI4ODkiXSxbIlNGTyIsIjIwMjUtMTAtMDgiLCJBVVMiLG51bGwsIlVBIiwiMjMzMiJdXV0="
@@ -477,6 +478,20 @@ const ItineraryPage = () => {
     const handleAdd = async (itinerary, formData, status="upcoming") => {
         setWarning("");
         setIsBlocked(true); //show loading
+
+        //get related image
+        const imgProperties = {
+            q: `${formData.city}, ${formData.country}`,
+            gl: formData.gl,
+        }
+        const imgArr = await getLocationPhotos(imgProperties);
+        var locImg = "";
+        for(const img of imgArr) {
+            if(img.original) {
+                locImg = img.original;
+                break;
+            }
+        }
         
         const properties = {
             email: user.email,
@@ -486,7 +501,7 @@ const ItineraryPage = () => {
             country: formData.country,
             city: formData.city,
             description: formData.description,
-            img: "",
+            img: locImg,
             flight: {
                 departure_token: formData.departure_token,
             },

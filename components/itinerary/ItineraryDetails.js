@@ -8,7 +8,7 @@ import * as formik from 'formik';
 import * as yup from 'yup';
 import { useAtom } from 'jotai';
 import { isBlockedAtom, userAtom } from '@/store';
-import { getUser, getUserFlights } from '@/lib/userData';
+import { getUser, getUserFlights, getUserHotels } from '@/lib/userData';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import moment from 'moment';
 
@@ -17,9 +17,11 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
     
     const [warning, setWarning] = useState("");
     const [customFlight, setCustomFlight] = useState(action === "add" ? false : !itineraryObj.flight?.departure_token);
+    const [customHotel, setCustomHotel] = useState(action === "add" ? false : !itineraryObj.hotel?.property_token);
     const [country, setCountry] = useState(action === "add" ? "" : itineraryObj.country);
     const [city, setCity] = useState(action === "add" ? "" : itineraryObj.city);
     const [userFlights, setUserFlights] = useState([]);
+    const [userHotels, setUserHotels] = useState([]);
     const [cityOptions, setCityOptions] = useState([]);
     const inputRef = useRef(null);
 
@@ -31,6 +33,7 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
         country : action === "add" ? "" : itineraryObj.country,
         city : action === "add" ? "" : itineraryObj.city,
         flight : action === "add" ? "" : itineraryObj.flight?.departure_token,
+        hotel : action === "add" ? "" : itineraryObj.hotel?.property_token,
     };
 
     const { Formik } = formik;
@@ -72,6 +75,8 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
         setUser(data);
 
         setUserFlights(await getUserFlights(data?.id));
+        setUserHotels(await getUserHotels(data?.id));
+
     }
 
      const handleSubmit = (values) => {
@@ -99,6 +104,10 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
                     break;
                 }
             }
+        }
+
+        if(!values.hotel) {
+            values.hotel = null;
         }
 
         if(!values.title) {
@@ -170,6 +179,7 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
             end_date : end_date,
             gl: gl,
             departure_token: values.flight,
+            property_token: values.hotel,
         }
 
         handleAction(itineraryObj, formData);
@@ -318,6 +328,17 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
                             <></>
                         )
                     }
+                    <Col xs={12}>
+                        <Form.Group controlId="hotelSelect">
+                            <Form.Label className="fw-bold">Hotel</Form.Label>
+                            <Form.Select name="hotel" value={values.hotel} onChange={handleChange} disabled={false}>
+                                <option className='text-secondary' value={""}>{"-- Select a Saved Hotel --"}</option>
+                            {userHotels.map((hotel, index) => {
+                                return <option key={`user_hotel_${index}`} value={hotel.property_token}>{`${hotel.name} (${hotel.check_in_date} - ${hotel.check_out_date})`}</option>
+                            })}
+                            </Form.Select>
+                        </Form.Group>                         
+                    </Col>
                     
 {/* 
                     <formik.FieldArray name="friends">

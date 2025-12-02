@@ -6,7 +6,9 @@ export const userAtom = atom();
 export const resetEmailAtom = atom();
 export const resetOTPPassAtom = atom();
 
-//airport data
+//data
 export const countryCsvAtom = atom();
 export const objByCountryAtom = atom();
 export const objByCityAtom = atom();
+export const selectedFlightAtom = atom();
+export const selectedHotelAtom = atom();

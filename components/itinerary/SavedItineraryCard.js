@@ -1,9 +1,10 @@
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Badge, Image, Accordion, ListGroup, Button } from 'react-bootstrap';
 import { formatMinutes } from '@/lib/airportData';
 import ConfirmItineraryDelete from './ConfirmItineraryDelete';
 import ItineraryDetails from './ItineraryDetails';
+import { getUpcomingLocation } from '@/lib/locationData';
 
 const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handleSummary, handleSchedule, countryObj, countryOptions, theme}) => {
 
@@ -15,7 +16,17 @@ const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handle
 
     const [showEditModal, setShowEditModal] = useState(false);    
     const [showDeleteModal, setShowDeleteModal] = useState(false);    
-    const [showSummaryModal, setShowSummaryModal] = useState(false);    
+    const [showSummaryModal, setShowSummaryModal] = useState(false); 
+    const [upcomingLoc, setUpcomingLoc] = useState(null);
+    
+    useEffect(() => {
+        loadData();
+    }, []);
+
+    async function loadData() {
+        const tmpLoc = await getUpcomingLocation(itinerary);
+        setUpcomingLoc(tmpLoc);
+    }
 
     const img = itinerary?.schedules?.length > 0 && 
         itinerary.schedules[0].locations?.length > 0 && 
@@ -70,7 +81,25 @@ const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handle
                         <Row className='justify-content-center align-items-center g-3'>
                             <Col sm={12} md={8}>
                                 <div className='d-flex justify-content-center align-items-center gap-2'>
-                                    <Image className="location-img" src={img} alt="itinerary img" fluid />
+                                    <Image 
+                                        className="location-img" 
+                                        src={itinerary.img} 
+                                        alt="destination img" 
+                                        title={`Destination: ${itinerary?.city}, ${itinerary?.country}`} 
+                                        fluid
+                                    />
+                                    <Image 
+                                        className="location-img" 
+                                        src={upcomingLoc?.serpapi_thumbnail ? 
+                                            upcomingLoc.serpapi_thumbnail : 
+                                            "/images/location_default.png"} 
+                                        alt="upcoming img" 
+                                        title={upcomingLoc ?
+                                            `Upcoming Location: ${upcomingLoc?.title} (${upcomingLoc?.time})` :
+                                            "No upcoming location"
+                                        } 
+                                        fluid
+                                    />
                                 </div>
                             </Col>
                             <Col sm={12} md={4}>

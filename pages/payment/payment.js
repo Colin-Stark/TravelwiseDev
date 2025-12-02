@@ -2,11 +2,19 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
 import styles from '@/styles/paymentPage.module.css';
+import { useAtom } from 'jotai';
+import { isBlockedAtom, selectedFlightAtom, selectedHotelAtom, userAtom } from '@/store';
+import { addUserFlight, getUser } from '@/lib/userData';
 
 export default function Payment() {
+    const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
     const router = useRouter();
     const { query } = router;
+    const [user, setUser] = useAtom(userAtom);
+    const [selectedFlight, setSelectedFlight] = useAtom(selectedFlightAtom);
+    const [selectedHotel, setSelectedHotel] = useAtom(selectedHotelAtom);
 
+    const [isLoading, setIsLoading] = useState(false);
     const [total, setTotal] = useState(0);
     const [taxes, setTaxes] = useState(0);
     const [cardNumber, setCardNumber] = useState('');
@@ -17,35 +25,68 @@ export default function Payment() {
     const [error, setError] = useState('');
 
     useEffect(() => {
+        loadData();
+
+        if(!user || (!selectedFlight && !selectedHotel)) {
+            router.push('/');
+        }
+
         // Determine total based on available data
         let subtotal = 0;
-
-        if (query.planPrice) {
-            subtotal = parseFloat(query.planPrice);
-        } else {
-            const flightPrice = parseFloat(query.flightPrice) || 0;
-            const hotelPrice = parseFloat(query.hotelPrice) || 0;
-            subtotal = flightPrice + hotelPrice;
+        if(selectedFlight) {
+            subtotal += selectedFlight.flightObj.price;
         }
+        if(selectedHotel) {
+            subtotal += selectedHotel.hotelObj.price;
+        }
+
+        console.log(selectedFlight);
 
         const tax = subtotal * 0.13;
         setTaxes(tax);
         setTotal(subtotal + tax);
     }, [query]);
 
-    const handleSubmit = (e) => {
+    async function loadData() {
+        setIsLoading(true);
+
+        const data = await getUser();
+        setUser(data);
+
+        setIsLoading(false);
+    }
+
+    const handleSubmit = async (e) => {        
         e.preventDefault();
         if (!cardNumber || !expiry || !cvc || !nameOnCard || !billingAddress) {
             setError('Please fill in all required fields.');
             return;
         }
 
+        setIsBlocked(true);
         //add to user's flight
-        
 
-        setError('');
-        alert(`Payment successful! Total charged: $${total.toFixed(2)}`);
-        router.push('/');
+        const flightObj = selectedFlight.flightObj;
+        const properties = {
+            "email": user?.email,
+            "userId": user?.id,
+            "departure_date": selectedFlight.outbound_date,
+            "return_date": selectedFlight.return_date,
+            "departure_country": selectedFlight.departure_country,
+            "departure_city": selectedFlight.departure_city,
+            "arrival_country": selectedFlight.arrival_country,
+            "arrival_city": selectedFlight.arrival_city,
+            "departure_token": flightObj.departure_token,
+            "price": flightObj.price,
+        }
+
+        console.log(properties);
+        await addUserFlight(properties);
+
+        setIsBlocked(false);
+        // setError('');
+        // alert(`Payment successful! Total charged: $${total.toFixed(2)}`);
+        // router.push('/');
     };
 
     if (!query) return <div className={styles.loading}>Loading...</div>;
@@ -119,14 +160,18 @@ export default function Payment() {
                             </div>
                         ) : (
                             <>
+                                {selectedFlight &&
                                 <div className={styles.summaryRow}>
                                     <span>Flight:</span>
-                                    <span>${parseFloat(query.flightPrice || 0).toFixed(2)}</span>
+                                    <span>${parseFloat(selectedFlight.flightObj.price || 0).toFixed(2)}</span>
                                 </div>
+                                }
+                                {selectedHotel &&
                                 <div className={styles.summaryRow}>
                                     <span>Hotel:</span>
-                                    <span>${parseFloat(query.hotelPrice || 0).toFixed(2)}</span>
+                                    <span>${parseFloat(selectedHotel.hotelObj.price || 0).toFixed(2)}</span>
                                 </div>
+                                }
                             </>
                         )}
                         <div className={styles.summaryRow}>

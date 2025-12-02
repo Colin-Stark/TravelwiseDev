@@ -3,14 +3,16 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../_app";
 import { useAtom } from "jotai";
-import { isBlockedAtom } from "@/store";
+import { isBlockedAtom, selectedFlightAtom } from "@/store";
 import SearchFlightStep1 from "@/components/flight/SearchFlightStep1";
 import SearchFlightStep2 from "@/components/flight/SearchFlightStep2";
 import SearchFlightStep3 from "@/components/flight/SearchFlightStep3";
 import SearchFlightStep4 from "@/components/flight/SearchFlightStep4";
+import Payment from "../payment/payment";
 
 export default function SearchFlight() {
     const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
+    const [selectedFlight, setSelectedFlight] = useAtom(selectedFlightAtom);
     const { theme } = useContext(ThemeContext);
     const router = useRouter();
     const [warning, setWarning] = useState("");
@@ -35,30 +37,32 @@ export default function SearchFlight() {
     }, [warning]);
 
     const handleBookFlight = (flightData) => {
-        const allData = { ...formData, ...flightData };
+        // const allData = { ...formData, ...flightData };
 
-        // Only pass serializable fields in query
-        const queryData = {
-            flightPrice: allData.flightPrice,
-            flightName: allData.flightName,
-            hotelPrice: allData.hotelPrice,
-            hotelName: allData.hotelName,
-            // Include other primitive fields from formData if needed (e.g., city, dates)
-            departure_city: allData.departure_city,
-            arrival_city: allData.arrival_city,
-            outbound_date: allData.outbound_date,
-            return_date: allData.return_date,
-            check_in_date: allData.check_in_date,
-            check_out_date: allData.check_out_date,
-            adults: allData.adults,
-            children: allData.children,
-            currency: allData.currency,
-        };
+        // // Only pass serializable fields in query
+        // const queryData = {
+        //     flightPrice: allData.flightPrice,
+        //     flightName: allData.flightName,
+        //     hotelPrice: allData.hotelPrice,
+        //     hotelName: allData.hotelName,
+        //     // Include other primitive fields from formData if needed (e.g., city, dates)
+        //     departure_city: allData.departure_city,
+        //     arrival_city: allData.arrival_city,
+        //     outbound_date: allData.outbound_date,
+        //     return_date: allData.return_date,
+        //     check_in_date: allData.check_in_date,
+        //     check_out_date: allData.check_out_date,
+        //     adults: allData.adults,
+        //     children: allData.children,
+        //     currency: allData.currency,
+        // };
+
+        setSelectedFlight(flightData);
 
         router.push({
             pathname: '/payment/payment',
-            query: queryData,
         });
+        
         // if (allData.flightPrice && allData.hotelPrice) {
         //     router.push({
         //         pathname: '/payment/payment',
@@ -74,7 +78,9 @@ export default function SearchFlight() {
 
     function handleNext(data) {
         setFormData((prevData) => ({ ...prevData, ...data }));
+
         setPageCount((prevCount) => prevCount + 1);
+
     }
 
     function handlePrevious() {

@@ -172,7 +172,7 @@ a.text-link:hover {
 }
 
 .blocker {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -299,12 +299,17 @@ button:hover {
   width: 3px;
   height: 10vh;
 }
+.line-connect-sm {
+  width: 3px;
+  height: 5vh;
+}
 
 .dashboard-img, .recommend-img {
-  max-height: 250px;
+  height: 200px;
+  object-fit: cover;
 }
 .itinerary-img {
-  max-height: 150px;
+  height: 150px;
   border-radius: 10px;
 }
 .location-img {

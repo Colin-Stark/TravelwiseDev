@@ -6,15 +6,17 @@ export default async function handler(req, res) {
     try {
         // Extract location details from req.body
         const {
-            data_id,
+            q,
+            gl,
             hl = 'en'
         } = req.body;
 
         // Build query parameters for SerpApi
         const params = new URLSearchParams({
-            engine: 'google_maps_photos',
+            engine: 'google_images_light',
             api_key: process.env.NEXT_SERP_API_KEY,
-            data_id,
+            q,
+            gl,
             hl
         });
 

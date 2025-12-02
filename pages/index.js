@@ -39,7 +39,7 @@ export default function Home() {
         <Row className="mb-4">
           <Col md={4}>
             <Card className="bg-dark text-white card-selectable">
-              <Card.Img src="/images/placeholder1.jpg" className="dashboard-img" alt="Trip 1"/>
+              <Card.Img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/15/6d/d6/paris.jpg?w=1400&h=1400&s=1" className="dashboard-img" alt="Trip 1"/>
               <Card.Body>
                 <Card.Title>Jasper, CA</Card.Title>
                 <Card.Text>July 15 - July 22</Card.Text>
@@ -81,7 +81,7 @@ export default function Home() {
         </Card>
 
         {/* Personalized Recommendations */}
-        <h5>Personalized Recommendations</h5>
+        {/* <h5>Personalized Recommendations</h5>
         <Row>
           <Col md={4}>
             <Card className="bg-dark text-white card-selectable">
@@ -107,7 +107,8 @@ export default function Home() {
               </Card.Body>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
+
       </Col>
     </Row>
   );

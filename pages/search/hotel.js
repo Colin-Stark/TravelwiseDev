@@ -50,17 +50,21 @@ export default function SearchHotel() {
         };
 
         // Check if both flightPrice and hotelPrice exist
-        if (allData.flightPrice && allData.hotelPrice) {
-            router.push({
-                pathname: '/payment/payment',
-                query: queryData,
-            });
-        } else {
-            router.push({
-                pathname: '/search/flight',
-                query: queryData,
-            });
-        }
+        router.push({
+            pathname: '/payment/payment',
+            query: queryData,
+        });
+        // if (allData.flightPrice && allData.hotelPrice) {
+        //     router.push({
+        //         pathname: '/payment/payment',
+        //         query: queryData,
+        //     });
+        // } else {
+        //     router.push({
+        //         pathname: '/search/flight',
+        //         query: queryData,
+        //     });
+        // }
     };
 
     const handleNext = (data) => {
