@@ -39,7 +39,7 @@ export default function Payment() {
             subtotal += selectedFlight.flightObj.price;
         }
         if(selectedHotel) {
-            subtotal += selectedHotel.hotelObj.rate_per_night.extracted_lowest;
+            subtotal += (selectedHotel.hotelObj.rate_per_night.extracted_lowest*selectedHotel.stayDuration);
         }
 
         console.log(selectedFlight);
@@ -91,13 +91,14 @@ export default function Payment() {
         //add to user's hotel
         if(selectedHotel) {
             const hotelObj = selectedHotel.hotelObj;
+            const duration = selectedHotel.stayDuration;
             const properties = {
                 "email": user?.email,
                 "name": hotelObj.name,
                 "check_in_date": selectedHotel.check_in_date,
                 "check_out_date": selectedHotel.check_out_date,
                 "property_token": hotelObj.property_token,
-                "price": hotelObj.rate_per_night.extracted_lowest,
+                "price": hotelObj.rate_per_night.extracted_lowest*duration,
                 "latitude": hotelObj.gps_coordinates.latitude,
                 "longitude": hotelObj.gps_coordinates.longitude,
                 "country": selectedHotel.country,
@@ -199,7 +200,7 @@ export default function Payment() {
                                 {selectedHotel &&
                                 <div className={styles.summaryRow}>
                                     <span>Hotel:</span>
-                                    <span>${parseFloat(selectedHotel.hotelObj.rate_per_night.extracted_lowest || 0).toFixed(2)}</span>
+                                    <span>${parseFloat(selectedHotel.hotelObj.rate_per_night.extracted_lowest*selectedHotel.stayDuration || 0).toFixed(2)}</span>
                                 </div>
                                 }
                             </>

@@ -545,9 +545,9 @@ const ManageSchedulePage = () => {
             serpapi_thumbnail: loc.serpapi_thumbnail,
             time: formValues.time,
             duration: formValues.duration,
-            // cost: formValues.cost,
-            // travel_mode: formValues.travel_mode,
-            // travel_time: formValues.travel_time,
+            price: formValues.price,
+            travel_mode: formValues.travel_mode,
+            travel_time: formValues.travel_time,
         }
 
         var tmpSchedules = itinerary.schedules;
@@ -596,6 +596,8 @@ const ManageSchedulePage = () => {
             urlParam: itinerary._id,
             properties: properties,
         }
+
+        console.log(propertyObj);
 
         try {
             const res = await fetch("/api/itinerary/edit-itinerary", {  // Changed to same-origin API route
@@ -649,9 +651,9 @@ const ManageSchedulePage = () => {
             serpapi_thumbnail: loc.serpapi_thumbnail,
             time: formValues.time,
             duration: formValues.duration,
-            // cost: formValues.cost,
-            // travel_mode: formValues.travel_mode,
-            // travel_time: formValues.travel_time,
+            price: formValues.price,
+            travel_mode: formValues.travel_mode,
+            travel_time: formValues.travel_time,
         }
 
         var tmpSchedules = itinerary.schedules;

@@ -296,7 +296,7 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
             time: dateTime.format("h:mm A"),
             prevTime: locationObj?.time,
             duration: values.duration,
-            cost: values.cost,
+            price: values.cost,
             travel_mode: values.travel_mode,
             travel_time: values.travel_time,
         }

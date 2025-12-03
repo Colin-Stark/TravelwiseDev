@@ -10,6 +10,7 @@ import * as yup from 'yup';
 import { Commet } from "react-loading-indicators";
 import StyledDataTable from "../StyledDataTable";
 import HotelDetails from "./HotelDetails";
+import moment from "moment";
 
 export default function SearchFlightStep4(props) {
     const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
@@ -19,6 +20,7 @@ export default function SearchFlightStep4(props) {
     const [hotelsData, setHotelsData] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedHotelObj, setSelectedHotelObj] = useState({});
+    const [stayDuration, setStayDuration] = useState(1);
 
     const initialValues = {
         hotel : props.initialData["hotel"] ? props.initialData["hotel"] : "",
@@ -51,7 +53,7 @@ export default function SearchFlightStep4(props) {
         name: 'Price',
         selector: row => row?.rate_per_night?.extracted_lowest,
         sortable: true,
-        cell: (props) => <label className="text-nowrap">{formatCurrency(props?.rate_per_night?.extracted_lowest, 'en-US', initialValues.currency)}</label>,
+        cell: (props) => <label className="text-nowrap">{`${formatCurrency(props?.rate_per_night?.extracted_lowest, 'en-US', initialValues.currency)} (${formatCurrency(props?.rate_per_night?.extracted_lowest*stayDuration, 'en-US', initialValues.currency)})`}</label>,
     },
     {
         name: 'Rating',
@@ -110,6 +112,13 @@ export default function SearchFlightStep4(props) {
             hotel_class : hotel_class.join(","),
         }
 
+        //get stay duration
+        const startDate = moment(properties.check_in_date);
+        const endDate = moment(properties.check_out_date);
+        const duration = endDate.diff(startDate, 'days');
+        console.log("duration",duration);
+        setStayDuration(duration);
+
         console.log(properties);
 
         const hotelObj = await getHotelList(properties);
@@ -147,6 +156,7 @@ export default function SearchFlightStep4(props) {
             const hotelData = {
                 ...props.initialData,
                 hotelObj,
+                stayDuration,
             };
 
             props.onBookHotel(hotelData);
