@@ -12,6 +12,7 @@ import { getDirections, getLocationList } from '@/lib/locationData';
 import LocationCard from './LocationCard';
 import { Commet } from 'react-loading-indicators';
 import moment from 'moment';
+import { formatUTCDate } from '@/lib/airportData';
 
 const travelTypes = {
     "0": "Drive",
@@ -80,8 +81,6 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
 
         const data = await getUser();
         setUser(data);
-
-        console.log(data);
 
         setSelectLoc(locationObj);
 
@@ -175,7 +174,7 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
         var allLocations = [];
         //load all locations
         for(const schedule of itinerary?.schedules) {
-            if(moment(schedule?.day).isSame(moment(day))) {
+            if(moment(formatUTCDate(schedule?.day)).isSame(moment(day))) {
                 allLocations = schedule?.locations;
                 break;
             }
@@ -200,8 +199,10 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
             return;
         }
 
-        const start_addr = prevLoc?.gps_coordinates?.latitude + "," + prevLoc?.gps_coordinates?.longitude;
-        const end_addr = selectLoc?.gps_coordinates?.latitude + "," + selectLoc?.gps_coordinates?.longitude;
+        const start_addr = prevLoc?.address;
+        const end_addr = selectLoc?.address;
+        // const start_addr = prevLoc?.gps_coordinates?.latitude + "," + prevLoc?.gps_coordinates?.longitude;
+        // const end_addr = selectLoc?.gps_coordinates?.latitude + "," + selectLoc?.gps_coordinates?.longitude;
 
         if(start_addr === end_addr) {
             setComputeWarning("No travel time for same location");
@@ -265,7 +266,7 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
             var allLocations = [];
             //load all locations
             for(const schedule of itinerary?.schedules) {
-                if(moment(schedule?.day).isSame(moment(day))) {
+                if(moment(formatUTCDate(schedule?.day)).isSame(moment(day))) {
                     allLocations = schedule?.locations;
                     break;
                 }
