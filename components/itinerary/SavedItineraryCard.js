@@ -106,10 +106,10 @@ const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handle
                             <Col sm={12} md={4}>
                                 <Row className='g-2'>
                                     { status === "upcoming" && (
-                                        <Button className='btn-primary action-btn'  onClick={()=>handleSchedule(itinerary)} title='Manage Schedules'><label className='text-nowrap'><i className='bi bi-calendar-week me-2'></i>Manage Schedules</label></Button>
+                                        <Button className='btn-primary action-btn'  onClick={()=>handleSchedule(itinerary)} title='Manage Schedules'><label className='text-nowrap action-btn' role='button'><i className='bi bi-calendar-week me-2'></i>Manage Schedules</label></Button>
                                     ) }
-                                    <Button className='btn-warning text-light action-btn'  onClick={(e)=>handleModalShow(e, "edit")} title='Edit Trip'><label className='text-nowrap'><i className='bi bi-pencil me-2'></i>Edit Trip</label></Button>
-                                    <Button className='btn-danger action-btn max-w-sm' onClick={(e)=>handleModalShow(e, "delete")} title='Delete Trip'><label className='text-nowrap'><i className='bi bi-trash me-2'></i>Delete Trip</label></Button>
+                                    <Button className='btn-warning text-light action-btn'  onClick={(e)=>handleModalShow(e, "edit")} title='Edit Trip'><label className='text-nowrap action-btn' role='button'><i className='bi bi-pencil me-2'></i>Edit Trip</label></Button>
+                                    <Button className='btn-danger action-btn max-w-sm' onClick={(e)=>handleModalShow(e, "delete")} title='Delete Trip'><label className='text-nowrap action-btn' role='button'><i className='bi bi-trash me-2'></i>Delete Trip</label></Button>
                                 </Row>
                             </Col>
                         </Row>

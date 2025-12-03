@@ -7,7 +7,7 @@ import { getUser } from "@/lib/userData";
 import { Commet } from 'react-loading-indicators';
 import moment from "moment";
 import { Link } from "react-router-dom";
-import { formatUTCDate } from "@/lib/airportData";
+import { formatCurrency, formatUTCDate } from "@/lib/airportData";
 
 export default function Home() {
   const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
@@ -97,6 +97,40 @@ export default function Home() {
               //compute expenses for upcoming
               if(userUpcomingTrips?.length > 0) {
                 const trip = userUpcomingTrips[0];
+
+                const flightCost = trip.flight?.price;
+                const hotelCost = trip.hotel?.price;
+
+                var totalCost = flightCost + hotelCost;
+
+                console.log(trip);
+                //cost per day
+                var dayArr = [];
+                for(const schedule of trip.schedules) {
+                  var dayCost = 0;
+                  for(const loc of schedule.locations) {
+                    if(loc.cost && loc.cost > 0) {
+                      dayCost += loc.cost;
+                    } 
+                  }
+                  totalCost += dayCost;
+
+                  dayArr.push({
+                    "day": moment(formatUTCDate(schedule.day)).format(dateFmt),
+                    "cost": dayCost,
+                    "stops": schedule.locations?.length ? schedule.locations?.length : 0,
+                  });
+                }
+
+                const properties = {
+                  itinerary: trip,
+                  flightCost: flightCost,
+                  hotelCost: hotelCost,
+                  days: dayArr,
+                  totalCost: totalCost,
+                };
+                console.log(properties);
+                setExpenseTracking(properties);
               }
 
               setUpcomingTrips(userUpcomingTrips);
@@ -173,15 +207,30 @@ export default function Home() {
         {
           upcomingTrips?.length > 0 ?
           <Card className="bg-dark text-white p-4 mb-4 main-shadow">
-            <h3>$2,500</h3>
-            <p>Last 30 days <span className="text-success">+15%</span></p>
-            {/* Placeholder for chart */}
-            <div className="d-flex justify-content-between mt-3">
-              <div>Food </div>
-              <div>Accommodation </div>
-              <div>Activities </div>
-              <div>Transport </div>
+            <h3 className="text-center text-main-tertiary">{`${expenseTracking.itinerary.title} (${expenseTracking.itinerary.city}, ${expenseTracking.itinerary.country})`}</h3>
+            <h3 className="text-center">Total Cost: {`${formatCurrency(expenseTracking.totalCost, 'us-en', currentUser.preferences.currency)}`}</h3>
+
+            <div className="d-sm-flex justify-content-center gap-3 m-2">
+              <label>{`Flight Cost: ${formatCurrency(expenseTracking.flightCost, 'us-en', currentUser.preferences.currency)}`}</label>
+              <label>{`Hotel Cost: ${formatCurrency(expenseTracking.hotelCost, 'us-en', currentUser.preferences.currency)}`}</label>
             </div>
+            
+            {/* Placeholder for chart */}
+            <Row className="justify-content-between align-items-center gy-2 mt-3">
+              {
+                expenseTracking.days.map((dayObj, index)=> (
+                  <Col key={`day_cost_${index}`}>
+                    <div className="border rounded border-main-tertiary p-3">
+                      <h5 className="text-main-tertiary">{`${dayObj.day}`}</h5>
+                      <div className="d-md-flex justify-content-between align-items-center gap-2">
+                        <p>{`# of Stops: ${dayObj.stops}`}</p>
+                        <p>{`Cost: ${formatCurrency(dayObj.cost, 'us-en', currentUser.preferences.currency)}`}</p>
+                      </div>
+                    </div>
+                  </Col>
+                ))
+              }
+            </Row>
           </Card>
           :
           (

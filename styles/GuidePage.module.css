@@ -1,0 +1,114 @@
+.Container {
+  width: 100%;
+  padding: 2rem 4rem;
+}
+
+.FormStyle {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.dropDown {
+  margin-right: 1rem;
+}
+
+.submit {
+  margin-left: 1rem;
+}
+
+.CardContainer {
+  width: 100%;
+}
+
+.Row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+
+.CardWrapper {
+  flex: 0 0 32%;
+  max-width: 32%;
+  cursor: pointer;
+}
+
+.UniformCard {
+  width: 100%;
+  height: 380px; 
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e2e2;
+  background-color: #ffffff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.UniformCard:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+
+.CardImageWrapper {
+  width: 100%;
+  height: 180px; 
+  overflow: hidden;
+}
+
+
+.CardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.CardContent {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.CardContent h5 {
+  margin-bottom: 0.4rem;
+}
+
+.Category {
+  font-weight: bold;
+  color: #2979ff;
+  margin-bottom: 0.3rem;
+}
+
+.Country {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.6rem;
+}
+
+
+.Description {
+  font-size: 0.88rem;
+  color: #333;
+  line-height: 1.2rem;
+}
+
+
+@media (max-width: 992px) {
+  .CardWrapper {
+    flex: 0 0 48%;
+    max-width: 48%;
+  }
+}
+
+@media (max-width: 600px) {
+  .CardWrapper {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

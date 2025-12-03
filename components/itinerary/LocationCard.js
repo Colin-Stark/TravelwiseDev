@@ -129,7 +129,7 @@ const LocationCard = ({ location, day, time, duration, index, transition, handle
                             <Row className='g-2'>
                                 { !time && <Button variant='outline-primary' className='action-btn' onClick={(e)=>handleSelect(location)}>Select</Button>}
                                 { time && <Button className='btn-warning text-light' onClick={(e)=>handleModalShow(e, "edit")}><i className='bi bi-pencil me-2'></i>Edit Schedule</Button>}
-                                { time && <Button className='btn-danger action-btn' onClick={(e)=>handleModalShow(e, "delete")}><i className='bi bi-trash me-2'></i>Remove</Button>}
+                                { time && <Button className='btn-danger action-btn' onClick={(e)=>handleModalShow(e, "delete")}><i className='bi bi-trash me-2 action-btn'></i>Remove</Button>}
                             </Row>
                         </Col>
                         )
