@@ -8,8 +8,8 @@ export default async function handler(req, res) {
         const properties = req.body.properties;
 
         // Forward the request to the external server
-        const externalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/itineraries/${paramId}`, {
-            method: 'DELETE',
+        const externalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/itineraries/delete/${paramId}`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 // Add any other headers if needed (e.g., Authorization)

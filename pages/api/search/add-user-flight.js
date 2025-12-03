@@ -3,11 +3,9 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const tripId = '692e46c599e5dfc1747b9e04';
-
     try {
         // Forward the request to the external server
-        const externalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/trips/${tripId}/flights`, {
+        const externalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/flights`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

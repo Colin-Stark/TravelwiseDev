@@ -1,5 +1,5 @@
 import SavedItineraryCard from '@/components/itinerary/SavedItineraryCard';
-import { getUser } from '@/lib/userData';
+import { getUser, getUserFlights, getUserHotels } from '@/lib/userData';
 import { isBlockedAtom, userAtom } from '@/store';
 import { useAtom } from 'jotai';
 import React, { useContext, useEffect, useState } from 'react';
@@ -9,6 +9,7 @@ import { ThemeContext } from "@/pages/_app";
 import { fetchCountryData, getCountryList } from '@/lib/airportData';
 import ItineraryDetails from '@/components/itinerary/ItineraryDetails';
 import { getLocationPhotos } from '@/lib/locationData';
+import moment from 'moment';
 
 //dummy data
 const upcomingItineraries = [
@@ -392,6 +393,10 @@ const ItineraryPage = () => {
     const [countryObj, setCountryObj] = useState([]);
     const [countryOptions, setCountryOptions] = useState([]);
     const [showAddModal, setShowAddModal] = useState(false);    
+    const [userFlights, setUserFlights] = useState([]);
+    const [userHotels, setUserHotels] = useState([]);
+    const [flightMap, setFlightMap] = useState({});
+    const [hotelMap, setHotelMap] = useState({});
 
     const handleModalShow = (event) => {
         setShowAddModal(true);
@@ -410,7 +415,6 @@ const ItineraryPage = () => {
     
     async function loadCountryData() {
         var cObj = countryObj;
-        console.log(cObj);
         if(cObj.length <= 0) {
             cObj = await fetchCountryData();
             setCountryObj(cObj);
@@ -426,6 +430,28 @@ const ItineraryPage = () => {
         setUser(data);
 
         await loadTrips("upcoming", data);
+
+        //load flights
+        const dataFlights = await getUserFlights(data?.email);
+        setUserFlights(dataFlights);
+        var tmpFlightMap = {};
+        var i = 0;
+        for(const flight of dataFlights) {
+            tmpFlightMap[flight.flights[0].departure_token] = i;
+            i++;
+        }
+        setFlightMap(tmpFlightMap);
+
+        //load hotels
+        const dataHotels = await getUserHotels(data?.email);
+        setUserHotels(dataHotels);
+        var tmpHotelMap = {};
+        i = 0;
+        for(const hotel of dataHotels) {
+            tmpHotelMap[hotel.property_token] = i;
+            i++;
+        }
+        setHotelMap(tmpHotelMap);
     }
 
     async function loadTrips(status, dataUser=null) {
@@ -433,47 +459,74 @@ const ItineraryPage = () => {
         setIsLoading(true); //show loading
 
         const tmpUser = dataUser ? dataUser : user;
-        console.log(tmpUser?.email);
-        // try {
-        //     const res = await fetch("/api/itinerary/get-itineraries", {  // Changed to same-origin API route
-        //         method: 'POST',
-        //         headers: {
-        //             'content-type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             email: tmpUser?.email,
-        //         }),
-        //     });
+        try {
+            const res = await fetch("/api/itinerary/get-itineraries", {  // Changed to same-origin API route
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: tmpUser?.email,
+                }),
+            });
 
-        //     const data = await res.json();
-        //     if (!res.ok) {
-        //         // Try to parse error message from server
-        //         let errorMsg = "Error loading trips";
-        //         try {
-        //             errorMsg = data.message || errorMsg;
-        //         } catch (e) { }
-        //         setWarning(errorMsg);
-        //         setIsLoading(false); //hide loading
-        //         return;
-        //     }
+            const data = await res.json();
+            if (!res.ok) {
+                // Try to parse error message from server
+                let errorMsg = "Error loading trips";
+                try {
+                    errorMsg = data.message || errorMsg;
+                } catch (e) { }
+                setWarning(errorMsg);
+                setIsLoading(false); //hide loading
+                return;
+            }
 
-        //     setUpcomingTrips(data);
+            if(data.success) {
+                const userTrips = data.data;
+                var userUpcomingTrips = [];
+                var userPastTrips = [];
+                const dateNow = moment().format("YYYY-MM-DD");
+                for(const userTrip of userTrips) {
+                    if(moment(dateNow).isAfter(moment(userTrip.end_date))) {
+                        userPastTrips.push(userTrip);
+                    }
+                    else {
+                        userUpcomingTrips.push(userTrip);
+                    }
+                } 
 
-        // } catch (err) {
-        //     setWarning("Network error: " + err.message);
-        // }
+                //sort by date
+                userUpcomingTrips.sort((a,b)=>new Date(a.start_date) - new Date(b.start_date));
+                userPastTrips.sort((a,b)=>new Date(a.start_date) - new Date(b.start_date));
+
+                setUpcomingTrips(userUpcomingTrips);
+                setPastTrips(userPastTrips);
+            }
+            // setUpcomingTrips(data);
+
+        } catch (err) {
+            setWarning("Network error: " + err.message);
+        }
 
         //dummy data
-        if(status === "past") {
-            setPastTrips(pastItineraries);
-        }
-        else {
-            setUpcomingTrips(upcomingItineraries)
-        }
+        // if(status === "past") {
+        //     setPastTrips(pastItineraries);
+        // }
+        // else {
+        //     setUpcomingTrips(upcomingItineraries)
+        // }
 
         setIsLoading(false); //hide loading
     
     }
+
+    const generateRandomInt = (min, max) => {
+        // Ensure min and max are integers and min <= max
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
 
     const handleAdd = async (itinerary, formData, status="upcoming") => {
         setWarning("");
@@ -486,13 +539,36 @@ const ItineraryPage = () => {
         }
         const imgArr = await getLocationPhotos(imgProperties);
         var locImg = "";
+
+        var i = 0;
         for(const img of imgArr) {
-            if(img.original) {
-                locImg = img.original;
+            const imgIndex = generateRandomInt(0, (imgArr.length-1));
+
+            if(imgArr[imgIndex].original && imgArr[imgIndex].original_height >= 200 && imgArr[imgIndex].original_width >= 150) {
+                locImg = imgArr[imgIndex].original;
                 break;
             }
+
+            if(i >= (imgArr.length - 1) && locImg === "") {
+                locImg = img.original;
+            }
+            
+            i++;
         }
-        
+
+        //create schedules
+        const schedules = [];
+        // var tmpDate = moment(formatUTCDate(formData.start_date));
+        // const endDate = moment(formatUTCDate(formData.end_date));
+        // while(tmpDate.isBefore(endDate) || tmpDate.isSame(endDate)) {
+        //     const formattedDate = tmpDate.format('YYYY-MM-DD');
+        //     schedules.push({
+        //         day: formattedDate,
+        //         locations: [],
+        //     });
+        //     tmpDate = tmpDate.add(1, "days");
+        // }   
+
         const properties = {
             email: user.email,
             title: formData.title,
@@ -504,10 +580,16 @@ const ItineraryPage = () => {
             img: locImg,
             flight: {
                 departure_token: formData.departure_token,
+                price: formData.flight_price,
             },
-            schedules: [],
+            hotel : {
+                property_token: formData.property_token,
+                price: formData.hotel_price,
+            },
+            schedules: schedules,
             gl: formData.gl,
         }
+
         console.log(properties);
 
         try {
@@ -567,24 +649,46 @@ const ItineraryPage = () => {
         setWarning("");
         setIsBlocked(true); //show loading
 
-        const propertyObj = {
-            urlParam: itinerary.id,
-            properties: {
-                email: user.email,
-                title: formData.title,
-                start_date: formData.start_date,
-                end_date: formData.end_date,
-                country: formData.country,
-                city: formData.city,
-                description: formData.description,
-                img: "",
-                flight: {
-                    departure_token: formData.departure_token,
-                },
-                schedules: itinerary.schedules ? itinerary.schedules : [],
-                gl: formData.gl,
-            }
+        //create schedules
+        const schedules = [];
+        // var tmpDate = moment(formatUTCDate(formData.start_date));
+        // const endDate = moment(formatUTCDate(formData.end_date));
+        // while(tmpDate.isBefore(endDate) || tmpDate.isSame(endDate)) {
+        //     const formattedDate = tmpDate.format('YYYY-MM-DD');
+        //     schedules.push({
+        //         day: formattedDate,
+        //         locations: [],
+        //     });
+        //     tmpDate = tmpDate.add(1, "days");
+        // } 
+
+        const properties = {
+            email: user.email,
+            title: formData.title,
+            start_date: formData.start_date,
+            end_date: formData.end_date,
+            country: formData.country,
+            city: formData.city,
+            description: formData.description,
+            img: itinerary.img,
+            flight: {
+                departure_token: formData.departure_token,
+                price: formData.flight_price,
+            },
+            hotel : {
+                property_token: formData.property_token,
+                price: formData.hotel_price,
+            },
+            schedules: itinerary.schedules ? itinerary.schedules : schedules,
+            gl: formData.gl,
         }
+
+        const propertyObj = {
+            urlParam: itinerary._id,
+            properties: properties,
+        }
+
+        console.log(propertyObj);
 
         try {
             const res = await fetch("/api/itinerary/edit-itinerary", {  // Changed to same-origin API route
@@ -612,7 +716,7 @@ const ItineraryPage = () => {
         }
 
         //reload list
-        //await loadTrips(status);
+        await loadTrips(status);
 
         setIsBlocked(false); //hide loading
     
@@ -624,7 +728,7 @@ const ItineraryPage = () => {
         setIsBlocked(true); //show loading
 
         const propertyObj = {
-            urlParam: itinerary.id,
+            urlParam: itinerary._id,
             properties: {
                 email: user.email,
             }
@@ -691,7 +795,7 @@ const ItineraryPage = () => {
     };
 
     const handleSchedule = async (itinerary) => {
-        window.open(`/itinerary/manage-schedule?id=${itinerary.id}`, "_blank");
+        window.open(`/itinerary/manage-schedule?id=${itinerary._id}`, "_blank");
     };
 
     
@@ -757,7 +861,7 @@ const ItineraryPage = () => {
         <hr />
         <div className="mx-sm-2 mx-md-5">
             <div className='d-flex justify-content-end my-3'>
-                <Button className='btn-info text-light' onClick={handleModalShow}>Create New Trip</Button>
+                <Button className='btn-info text-light' onClick={handleModalShow}><i className='bi bi-plus-circle me-2'></i>Create New Trip</Button>
             </div>
             <ItineraryDetails
                 show={showAddModal}
@@ -768,9 +872,13 @@ const ItineraryPage = () => {
                 action="add"
                 countryObj={countryObj}
                 countryOptions={countryOptions}
+                userFlights={userFlights}
+                flightMap={flightMap}
+                userHotels={userHotels}
+                hotelMap={hotelMap}
                 theme={theme}
             />
-            <Tabs defaultActiveKey="upcoming" id="uncontrolled-tab-example" className="mb-3" onSelect={loadTrips}>
+            <Tabs defaultActiveKey="upcoming" id="uncontrolled-tab-example" className="mb-3" onSelect={(status)=>loadTrips(status)}>
                 <Tab eventKey="upcoming" title="Upcoming Trips">
                 {
                     isLoading ? (
@@ -800,6 +908,10 @@ const ItineraryPage = () => {
                                             handleSchedule={handleSchedule}
                                             countryObj={countryObj}
                                             countryOptions={countryOptions}
+                                            userFlights={userFlights}
+                                            flightMap={flightMap}
+                                            userHotels={userHotels}
+                                            hotelMap={hotelMap}
                                             theme={theme}
                                         />
                                     ))
@@ -849,6 +961,10 @@ const ItineraryPage = () => {
                                                 handleSchedule={handleSchedule}
                                                 countryObj={countryObj}
                                                 countryOptions={countryOptions}
+                                                userFlights={userFlights}
+                                                flightMap={flightMap}
+                                                userHotels={userHotels}
+                                                hotelMap={hotelMap}
                                                 theme={theme}
                                             />
                                         ))

@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 
     try {
         // Forward the request to the external server
-        const externalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/itinerary/get-itinerary/${req.body.itinerary_id}`, {
+        const externalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/itineraries/get/${req.body.itinerary_id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

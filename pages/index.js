@@ -1,14 +1,24 @@
-import { Button, Card, Navbar, Row, Col, Image } from "react-bootstrap";
+import { Button, Card, Navbar, Row, Col, Image, Alert } from "react-bootstrap";
 import { useContext, useEffect, useState } from "react";
 import { getUserCookie, checkValidLogin } from "@/lib/cookies";
 import { useAtom } from "jotai";
 import { isBlockedAtom } from "@/store";
 import { getUser } from "@/lib/userData";
+import { Commet } from 'react-loading-indicators';
+import moment from "moment";
+import { Link } from "react-router-dom";
+import { formatUTCDate } from "@/lib/airportData";
 
 export default function Home() {
   const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
+  const [isLoading, setIsLoading] = useState(false)
+  const [warning, setWarning] = useState('')
   const [step, setStep] = useState(1);
   const [currentUser, setCurrentUser] = useState('')
+  const [upcomingTrips, setUpcomingTrips] = useState([]);
+  const [expenseTracking, setExpenseTracking] = useState({});
+
+  const dateFmt = "MMMM DD, YYYY";
   
   useEffect(() => {
       //remove page blocker
@@ -20,10 +30,90 @@ export default function Home() {
   }, []);
 
   async function loadData() {
+    setIsLoading(true); //show loading
+
     const user = await getUser();
     console.log(user);
     setCurrentUser(user);
+
+    //load user trips
+    await loadTrips("upcoming", user);
+
+    setIsLoading(false); //show loading
   }
+
+  async function loadTrips(status, dataUser=null) {
+      setWarning("");
+      // setIsLoading(true); //show loading
+
+      const tmpUser = dataUser ? dataUser : user;
+      try {
+          const res = await fetch("/api/itinerary/get-itineraries", {  // Changed to same-origin API route
+              method: 'POST',
+              headers: {
+                  'content-type': 'application/json',
+              },
+              body: JSON.stringify({
+                  email: tmpUser?.email,
+              }),
+          });
+
+          const data = await res.json();
+          if (!res.ok) {
+              // Try to parse error message from server
+              let errorMsg = "Error loading trips";
+              try {
+                  errorMsg = data.message || errorMsg;
+              } catch (e) { }
+              setWarning(errorMsg);
+              setIsLoading(false); //hide loading
+              return;
+          }
+
+          if(data.success) {
+              const userTrips = data.data;
+              var userUpcomingTrips = [];
+              //var userPastTrips = [];
+              const dateNow = moment().format("YYYY-MM-DD");
+              for(const userTrip of userTrips) {
+
+                  if(moment(dateNow).isAfter(moment(formatUTCDate(userTrip.end_date)))) {
+                      //userPastTrips.push(userTrip);
+                  }
+                  else {
+                      userUpcomingTrips.push(userTrip);
+                  }
+              }
+
+              console.log(userUpcomingTrips);
+              //sort by date
+              userUpcomingTrips.sort((a,b)=>new Date(a.start_date) - new Date(b.start_date));
+
+              const maxShown = 3;
+              if(userUpcomingTrips.length >= maxShown) {
+                userUpcomingTrips = userUpcomingTrips.slice(0, maxShown);
+              }
+
+              //compute expenses for upcoming
+              if(userUpcomingTrips?.length > 0) {
+                const trip = userUpcomingTrips[0];
+              }
+
+              setUpcomingTrips(userUpcomingTrips);
+              //setPastTrips(userPastTrips);
+          }
+
+      } catch (err) {
+          setWarning("Network error: " + err.message);
+      }
+
+      // setIsLoading(false); //hide loading
+  
+  }
+
+  const handleSchedule = async (itinerary) => {
+      window.open(`/itinerary/manage-schedule?id=${itinerary._id}`, "_blank");
+  };
 
   return (
     <Row className="m-0">
@@ -36,49 +126,70 @@ export default function Home() {
 
         {/* Upcoming Trips */}
         <h5>Upcoming Trips</h5>
-        <Row className="mb-4">
-          <Col md={4}>
-            <Card className="bg-dark text-white card-selectable">
-              <Card.Img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/15/6d/d6/paris.jpg?w=1400&h=1400&s=1" className="dashboard-img" alt="Trip 1"/>
-              <Card.Body>
-                <Card.Title>Jasper, CA</Card.Title>
-                <Card.Text>July 15 - July 22</Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={4}>
-            <Card className="bg-dark text-white card-selectable">
-              <Card.Img src="/images/placeholder2.jpg" className="dashboard-img" alt="Trip 2"/>
-              <Card.Body>
-                <Card.Title>Kalibo, PH</Card.Title>
-                <Card.Text>August 5 - September 12</Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={4}>
-            <Card className="bg-dark text-white card-selectable">
-              <Card.Img src="/images/placeholder3.jpg" className="dashboard-img" alt="Trip 3" />
-              <Card.Body>
-                <Card.Title>Tokyo, JP</Card.Title>
-                <Card.Text>September 1 - September 10</Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
+        <Row className="mb-4 gy-4">
+          {
+            isLoading ? (
+              <div className="d-flex justify-content-center align-items-center py-3">
+                  <Commet size='large' color={["#32cd32", "#327fcd", "#cd32cd", "#cd8032"]} />
+              </div>
+            )
+            :
+            upcomingTrips?.length > 0 ?
+              (
+                upcomingTrips?.map((trip, index) => (
+                <Col md={4} key={`upcoming_${index}`} onClick={()=>handleSchedule(trip)}>
+                  <Card className="bg-dark text-white card-selectable">
+                    <Card.Img src={trip.img} className="dashboard-img" alt={`Trip ${index+1}`}/>
+                    <Card.Body>
+                      <Card.Title>{`${trip.city}, ${trip.country}`}</Card.Title>
+                      <Card.Text>{`${moment(formatUTCDate(trip.start_date)).format(dateFmt)} - ${moment(formatUTCDate(trip.end_date)).format(dateFmt)}`}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                ))
+              )
+              :
+              (
+                <div className="d-flex justify-content-center align-items-center py-3">
+                    <Alert className="w-100 text-center bg-main-tertiary">
+                      <Row>
+                        <label>No upcoming trips found</label>
+                        <div className="d-flex justify-content-center align-items-center mt-3">
+                          <a href="./itinerary" className="text-light">
+                            <Button size="lg" variant="info" className="text-light">
+                              Create New Trip
+                            </Button>
+                          </a>
+                        </div>        
+                      </Row>
+                    </Alert>
+                </div>
+              )
+          }
         </Row>
 
         {/* Expense Tracking */}
         <h5>Expense Tracking</h5>
-        <Card className="bg-dark text-white p-4 mb-4 main-shadow">
-          <h3>$2,500</h3>
-          <p>Last 30 days <span className="text-success">+15%</span></p>
-          {/* Placeholder for chart */}
-          <div className="d-flex justify-content-between mt-3">
-            <div>Food </div>
-            <div>Accommodation </div>
-            <div>Activities </div>
-            <div>Transport </div>
-          </div>
-        </Card>
+        {
+          upcomingTrips?.length > 0 ?
+          <Card className="bg-dark text-white p-4 mb-4 main-shadow">
+            <h3>$2,500</h3>
+            <p>Last 30 days <span className="text-success">+15%</span></p>
+            {/* Placeholder for chart */}
+            <div className="d-flex justify-content-between mt-3">
+              <div>Food </div>
+              <div>Accommodation </div>
+              <div>Activities </div>
+              <div>Transport </div>
+            </div>
+          </Card>
+          :
+          (
+            <div className="d-flex justify-content-center align-items-center py-3">
+                <Alert className="w-100 text-center bg-main-tertiary">No upcoming trip to display expenses</Alert>
+            </div>
+          )
+        }
 
         {/* Personalized Recommendations */}
         {/* <h5>Personalized Recommendations</h5>

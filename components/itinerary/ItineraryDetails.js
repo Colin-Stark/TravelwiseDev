@@ -1,7 +1,7 @@
 import { Alert, Col, Form, Row, Tab, Tabs } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { formatMinutes, formatCurrency, getCityList } from '@/lib/airportData';
+import { formatMinutes, formatCurrency, getCityList, formatUTCDate } from '@/lib/airportData';
 import { DatePickerField } from '../DatePickerField';
 import { useEffect, useRef, useState } from 'react';
 import * as formik from 'formik';
@@ -12,29 +12,42 @@ import { getUser, getUserFlights, getUserHotels } from '@/lib/userData';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import moment from 'moment';
 
-export default function ItineraryDetails({show, handleModalClose, handleAction, itineraryObj, status, action, countryObj, countryOptions, theme}) {
+export default function ItineraryDetails({show, handleModalClose, handleAction, itineraryObj, status, action, countryObj, countryOptions, userFlights, flightMap, userHotels, hotelMap, theme}) {
     const [user, setUser] = useAtom(userAtom);
-    
+    const [isLoading, setIsLoading] = useState(false);
     const [warning, setWarning] = useState("");
     const [customFlight, setCustomFlight] = useState(action === "add" ? false : !itineraryObj.flight?.departure_token);
     const [customHotel, setCustomHotel] = useState(action === "add" ? false : !itineraryObj.hotel?.property_token);
     const [country, setCountry] = useState(action === "add" ? "" : itineraryObj.country);
     const [city, setCity] = useState(action === "add" ? "" : itineraryObj.city);
-    const [userFlights, setUserFlights] = useState([]);
-    const [userHotels, setUserHotels] = useState([]);
+    // const [userFlights, setUserFlights] = useState([]);
+    // const [userHotels, setUserHotels] = useState([]);
     const [cityOptions, setCityOptions] = useState([]);
-    const inputRef = useRef(null);
 
     const initialValues = {
         title : action === "add" ? "" : itineraryObj.title,
         description : action === "add" ? "" : itineraryObj.description,
-        start_date : action === "add" ? "" : itineraryObj.start_date,
-        end_date : action === "add" ? "" : itineraryObj.end_date,
+        start_date : action === "add" ? "" : moment(formatUTCDate(itineraryObj.start_date)).format("MM/DD/YYYY"),
+        end_date : action === "add" ? "" : moment(formatUTCDate(itineraryObj.end_date)).format("MM/DD/YYYY"),
         country : action === "add" ? "" : itineraryObj.country,
         city : action === "add" ? "" : itineraryObj.city,
-        flight : action === "add" ? "" : itineraryObj.flight?.departure_token,
-        hotel : action === "add" ? "" : itineraryObj.hotel?.property_token,
+        flight : action === "add" ? "" : 
+            (flightMap.hasOwnProperty(itineraryObj.flight?.departure_token) ?
+            flightMap[itineraryObj.flight?.departure_token]
+            :
+            ""
+            ),
+        hotel : action === "add" ? "" : 
+            (hotelMap.hasOwnProperty(itineraryObj.hotel?.property_token) ?
+            hotelMap[itineraryObj.hotel?.property_token]
+            :
+            ""
+            ),
     };
+
+    const inputRef = useRef(null);
+
+    const dateFmt = "YYYY-MM-DD";
 
     const { Formik } = formik;
     const schema = yup.object().shape({
@@ -43,6 +56,7 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
     });
 
     useEffect(() => {
+        console.log(itineraryObj);
         setCustomFlight(action === "add" ? false : !itineraryObj.flight?.departure_token);
 
         if(show === true) {
@@ -71,44 +85,115 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
     }
 
     async function loadData() {
+        setIsLoading(true);
         const data = await getUser();
         setUser(data);
 
-        setUserFlights(await getUserFlights(data?.id));
-        setUserHotels(await getUserHotels(data?.id));
+        // const dataFlights = await getUserFlights(data?.email);
+        // console.log(dataFlights);
+        // setUserFlights(dataFlights);
+        // var flightIndex = "";
+        // var i = 0;
+        // for(const flight of dataFlights) {
+        //     if(flight.flights[0].departure_token === itineraryObj.flight?.departure_token) {
+        //         console.log(i);
+        //         flightIndex = i;
+        //     }
+        //     i++;
+        // }
+
+        // const dataHotels = await getUserHotels(data?.email);
+        // console.log(dataHotels);
+        // setUserHotels(dataHotels);
+        // var hotelIndex = "";
+        // i = 0;
+        // for(const hotel of dataHotels) {
+        //     if(hotel.departure_token === itineraryObj.hotel?.property_token) {
+        //         hotelIndex = i;
+        //     }
+        //     i++;
+        // }
+
+        // setInitialValues({
+        //     ...initialValues,
+        //     "flight": flightIndex,
+        //     "hotel": hotelIndex,
+        // })
+
+        setIsLoading(false);
 
     }
 
      const handleSubmit = (values) => {
         setWarning("");
         
-        var country = customFlight ? values.country : "";
-        var city = customFlight ? values.city : "";
-        var start_date = customFlight ? values.start_date : "";
-        var end_date = customFlight ? values.end_date : "";
+        var country = customFlight ? values.country : (
+            userFlights.hasOwnProperty(values.flight) ?
+            userFlights[values.flight].flights[0].arrival_country
+            :
+            "" 
+        );
+        var city = customFlight ? values.city : (
+            userFlights.hasOwnProperty(values.flight) ?
+            userFlights[values.flight].flights[0].arrival_city
+            :
+            "" 
+        );
+        var start_date = customFlight ? values.start_date : (
+            userFlights.hasOwnProperty(values.flight) ?
+            formatUTCDate(userFlights[values.flight].flights[0].departure_date)
+            :
+            "" 
+        );
+        var end_date = customFlight ? values.end_date : (
+            userFlights.hasOwnProperty(values.flight) ?
+            formatUTCDate(userFlights[values.flight].flights[0].return_date)
+            :
+            "" 
+        );
+        var departure_token = customFlight ? "" : (
+            userFlights.hasOwnProperty(values.flight) ?
+            userFlights[values.flight].flights[0].departure_token
+            :
+            "" 
+        );
+        var flight_price = customFlight ? "" : (
+            userFlights.hasOwnProperty(values.flight) ?
+            userFlights[values.flight].flights[0].price
+            :
+            "" 
+        );
+        var property_token = userHotels.hasOwnProperty(values.hotel) ?
+            userHotels[values.hotel].property_token
+            :
+            "";
+        var hotel_price = userHotels.hasOwnProperty(values.hotel) ?
+            userHotels[values.hotel].price
+            :
+            "";
 
         //change start date and end date format
-        if(customFlight) {
-            start_date = start_date ? moment(start_date).format('YYYY-MM-DD') : "";
-            end_date = end_date ? moment(end_date).format('YYYY-MM-DD') : "";
-        }
+        // if(customFlight) {
+            start_date = start_date ? moment(start_date).format(dateFmt) : "";
+            end_date = end_date ? moment(end_date).format(dateFmt) : "";
+        // }
 
         //retrieve data from flight if selected
-        if(values.flight) {
-            for(const flight of userFlights) {
-                if(flight.departure_token == values.flight) {
-                    country = flight.arrival_country;
-                    city = flight.arrival_city;
-                    start_date = flight.outbound_date;
-                    end_date = flight.return_date;
-                    break;
-                }
-            }
-        }
+        // if(values.flight) {
+        //     for(const flight of userFlights) {
+        //         if(flight.departure_token == values.flight) {
+        //             country = flight.arrival_country;
+        //             city = flight.arrival_city;
+        //             start_date = flight.outbound_date;
+        //             end_date = flight.return_date;
+        //             break;
+        //         }
+        //     }
+        // }
 
-        if(!values.hotel) {
-            values.hotel = null;
-        }
+        // if(!values.hotel) {
+        //     values.hotel = null;
+        // }
 
         if(!values.title) {
             setWarning("Title must not be empty");
@@ -178,8 +263,10 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
             start_date : start_date,
             end_date : end_date,
             gl: gl,
-            departure_token: values.flight,
-            property_token: values.hotel,
+            departure_token: departure_token,
+            flight_price: flight_price,
+            property_token: property_token,
+            hotel_price: hotel_price,
         }
 
         handleAction(itineraryObj, formData);
@@ -234,10 +321,10 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
                     <Col xs={12}>
                         <Form.Group controlId="flightSelect">
                             <Form.Label className="fw-bold">Flight</Form.Label>
-                            <Form.Select name="flight" value={values.flight} onChange={handleChange} disabled={customFlight}>
+                            <Form.Select name="flight" value={values.flight} onChange={handleChange} disabled={customFlight || !userFlights || userFlights.length <= 0}>
                                 <option className='text-secondary' value={""}>{"-- Select a Saved Flight --"}</option>
-                            {userFlights.map((flight, index) => {
-                                return <option key={`user_flight_${index}`} value={flight.departure_token}>{`${flight.arrival_city}, ${flight.arrival_country} (${flight.outbound_date} - ${flight.return_date})`}</option>
+                            {userFlights?.map((flight, index) => {
+                                return <option key={`user_flight_${index}`} value={index}>{`${flight.flights[0].arrival_city}, ${flight.flights[0].arrival_country} (${moment(formatUTCDate(flight.flights[0].departure_date)).format(dateFmt)} - ${moment(formatUTCDate(flight.flights[0].return_date)).format(dateFmt)})`}</option>
                             })}
                             </Form.Select>
                         </Form.Group>                         
@@ -331,10 +418,10 @@ export default function ItineraryDetails({show, handleModalClose, handleAction, 
                     <Col xs={12}>
                         <Form.Group controlId="hotelSelect">
                             <Form.Label className="fw-bold">Hotel</Form.Label>
-                            <Form.Select name="hotel" value={values.hotel} onChange={handleChange} disabled={false}>
+                            <Form.Select name="hotel" value={values.hotel} onChange={handleChange} disabled={!userHotels || userHotels.length <= 0}>
                                 <option className='text-secondary' value={""}>{"-- Select a Saved Hotel --"}</option>
-                            {userHotels.map((hotel, index) => {
-                                return <option key={`user_hotel_${index}`} value={hotel.property_token}>{`${hotel.name} (${hotel.check_in_date} - ${hotel.check_out_date})`}</option>
+                            {userHotels?.map((hotel, index) => {
+                                return <option key={`user_hotel_${index}`} value={index}>{`${hotel.name} (${moment(formatUTCDate(hotel.check_in_date)).format(dateFmt)} - ${moment(formatUTCDate(hotel.check_out_date)).format(dateFmt)})`}</option>
                             })}
                             </Form.Select>
                         </Form.Group>                         

@@ -4,7 +4,8 @@ import { Form, Button, Card } from 'react-bootstrap';
 import styles from '@/styles/paymentPage.module.css';
 import { useAtom } from 'jotai';
 import { isBlockedAtom, selectedFlightAtom, selectedHotelAtom, userAtom } from '@/store';
-import { addUserFlight, getUser } from '@/lib/userData';
+import { addUserFlight, addUserHotel, getUser } from '@/lib/userData';
+import { Commet } from 'react-loading-indicators';
 
 export default function Payment() {
     const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
@@ -25,6 +26,7 @@ export default function Payment() {
     const [error, setError] = useState('');
 
     useEffect(() => {
+        setIsBlocked(false);
         loadData();
 
         if(!user || (!selectedFlight && !selectedHotel)) {
@@ -37,10 +39,11 @@ export default function Payment() {
             subtotal += selectedFlight.flightObj.price;
         }
         if(selectedHotel) {
-            subtotal += selectedHotel.hotelObj.price;
+            subtotal += selectedHotel.hotelObj.rate_per_night.extracted_lowest;
         }
 
         console.log(selectedFlight);
+        console.log(selectedHotel);
 
         const tax = subtotal * 0.13;
         setTaxes(tax);
@@ -64,34 +67,61 @@ export default function Payment() {
         }
 
         setIsBlocked(true);
-        //add to user's flight
 
-        const flightObj = selectedFlight.flightObj;
-        const properties = {
-            "email": user?.email,
-            "userId": user?.id,
-            "departure_date": selectedFlight.outbound_date,
-            "return_date": selectedFlight.return_date,
-            "departure_country": selectedFlight.departure_country,
-            "departure_city": selectedFlight.departure_city,
-            "arrival_country": selectedFlight.arrival_country,
-            "arrival_city": selectedFlight.arrival_city,
-            "departure_token": flightObj.departure_token,
-            "price": flightObj.price,
+        //add to user's flight
+        if(selectedFlight) {
+            const flightObj = selectedFlight.flightObj;
+            const properties = {
+                "email": user?.email,
+                "userId": user?.id,
+                "departure_date": selectedFlight.outbound_date,
+                "return_date": selectedFlight.return_date,
+                "departure_country": selectedFlight.departure_country,
+                "departure_city": selectedFlight.departure_city,
+                "arrival_country": selectedFlight.arrival_country,
+                "arrival_city": selectedFlight.arrival_city,
+                "departure_token": flightObj.departure_token,
+                "price": flightObj.price,
+            }
+
+            console.log(properties);
+            await addUserFlight(properties);
         }
 
-        console.log(properties);
-        await addUserFlight(properties);
+        //add to user's hotel
+        if(selectedHotel) {
+            const hotelObj = selectedHotel.hotelObj;
+            const properties = {
+                "email": user?.email,
+                "name": hotelObj.name,
+                "check_in_date": selectedHotel.check_in_date,
+                "check_out_date": selectedHotel.check_out_date,
+                "property_token": hotelObj.property_token,
+                "price": hotelObj.rate_per_night.extracted_lowest,
+                "latitude": hotelObj.gps_coordinates.latitude,
+                "longitude": hotelObj.gps_coordinates.longitude,
+                "country": selectedHotel.country,
+                "city": selectedHotel.city,
+            }
 
-        setIsBlocked(false);
+            console.log(properties);
+            await addUserHotel(properties);
+        }
+        
+
         // setError('');
         // alert(`Payment successful! Total charged: $${total.toFixed(2)}`);
-        // router.push('/');
+        router.push('/');
     };
 
     if (!query) return <div className={styles.loading}>Loading...</div>;
 
     return (
+        isLoading ?
+        <div className="d-flex justify-content-center align-items-center py-3">
+            <Commet size='large' color={["#32cd32", "#327fcd", "#cd32cd", "#cd8032"]} />
+        </div>
+        :
         <div className={styles.container}>
             <Card className={styles.card}>
                 <h2 className={styles.title}>Payment</h2>
@@ -169,7 +199,7 @@ export default function Payment() {
                                 {selectedHotel &&
                                 <div className={styles.summaryRow}>
                                     <span>Hotel:</span>
-                                    <span>${parseFloat(selectedHotel.hotelObj.price || 0).toFixed(2)}</span>
+                                    <span>${parseFloat(selectedHotel.hotelObj.rate_per_night.extracted_lowest || 0).toFixed(2)}</span>
                                 </div>
                                 }
                             </>

@@ -6,7 +6,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Alert, Button, Card, Row, Tab, Tabs } from 'react-bootstrap';
 import { Commet } from 'react-loading-indicators';
 import { ThemeContext } from "@/pages/_app";
-import { fetchCountryData, getCountryList } from '@/lib/airportData';
+import { fetchCountryData, formatUTCDate, getCountryList } from '@/lib/airportData';
 import ItineraryDetails from '@/components/itinerary/ItineraryDetails';
 import { getLocationList, getLocationPhotos } from '@/lib/locationData';
 import LocationCard from '@/components/itinerary/LocationCard';
@@ -405,6 +405,7 @@ const ManageSchedulePage = () => {
     const [warning, setWarning] = useState("");
     const [countryObj, setCountryObj] = useState([]);
     const [showAddModal, setShowAddModal] = useState(false);
+    const [selectedTab, setSelectedTab] = useState("day_0");
 
     const handleModalShow = (event) => {
         setShowAddModal(true);
@@ -437,16 +438,18 @@ const ManageSchedulePage = () => {
         setUser(data_user);
 
         //get itinerary
-        const data_itinerary = await loadItinerary();    
+        const data_itinerary = await loadItinerary(data_user);    
         
         if(!data_itinerary) {
             return;
         }
 
+        console.log(data_itinerary);
+
         //set number of days
         var tmpDays = [];
-        var tmpDate = moment(data_itinerary.start_date);
-        const endDate = moment(data_itinerary.end_date);
+        var tmpDate = moment(formatUTCDate(data_itinerary.start_date));
+        const endDate = moment(formatUTCDate(data_itinerary.end_date));
         var i=0;
         while(tmpDate.isBefore(endDate) || tmpDate.isSame(endDate)) {
             const formattedDate = tmpDate.format('MMM DD, YYYY');
@@ -464,7 +467,7 @@ const ManageSchedulePage = () => {
         setIsLoading(false); //remove loading
     }
 
-    async function loadItinerary() {
+    async function loadItinerary(data_user=null) {
         setWarning("");
         setIsLoading(true); //show loading
 
@@ -472,150 +475,86 @@ const ManageSchedulePage = () => {
         //get itinerary id from url
         const queryParams = new URLSearchParams(window.location.search);
         const itinerary_id = queryParams.get("id");
-        // try {
-        //     const res = await fetch("/api/itinerary/get-itinerary", {  // Changed to same-origin API route
-        //         method: 'POST',
-        //         headers: {
-        //             'content-type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             email: user?.email,
-        //             itinerary_id:  itinerary_id,
-        //         }),
-        //     });
+        const tmpUser = data_user ? data_user : user;
+        try {
+            const res = await fetch("/api/itinerary/get-itinerary", {  // Changed to same-origin API route
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: tmpUser?.email,
+                    itinerary_id:  itinerary_id,
+                }),
+            });
 
-        //     data = await res.json();
-        //     if (!res.ok) {
-        //         // Try to parse error message from server
-        //         let errorMsg = "Error loading itinerary";
-        //         try {
-        //             errorMsg = data.message || errorMsg;
-        //         } catch (e) { }
-        //         setWarning(errorMsg);
-        //         setIsLoading(false); //hide loading
-        //         return;
-        //     }
-        //     setItinerary(data);
-        //     setItineraryId(itinerary_id);
-
-        // } catch (err) {
-        //     setWarning("Network error: " + err.message);
-        // }
-        //dummy itinerary
-        for(const trip of upcomingItineraries) {
-            if((""+trip.id) === (""+itinerary_id)) {
-                data = trip;
-                break;
+            data = await res.json();
+            if (!res.ok) {
+                // Try to parse error message from server
+                let errorMsg = "Error loading itinerary";
+                try {
+                    errorMsg = data.message || errorMsg;
+                } catch (e) { }
+                setWarning(errorMsg);
+                setIsLoading(false); //hide loading
+                return;
             }
+            setItinerary(data.data);
+            setItineraryId(itinerary_id);
+
+            console.log(data.data);
+
+        } catch (err) {
+            setWarning("Network error: " + err.message);
         }
-        if(!data) {
-            data = upcomingItineraries[0];
-        }
-        setItinerary(data);
-        setItineraryId(itinerary_id);
+        //dummy itinerary
+        // for(const trip of upcomingItineraries) {
+        //     if((""+trip.id) === (""+itinerary_id)) {
+        //         data = trip;
+        //         break;
+        //     }
+        // }
+        // if(!data) {
+        //     data = upcomingItineraries[0];
+        // }
+        // setItinerary(data);
+        // setItineraryId(itinerary_id);
 
         setIsLoading(false);
 
-        return data;
+        return data.data;
     }
 
-    const handleAdd = async (loc, formValues) => {
+    const handleAdd = async (loc, formValues) => {    
         setWarning("");
         setIsLoading(true); //show loading
 
         loc = {
-            ...loc,
+            data_id: loc.data_id,
+            title: loc.title,
+            place_id: loc.place_id,
+            rating: loc.rating,
+            reviews: loc.reviews,
+            type: loc.type,
+            address: loc.address,
+            open_state: loc.open_state,
+            description: loc.description,
+            service_options: loc.service_options,
+            user_review: loc.user_review,
+            thumbnail: loc.thumbnail,
+            serpapi_thumbnail: loc.serpapi_thumbnail,
             time: formValues.time,
             duration: formValues.duration,
-            cost: formValues.cost,
-            travel_mode: formValues.travel_mode,
-            travel_time: formValues.travel_time,
-            form_type: 1,
+            // cost: formValues.cost,
+            // travel_mode: formValues.travel_mode,
+            // travel_time: formValues.travel_time,
         }
 
-        //get location image
-        if(!itinerary.img) {
-            const img_properties = {
-                data_id : loc.data_id,
-            }
-            const dataImg = await getLocationPhotos(img_properties);
-            for(const photo of dataImg?.photos) {
-                if(photo.image) {
-                    console.log("added img", photo.image);
-                    var tmpIter = itinerary;
-                    tmpIter.img = photo.image;
-
-                    setItinerary(tmpIter);
-                    break;
-                }
-            }
-        }
-
-        // try {
-        //     const res = await fetch("/api/itinerary/add-location", {  // Changed to same-origin API route
-        //         method: 'POST',
-        //         headers: {
-        //             'content-type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             itinerary_id: itineraryId,
-        //             day: day,
-        //             location: loc,
-        //         }),
-        //     });
-
-        //     const data = await res.json();
-        //     if (!res.ok) {
-        //         // Try to parse error message from server
-        //         let errorMsg = "Error deleting itinerary";
-        //         try {
-        //             errorMsg = data.message || errorMsg;
-        //         } catch (e) { }
-        //         setWarning(errorMsg);
-        //         setIsLoading(false); //hide loading
-        //         return;
-        //     }
-
-        //     if(type === "past") {
-        //         setPastTrips(data);
-        //     }
-        //     else {
-        //         setUpcomingTrips(data);
-        //     }
-
-        // } catch (err) {
-        //     setWarning("Network error: " + err.message);
-        // }
-
-        //reload list
-        await loadItinerary();
-
-        //dummy add
-        // var tmpTrips = [];
-        // if(status === "past") {
-        //     for(const trip of pastTrips) {
-        //         if(trip.id !== itinerary.id) {
-        //             tmpTrips.push(trip);
-        //         }
-        //     }
-
-        //     setPastTrips(tmpTrips);
-        // }
-        // else {
-        //     for(const trip of upcomingTrips) {
-        //         if(trip.id !== itinerary.id) {
-        //             tmpTrips.push(trip);
-        //         }
-        //     }
-
-        //     setUpcomingTrips(tmpTrips);
-        // }
-        //dummy add
         var tmpSchedules = itinerary.schedules;
         var tmpSched = null;
         var i=0;
         for(const sched of tmpSchedules) {
-            if(moment(sched.day).isSame(moment(formValues.day))) {
+            if(moment(formatUTCDate(sched.day)).isSame(moment(formValues.day))) {
                 tmpSched = sched;
                 break;
             }
@@ -637,16 +576,54 @@ const ManageSchedulePage = () => {
             tmpSched.locations.sort((a,b)=>new Date("2025-12-12 "+a.time) - new Date("2025-12-12 "+b.time));
             tmpSchedules[i] = tmpSched;
         }
-        
-        const tmpItinerary = {
-            ...itinerary,
+
+        const properties = {
+            email: user?.email,
+            title: itinerary.title,
+            start_date: formatUTCDate(itinerary.start_date),
+            end_date: formatUTCDate(itinerary.end_date),
+            country: itinerary.country,
+            city: itinerary.city,
+            description: itinerary.description,
+            img: itinerary.img,
+            flight: itinerary.flight,
+            hotel: itinerary.hotel,
             schedules: tmpSchedules,
-        };
-        setItinerary(tmpItinerary);
-        console.log(tmpItinerary);
+            gl: itinerary.gl,
+        }
+
+        const propertyObj = {
+            urlParam: itinerary._id,
+            properties: properties,
+        }
+
+        try {
+            const res = await fetch("/api/itinerary/edit-itinerary", {  // Changed to same-origin API route
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify(propertyObj),
+            });
+
+            const data = await res.json();
+            if (!res.ok) {
+                // Try to parse error message from server
+                let errorMsg = "Error updating itinerary";
+                try {
+                    errorMsg = data.message || errorMsg;
+                } catch (e) { }
+                setWarning(errorMsg);
+                setIsLoading(false); //hide loading
+                return;
+            }
+
+        } catch (err) {
+            setWarning("Network error: " + err.message);
+        }
 
         //reload list
-        //await loadItinerary();
+        await loadItinerary();
 
         setIsLoading(false); //hide loading
     
@@ -657,66 +634,38 @@ const ManageSchedulePage = () => {
         setIsLoading(true); //show loading
 
         loc = {
-            ...loc,
+            data_id: loc.data_id,
+            title: loc.title,
+            place_id: loc.place_id,
+            rating: loc.rating,
+            reviews: loc.reviews,
+            type: loc.type,
+            address: loc.address,
+            open_state: loc.open_state,
+            description: loc.description,
+            service_options: loc.service_options,
+            user_review: loc.user_review,
+            thumbnail: loc.thumbnail,
+            serpapi_thumbnail: loc.serpapi_thumbnail,
             time: formValues.time,
             duration: formValues.duration,
-            cost: formValues.cost,
-            travel_mode: formValues.travel_mode,
-            travel_time: formValues.travel_time,
-            form_type: 1,
+            // cost: formValues.cost,
+            // travel_mode: formValues.travel_mode,
+            // travel_time: formValues.travel_time,
         }
 
-        console.log(itinerary);
-
-        // try {
-        //     const res = await fetch("/api/itinerary/edit-location", {  // Changed to same-origin API route
-        //         method: 'POST',
-        //         headers: {
-        //             'content-type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             itinerary_id: itineraryId,
-        //             day: day,
-        //             time: formValues.time,
-        //             location: loc,
-        //         }),
-        //     });
-
-        //     const data = await res.json();
-        //     if (!res.ok) {
-        //         // Try to parse error message from server
-        //         let errorMsg = "Error deleting itinerary";
-        //         try {
-        //             errorMsg = data.message || errorMsg;
-        //         } catch (e) { }
-        //         setWarning(errorMsg);
-        //         setIsLoading(false); //hide loading
-        //         return;
-        //     }
-
-        //     if(type === "past") {
-        //         setPastTrips(data);
-        //     }
-        //     else {
-        //         setUpcomingTrips(data);
-        //     }
-
-        // } catch (err) {
-        //     setWarning("Network error: " + err.message);
-        // }
-        //dummy edit
         var tmpSchedules = itinerary.schedules;
         var tmpSched = null;
         var i=0;
         for(const sched of tmpSchedules) {
-            if(moment(sched.day).isSame(moment(formValues.day))) {
+            if(moment(formatUTCDate(sched.day)).isSame(moment(formValues.day))) {
                 tmpSched = sched;
                 break;
             }
             i++;
         }
         var j=0;
-        for(const l of tmpSched.locations) {
+        for(const l of tmpSched?.locations) {
             if(l.time === formValues.prevTime) {
                 break;
             }
@@ -726,16 +675,54 @@ const ManageSchedulePage = () => {
         //sort
         tmpSched.locations.sort((a,b)=>new Date("2025-12-12 "+a.time) - new Date("2025-12-12 "+b.time));
         tmpSchedules[i] = tmpSched;
-        
-        const tmpItinerary = {
-            ...itinerary,
+
+        const properties = {
+            email: user?.email,
+            title: itinerary.title,
+            start_date: formatUTCDate(itinerary.start_date),
+            end_date: formatUTCDate(itinerary.end_date),
+            country: itinerary.country,
+            city: itinerary.city,
+            description: itinerary.description,
+            img: itinerary.img,
+            flight: itinerary.flight,
+            hotel: itinerary.hotel,
             schedules: tmpSchedules,
-        };
-        setItinerary(tmpItinerary);
-        console.log(tmpItinerary);
+            gl: itinerary.gl,
+        }
+
+        const propertyObj = {
+            urlParam: itinerary._id,
+            properties: properties,
+        }
+
+        try {
+            const res = await fetch("/api/itinerary/edit-itinerary", {  // Changed to same-origin API route
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify(propertyObj),
+            });
+
+            const data = await res.json();
+            if (!res.ok) {
+                // Try to parse error message from server
+                let errorMsg = "Error updating itinerary";
+                try {
+                    errorMsg = data.message || errorMsg;
+                } catch (e) { }
+                setWarning(errorMsg);
+                setIsLoading(false); //hide loading
+                return;
+            }
+
+        } catch (err) {
+            setWarning("Network error: " + err.message);
+        }
 
         //reload list
-        //await loadItinerary();
+        await loadItinerary();
 
         setIsLoading(false); //hide loading
     
@@ -746,46 +733,11 @@ const ManageSchedulePage = () => {
         setWarning("");
         setIsLoading(true); //show loading
 
-        // try {
-        //     const res = await fetch("/api/itinerary/delete-location", {  // Changed to same-origin API route
-        //         method: 'POST',
-        //         headers: {
-        //             'content-type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             time: loc.time,
-        //             day: day,
-        //         }),
-        //     });
-
-        //     const data = await res.json();
-        //     if (!res.ok) {
-        //         // Try to parse error message from server
-        //         let errorMsg = "Error deleting itinerary";
-        //         try {
-        //             errorMsg = data.message || errorMsg;
-        //         } catch (e) { }
-        //         setWarning(errorMsg);
-        //         setIsLoading(false); //hide loading
-        //         return;
-        //     }
-
-        //     if(type === "past") {
-        //         setPastTrips(data);
-        //     }
-        //     else {
-        //         setUpcomingTrips(data);
-        //     }
-
-        // } catch (err) {
-        //     setWarning("Network error: " + err.message);
-        // }
-        //dummy delete
         var tmpSchedules = itinerary.schedules;
         var tmpSched = null;
         var i=0;
         for(const sched of tmpSchedules) {
-            if(moment(sched.day).isSame(moment(day))) {
+            if(moment(formatUTCDate(sched.day)).isSame(moment(day))) {
                 tmpSched = sched;
                 break;
             }
@@ -800,17 +752,54 @@ const ManageSchedulePage = () => {
         }
         tmpSched.locations = tmpLoc;
         tmpSchedules[i] = tmpSched;
-        
-        const tmpItinerary = {
-            ...itinerary,
+
+        const properties = {
+            email: user?.email,
+            title: itinerary.title,
+            start_date: formatUTCDate(itinerary.start_date),
+            end_date: formatUTCDate(itinerary.end_date),
+            country: itinerary.country,
+            city: itinerary.city,
+            description: itinerary.description,
+            img: itinerary.img,
+            flight: itinerary.flight,
+            hotel: itinerary.hotel,
             schedules: tmpSchedules,
-        };
-        
-        setItinerary(tmpItinerary);
-        console.log(tmpItinerary);
+            gl: itinerary.gl,
+        }
+
+        const propertyObj = {
+            urlParam: itinerary._id,
+            properties: properties,
+        }
+
+        try {
+            const res = await fetch("/api/itinerary/edit-itinerary", {  // Changed to same-origin API route
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify(propertyObj),
+            });
+
+            const data = await res.json();
+            if (!res.ok) {
+                // Try to parse error message from server
+                let errorMsg = "Error updating itinerary";
+                try {
+                    errorMsg = data.message || errorMsg;
+                } catch (e) { }
+                setWarning(errorMsg);
+                setIsLoading(false); //hide loading
+                return;
+            }
+
+        } catch (err) {
+            setWarning("Network error: " + err.message);
+        }
 
         //reload list
-        //await loadItinerary();
+        await loadItinerary();
 
         setIsLoading(false); //hide loading
     
@@ -831,7 +820,7 @@ const ManageSchedulePage = () => {
         <div className="mx-sm-2 mx-md-5">
             <div className='d-flex justify-content-between my-3'>
                 <label><strong>Main Location: </strong>{`${itinerary?.city}, ${itinerary?.country}`}</label>
-                <Button className='btn-info text-light' onClick={handleModalShow}>Add Location to Schedule</Button>
+                <Button className='btn-info text-light' onClick={handleModalShow}><i className='bi bi-plus-circle me-2'></i>Add Location to Schedule</Button>
             </div>
             <LocationDetails
                 show={showAddModal}
@@ -856,18 +845,19 @@ const ManageSchedulePage = () => {
             )
             :
             (
-            <Tabs defaultActiveKey="day_0" id="days_tab" className="mb-3" onSelect={(tabId)=>{
+            <Tabs defaultActiveKey={selectedTab} id="days_tab" className="mb-3" onSelect={(tabId)=>{
                 const dayIndexArr = tabId.split("_");
                 const dayIndex = dayIndexArr[1]
                 const tmpDay = days[dayIndex];
                 setSelectedDay(tmpDay);
+                setSelectedTab(tabId);
             }}>
             {
                 days.map((day, index)=> {
                 
                 var tmpSchedule = null;
                 for(const schedule of itinerary?.schedules) {
-                    if(moment(schedule?.day).isSame(moment(day))) {
+                    if(moment(formatUTCDate(schedule?.day)).isSame(moment(day))) {
                         tmpSchedule = schedule;
                         break;
                     }

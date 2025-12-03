@@ -3,13 +3,14 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../_app";
 import { useAtom } from "jotai";
-import { isBlockedAtom } from "@/store";
+import { isBlockedAtom, selectedHotelAtom } from "@/store";
 import SearchHotelStep1 from "@/components/hotel/SearchHotelStep1";
 import SearchHotelStep2 from "@/components/hotel/SearchHotelStep2";
 import SearchHotelStep3 from "@/components/hotel/SearchHotelStep3";
 
 export default function SearchHotel() {
     const [isBlocked, setIsBlocked] = useAtom(isBlockedAtom);
+    const [selectedHotel, setSelectedHotel] = useAtom(selectedHotelAtom);
     const { theme } = useContext(ThemeContext);
     const router = useRouter();
     const [pageCount, setPageCount] = useState(1);
@@ -29,31 +30,31 @@ export default function SearchHotel() {
     }, [router.query, setIsBlocked]);
 
     const handleBookHotel = (hotelData) => {
-        const allData = { ...formData, ...hotelData };
+        // const allData = { ...formData, ...hotelData };
 
-        // Only pass serializable fields in query
-        const queryData = {
-            flightPrice: allData.flightPrice,
-            flightName: allData.flightName,
-            hotelPrice: allData.hotelPrice,
-            hotelName: allData.hotelName,
-            // Include other primitive fields from formData if needed
-            departure_city: allData.departure_city,
-            arrival_city: allData.arrival_city,
-            outbound_date: allData.outbound_date,
-            return_date: allData.return_date,
-            check_in_date: allData.check_in_date,
-            check_out_date: allData.check_out_date,
-            adults: allData.adults,
-            children: allData.children,
-            currency: allData.currency,
-        };
+        // // Only pass serializable fields in query
+        // const queryData = {
+        //     flightPrice: allData.flightPrice,
+        //     flightName: allData.flightName,
+        //     hotelPrice: allData.hotelPrice,
+        //     hotelName: allData.hotelName,
+        //     // Include other primitive fields from formData if needed
+        //     departure_city: allData.departure_city,
+        //     arrival_city: allData.arrival_city,
+        //     outbound_date: allData.outbound_date,
+        //     return_date: allData.return_date,
+        //     check_in_date: allData.check_in_date,
+        //     check_out_date: allData.check_out_date,
+        //     adults: allData.adults,
+        //     children: allData.children,
+        //     currency: allData.currency,
+        // };
 
         // Check if both flightPrice and hotelPrice exist
-        router.push({
-            pathname: '/payment/payment',
-            query: queryData,
-        });
+        // router.push({
+        //     pathname: '/payment/payment',
+        //     query: queryData,
+        // });
         // if (allData.flightPrice && allData.hotelPrice) {
         //     router.push({
         //         pathname: '/payment/payment',
@@ -65,6 +66,12 @@ export default function SearchHotel() {
         //         query: queryData,
         //     });
         // }
+
+        setSelectedHotel(hotelData);
+
+        router.push({
+            pathname: '/payment/payment',
+        });
     };
 
     const handleNext = (data) => {

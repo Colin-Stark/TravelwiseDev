@@ -1,15 +1,15 @@
 import Link from "next/link";
 import { Image } from "react-bootstrap";
 
-export default function Sidebar() {
+export default function Sidebar({user}) {
   return (
     <div className="bg-dark text-white p-4 rounded h-100">
       {/* User Info */}
       <div className="d-flex align-items-center mb-4">
-        <Image src="/avatar.png" roundedCircle width="50" height="50" alt="avatar" />
+        <Image src="/images/user_default.png" roundedCircle width="50" height="50" alt="avatar" />
         <div className="ms-3">
-          <h5>Marc Gurwitz</h5>
-          <small className="text-muted">marc.gurwitz@icloud.com</small>
+          <h5>{user?.firstName ? `${user?.firstName} ${user?.lastName}`.trim() : ""}</h5>
+          <small className="text-muted">{user?.email}</small>
         </div>
       </div>
 

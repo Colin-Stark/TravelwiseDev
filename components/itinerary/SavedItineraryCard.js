@@ -1,16 +1,15 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Badge, Image, Accordion, ListGroup, Button } from 'react-bootstrap';
-import { formatMinutes } from '@/lib/airportData';
+import { formatMinutes, formatUTCDate } from '@/lib/airportData';
 import ConfirmItineraryDelete from './ConfirmItineraryDelete';
 import ItineraryDetails from './ItineraryDetails';
 import { getUpcomingLocation } from '@/lib/locationData';
 
-const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handleSummary, handleSchedule, countryObj, countryOptions, theme}) => {
-
-    const startDate = moment(itinerary.start_date);
+const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handleSummary, handleSchedule, countryObj, countryOptions, userFlights, flightMap, userHotels, hotelMap, theme}) => {
+    const startDate = moment(formatUTCDate(itinerary.start_date));
     const formattedSDate = startDate.format('ddd, MMMM DD, YYYY');
-    const endDate = moment(itinerary.end_date);
+    const endDate = moment(formatUTCDate(itinerary.end_date));
     const formattedEDate = endDate.format('ddd, MMMM DD, YYYY');
     const duration = endDate.diff(startDate, 'days');
 
@@ -26,6 +25,8 @@ const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handle
     async function loadData() {
         const tmpLoc = await getUpcomingLocation(itinerary);
         setUpcomingLoc(tmpLoc);
+
+        console.log(itinerary);
     }
 
     const img = itinerary?.schedules?.length > 0 && 
@@ -80,7 +81,7 @@ const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handle
                     <Col sm={6}>
                         <Row className='justify-content-center align-items-center g-3'>
                             <Col sm={12} md={8}>
-                                <div className='d-flex justify-content-center align-items-center gap-2'>
+                                <div className='d-flex justify-content-center align-items-center gap-3'>
                                     <Image 
                                         className="location-img" 
                                         src={itinerary.img} 
@@ -104,10 +105,12 @@ const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handle
                             </Col>
                             <Col sm={12} md={4}>
                                 <Row className='g-2'>
-                                    { status === "upcoming" && (<Button className='btn-primary action-btn'  onClick={()=>handleSchedule(itinerary)}>Manage Schedules</Button>) }
-                                    <Button className='btn-warning text-light action-btn'  onClick={(e)=>handleModalShow(e, "edit")}>Edit Trip</Button>
-                                    <Button className='btn-danger action-btn' onClick={(e)=>handleModalShow(e, "delete")}>Delete Trip</Button>
-                                    </Row>
+                                    { status === "upcoming" && (
+                                        <Button className='btn-primary action-btn'  onClick={()=>handleSchedule(itinerary)} title='Manage Schedules'><label className='text-nowrap'><i className='bi bi-calendar-week me-2'></i>Manage Schedules</label></Button>
+                                    ) }
+                                    <Button className='btn-warning text-light action-btn'  onClick={(e)=>handleModalShow(e, "edit")} title='Edit Trip'><label className='text-nowrap'><i className='bi bi-pencil me-2'></i>Edit Trip</label></Button>
+                                    <Button className='btn-danger action-btn max-w-sm' onClick={(e)=>handleModalShow(e, "delete")} title='Delete Trip'><label className='text-nowrap'><i className='bi bi-trash me-2'></i>Delete Trip</label></Button>
+                                </Row>
                             </Col>
                         </Row>
                     </Col>
@@ -134,6 +137,10 @@ const SavedItineraryCard = ({itinerary, status, handleEdit, handleDelete, handle
             action="edit"
             countryObj={countryObj}
             countryOptions={countryOptions}
+            userFlights={userFlights}
+            flightMap={flightMap}
+            userHotels={userHotels}
+            hotelMap={hotelMap}
             theme={theme}
         />
     </div>

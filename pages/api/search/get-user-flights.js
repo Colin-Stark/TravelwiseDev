@@ -4,17 +4,14 @@ export default async function handler(req, res) {
     }
 
     try {
-        const paramId = req.body.urlParam;
-        const properties = req.body.properties;
-
         // Forward the request to the external server
-        const externalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/itineraries/update/${paramId}`, {
+        const externalResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/flights/list`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 // Add any other headers if needed (e.g., Authorization)
             },
-            body: JSON.stringify(properties), // Pass the request body from the frontend
+            body: JSON.stringify(req.body), // Pass the request body from the frontend
         });
 
         // Check if the external response is OK

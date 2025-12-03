@@ -127,17 +127,26 @@ export default function SearchFlightStep4(props) {
     }
 
     const handleSubmit = (hotelObj) => {
-            if (!hotelObj) return alert("Please select a hotel first");
+            // if (!hotelObj) return alert("Please select a hotel first");
 
-            const hotelPrice = hotelObj.rate_per_night?.extracted_lowest
-                ? parseFloat(hotelObj.rate_per_night.extracted_lowest)
-                : 0;
+            // const hotelPrice = hotelObj.rate_per_night?.extracted_lowest
+            //     ? parseFloat(hotelObj.rate_per_night.extracted_lowest)
+            //     : 0;
+
+            // const hotelData = {
+            //     ...props.initialData,
+            //     hotelObj,
+            //     hotelName: hotelObj.name,
+            //     hotelPrice
+            // };
+
+            // props.onBookHotel(hotelData);
+
+            if (!hotelObj) return alert("Please select a hotel first");
 
             const hotelData = {
                 ...props.initialData,
                 hotelObj,
-                hotelName: hotelObj.name,
-                hotelPrice
             };
 
             props.onBookHotel(hotelData);
