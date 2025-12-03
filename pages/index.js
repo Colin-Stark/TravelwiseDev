@@ -109,8 +109,8 @@ export default function Home() {
                 for(const schedule of trip.schedules) {
                   var dayCost = 0;
                   for(const loc of schedule.locations) {
-                    if(loc.cost && loc.cost > 0) {
-                      dayCost += loc.cost;
+                    if(loc.price && loc.price > 0) {
+                      dayCost += loc.price;
                     } 
                   }
                   totalCost += dayCost;
@@ -222,7 +222,7 @@ export default function Home() {
                   <Col key={`day_cost_${index}`}>
                     <div className="border rounded border-main-tertiary p-3">
                       <h5 className="text-main-tertiary">{`${dayObj.day}`}</h5>
-                      <div className="d-md-flex justify-content-between align-items-center gap-2">
+                      <div className="d-md-flex justify-content-start align-items-center gap-2">
                         <p>{`# of Stops: ${dayObj.stops}`}</p>
                         <p>{`Cost: ${formatCurrency(dayObj.cost, 'us-en', currentUser.preferences.currency)}`}</p>
                       </div>
