@@ -52,7 +52,7 @@ export default function LocationDetails({show, handleModalClose, handleAction, l
     const initialValues = {
         time : action === "add" ? "" : initDate,
         duration : action === "add" ? "" : locationObj.duration,
-        cost : action === "add" ? "" : locationObj.cost,
+        cost : action === "add" ? "" : locationObj.price,
         travel_mode : action === "add" ? "0" : locationObj.travel_mode,
         travel_time : action === "add" ? "" : locationObj.travel_time,
     };
