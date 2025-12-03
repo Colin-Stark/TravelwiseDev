@@ -4,7 +4,7 @@ import styles from "@/styles/GuidePage.module.css";
 
 export default function Inbox() {
   const [messages, setMessages] = useState({});
-  const [activeGuide, setActiveGuide] = useState(null); 
+  const [activeGuide, setActiveGuide] = useState(null);
   const [showChat, setShowChat] = useState(false);
 
   // Load stored messages
@@ -18,12 +18,19 @@ export default function Inbox() {
     setShowChat(true);
   };
 
+  const handleClose = () => {
+    setShowChat(false);
+    setActiveGuide(null);
+  };
+
   return (
     <>
       <Container className={styles.Container}>
-        <h2 style={{ marginBottom: "1.5rem" }}>Inbox</h2>
+        <h2 style={{ marginBottom: "1.5rem", color: "white" }}>Inbox</h2>
 
-        {Object.keys(messages).length === 0 && <p>No messages yet.</p>}
+        {Object.keys(messages).length === 0 && (
+          <p style={{ color: "#ccc" }}>No messages yet.</p>
+        )}
 
         {Object.keys(messages).map((guide) => {
           const lastMessage = messages[guide][messages[guide].length - 1];
@@ -33,14 +40,7 @@ export default function Inbox() {
             <Card
               key={guide}
               onClick={() => handleOpenChat(guide)}
-              style={{
-                marginBottom: "1rem",
-                padding: "1rem",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                cursor: "pointer",
-              }}
+              className={styles.InboxCard}
             >
               <img
                 src={guideData.ProfileImage}
@@ -54,25 +54,33 @@ export default function Inbox() {
                 }}
               />
 
-              {/* GUIDE NAME + LAST MESSAGE */}
               <div style={{ flex: 1 }}>
-                <h5 style={{ margin: 0 }}>{guide}</h5>
-                <p style={{ margin: "0.3rem 0", color: "#666" }}>
+                <h5 style={{ margin: 0, color: "white" }}>{guide}</h5>
+                <p style={{ margin: "0.3rem 0", color: "rgba(255,255,255,0.7)" }}>
                   {lastMessage.message.length > 40
                     ? lastMessage.message.slice(0, 40) + "..."
                     : lastMessage.message}
                 </p>
-                <small>{new Date(lastMessage.timestamp).toLocaleString()}</small>
+                <small style={{ color: "rgba(255,255,255,0.5)" }}>
+                  {new Date(lastMessage.timestamp).toLocaleString()}
+                </small>
               </div>
             </Card>
           );
         })}
       </Container>
 
-      {/* ================= CHAT MODAL ================= */}
+      {/* CHAT MODAL */}
       {activeGuide && (
-        <Modal show={showChat} onHide={() => setShowChat(false)} centered size="md">
-          <Modal.Header closeButton>
+        <Modal show={showChat} onHide={handleClose} centered size="md">
+          <Modal.Header
+            closeButton
+            style={{
+              backgroundColor: "var(--bs-card-color)",
+              color: "white",
+              borderBottom: "1px solid rgba(255,255,255,0.15)",
+            }}
+          >
             <div style={{ display: "flex", alignItems: "center" }}>
               <img
                 src={activeGuide.ProfileImage}
@@ -94,30 +102,41 @@ export default function Inbox() {
               maxHeight: "400px",
               overflowY: "auto",
               padding: "1rem",
-              background: "#f7f7f7",
+              backgroundColor: "#0b1120",
+              color: "white",
             }}
           >
             {messages[activeGuide.name]?.map((msg, index) => (
-              <div
-                key={index}
-                style={{
-                  marginBottom: "1rem",
-                  background: "#fff",
-                  padding: "0.8rem",
-                  borderRadius: "8px",
-                }}
-              >
+              <div key={index} className={styles.ChatBubble}>
                 <p style={{ marginBottom: "0.3rem" }}>{msg.message}</p>
-                <small style={{ color: "#777" }}>
+                <small style={{ color: "rgba(255,255,255,0.6)" }}>
                   {new Date(msg.timestamp).toLocaleString()}
                 </small>
               </div>
             ))}
           </Modal.Body>
 
-          <Modal.Footer style={{ display: "flex", width: "100%" }}>
-            <FormControl placeholder="Type a message…" disabled />
-            <Button variant="secondary" disabled style={{ marginLeft: "0.5rem" }}>
+          <Modal.Footer
+            style={{
+              backgroundColor: "var(--bs-card-color)",
+              borderTop: "1px solid rgba(255,255,255,0.15)",
+              width: "100%",
+            }}
+          >
+            <FormControl
+              placeholder="Type a message…"
+              disabled
+              style={{
+                backgroundColor: "rgba(255,255,255,0.1)",
+                color: "white",
+                border: "1px solid rgba(255,255,255,0.2)",
+              }}
+            />
+            <Button
+              variant="secondary"
+              disabled
+              style={{ marginLeft: "0.5rem" }}
+            >
               Send
             </Button>
           </Modal.Footer>

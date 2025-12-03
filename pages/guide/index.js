@@ -1,33 +1,37 @@
 import { useEffect, useState } from "react";
-import { Form, Button, Container, Dropdown, Modal, FormControl } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Container,
+  Dropdown,
+  Modal,
+  FormControl,
+} from "react-bootstrap";
 import styles from "@/styles/GuidePage.module.css";
 import GuideCard from "@/components/Guide/GuideCard";
 
 export default function Messages() {
   const [countries, setCountries] = useState([]);
-
   const [draftSearch, setDraftSearch] = useState("");
   const [draftCategory, setDraftCategory] = useState("");
   const [draftCountry, setDraftCountry] = useState("");
-
-  // Active filters applied
   const [activeFilters, setActiveFilters] = useState({
     search: "",
     category: "",
     country: "",
   });
 
-  // Modal state
+  // Modal
   const [showModal, setShowModal] = useState(false);
   const [activeGuide, setActiveGuide] = useState(null);
-
-  // New message input inside modal
   const [messageInput, setMessageInput] = useState("");
 
   useEffect(() => {
     const loadCountries = async () => {
       try {
-        const text = await fetch("/data/countries_iso3166b.csv").then((r) => r.text());
+        const text = await fetch("/data/countries_iso3166b.csv").then((r) =>
+          r.text()
+        );
         const lines = text.trim().split("\n").slice(1);
 
         const parsed = lines
@@ -43,14 +47,14 @@ export default function Messages() {
     loadCountries();
   }, []);
 
-  /** DUMMY DATA */
+  /** Dummy Profile Data */
   const GuideProfile = [
     {
       name: "Adam",
       ProfileImage: "/images/adam.jpg",
       Category: "Family-Friendly",
       country: "Canada",
-      description: "I'm Adam, a friendly Toronto guide with 5 years of experience.",
+      description: "I'm Adam, a friendly Toronto guide with 5 years experience.",
     },
     {
       name: "Micheal",
@@ -115,19 +119,20 @@ export default function Messages() {
   ];
 
   const filteredGuides = GuideProfile.filter((g) => {
-    const search = activeFilters.search.toLowerCase();
+    const s = activeFilters.search.toLowerCase();
+    const matchSearch =
+      !s ||
+      g.name.toLowerCase().includes(s) ||
+      g.description.toLowerCase().includes(s) ||
+      g.Category.toLowerCase().includes(s);
 
-    const matchesSearch =
-      !search ||
-      g.name.toLowerCase().includes(search) ||
-      g.description.toLowerCase().includes(search) ||
-      g.Category.toLowerCase().includes(search);
+    const matchCategory =
+      !activeFilters.category || g.Category === activeFilters.category;
 
-    const matchesCategory = !activeFilters.category || g.Category === activeFilters.category;
+    const matchCountry =
+      !activeFilters.country || g.country === activeFilters.country;
 
-    const matchesCountry = !activeFilters.country || g.country === activeFilters.country;
-
-    return matchesSearch && matchesCategory && matchesCountry;
+    return matchSearch && matchCategory && matchCountry;
   });
 
   const rows = [];
@@ -135,7 +140,7 @@ export default function Messages() {
     rows.push(filteredGuides.slice(i, i + 3));
   }
 
-  const handleApplyFilters = (e) => {
+  const applyFilters = (e) => {
     e.preventDefault();
     setActiveFilters({
       search: draftSearch.trim(),
@@ -144,25 +149,20 @@ export default function Messages() {
     });
   };
 
-  const handleResetFilters = () => {
+  const resetFilters = () => {
     setDraftSearch("");
     setDraftCategory("");
     setDraftCountry("");
-
-    setActiveFilters({
-      search: "",
-      category: "",
-      country: "",
-    });
+    setActiveFilters({ search: "", category: "", country: "" });
   };
 
-  const handleCardClick = (guide) => {
+  const openGuideModal = (guide) => {
     setActiveGuide(guide);
     setMessageInput("");
     setShowModal(true);
   };
 
-  const handleSendMessage = () => {
+  const sendMessage = () => {
     if (!messageInput.trim()) return;
 
     const inbox = JSON.parse(localStorage.getItem("guideMessages") || "{}");
@@ -178,15 +178,13 @@ export default function Messages() {
     localStorage.setItem("guideMessages", JSON.stringify(inbox));
 
     alert("Message Sent!");
-
-    setMessageInput("");
     setShowModal(false);
   };
 
   return (
     <>
       <div className={styles.Container}>
-        <Form className={styles.FormStyle} onSubmit={handleApplyFilters}>
+        <Form className={styles.FormStyle} onSubmit={applyFilters}>
           <input
             type="text"
             placeholder="Search For Guide"
@@ -196,7 +194,9 @@ export default function Messages() {
           />
 
           <Dropdown className={styles.dropDown}>
-            <Dropdown.Toggle variant={draftCategory ? "primary" : "outline-primary"}>
+            <Dropdown.Toggle
+              variant={draftCategory ? "primary" : "outline-primary"}
+            >
               {draftCategory || "Category"}
             </Dropdown.Toggle>
             <Dropdown.Menu>
@@ -210,7 +210,9 @@ export default function Messages() {
           </Dropdown>
 
           <Dropdown className={styles.dropDown}>
-            <Dropdown.Toggle variant={draftCountry ? "primary" : "outline-primary"}>
+            <Dropdown.Toggle
+              variant={draftCountry ? "primary" : "outline-primary"}
+            >
               {draftCountry || "Country"}
             </Dropdown.Toggle>
             <Dropdown.Menu style={{ maxHeight: "250px", overflowY: "auto" }}>
@@ -227,17 +229,26 @@ export default function Messages() {
             Apply Filters
           </Button>
 
-          <Button variant="secondary" type="button" style={{ marginLeft: "0.5rem" }} onClick={handleResetFilters}>
+          <Button
+            variant="secondary"
+            type="button"
+            style={{ marginLeft: "0.5rem" }}
+            onClick={resetFilters}
+          >
             Reset
           </Button>
         </Form>
 
         {/* CARD GRID */}
         <Container className={styles.CardContainer}>
-          {rows.map((row, rowIndex) => (
-            <div className={styles.Row} key={rowIndex}>
-              {row.map((guide, cardIndex) => (
-                <div className={styles.CardWrapper} key={cardIndex} onClick={() => handleCardClick(guide)}>
+          {rows.map((row, i) => (
+            <div className={styles.Row} key={i}>
+              {row.map((guide, j) => (
+                <div
+                  className={styles.CardWrapper}
+                  key={j}
+                  onClick={() => openGuideModal(guide)}
+                >
                   <GuideCard {...guide} />
                 </div>
               ))}
@@ -246,18 +257,34 @@ export default function Messages() {
         </Container>
       </div>
 
-      {/* MODAL */}
+      {/* GUIDE MODAL */}
       {activeGuide && (
         <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-          <Modal.Header closeButton>
+          <Modal.Header
+            closeButton
+            style={{
+              backgroundColor: "var(--bs-card-color)",
+              color: "white",
+              borderBottom: "1px solid rgba(255,255,255,0.15)",
+            }}
+          >
             <Modal.Title>{activeGuide.name}</Modal.Title>
           </Modal.Header>
 
-          <Modal.Body>
+          <Modal.Body
+            style={{
+              backgroundColor: "#0b1120",
+              color: "white",
+            }}
+          >
             <img
               src={activeGuide.ProfileImage}
               alt={activeGuide.name}
-              style={{ width: "100%", borderRadius: "10px", marginBottom: "1rem" }}
+              style={{
+                width: "100%",
+                borderRadius: "10px",
+                marginBottom: "1rem",
+              }}
             />
 
             <h5>{activeGuide.Category}</h5>
@@ -272,12 +299,22 @@ export default function Messages() {
               placeholder="Write your message…"
               value={messageInput}
               onChange={(e) => setMessageInput(e.target.value)}
-              style={{ marginTop: "1rem" }}
+              style={{
+                marginTop: "1rem",
+                backgroundColor: "rgba(255,255,255,0.05)",
+                color: "white",
+                border: "1px solid rgba(255,255,255,0.2)",
+              }}
             />
           </Modal.Body>
 
-          <Modal.Footer>
-            <Button variant="success" onClick={handleSendMessage}>
+          <Modal.Footer
+            style={{
+              backgroundColor: "var(--bs-card-color)",
+              borderTop: "1px solid rgba(255,255,255,0.15)",
+            }}
+          >
+            <Button variant="success" onClick={sendMessage}>
               Send Message
             </Button>
           </Modal.Footer>
